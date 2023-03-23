@@ -1,0 +1,77 @@
+﻿
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRWAYS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- link icons -->
+    <link rel="stylesheet" href="~/icons/themify-icons/themify-icons.css">
+    <style>
+        .top {
+            width: auto;
+            height: 45px;
+        }
+
+        .top .manager {
+                text-decoration: none;
+                color: #ffff;
+                padding: 17px;
+                line-height: 45px;
+                border-radius: 4px;
+                text-align: center;
+        }
+
+        .top .manager:hover {
+                    color: #222;
+                    background: #DCA413;
+        }
+
+        .top .profile {
+                text-decoration: none;
+                color: #ffff;
+                border-radius: 4px;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+        }
+
+        .top .profile:hover {
+                    background: #DCA413;
+        }
+
+        .top .login {
+                color: white;
+                text-decoration: none;
+                font-size: 105%;
+                padding-top: 17px;
+                padding-left: 65%;
+        }
+
+        .top .login:hover {
+                    color: #DCA413;
+        }
+    </style>
+</head>
+<body>
+    <div class="full">
+        <div class="top" style="background: #005574">
+            <a class="manager" href="~/Home/TrangChu">TRANG CHỦ</a>
+            <a class="manager" href="~/DatVe/DatVe">ĐẶT VÉ</a>
+            <a class="profile" style="float:right" href=""><i class="ti-settings"></i></a>
+            <a class="login" href="">Đăng Nhập / Đăng Ký</a>
+        </div>
+        <!--   Code phan main   -->
+        <div class="main" style="padding: 10px; margin:0px; background: #EDF3F7;">
+            @RenderBody()
+        </div>
+        <div style="display:flex; padding:7px; background:#DCA413" class="footer">
+            <p style="color: #222; text-align:center; font-weight:200; line-height:50px;margin:0px; position:relative; left:15%">© 2022 Group 5 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
+        </div>
+    </div>
+</body>
+</html>
