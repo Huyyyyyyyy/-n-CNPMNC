@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "QLVe";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Vé Máy Bay Đã Đặt</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* header {
+            background: #87CEFA;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        } */
+        /* header a{
+            color: white;
+            text-decoration: none;
+        } */
+        /*.top {
+            width: auto;
+            height: 45px;
+        }
+
+            .top .manager {
+                text-decoration: none;
+                color: #ffff;
+                padding: 17px;
+                line-height: 45px;
+                border-radius: 4px;
+                text-align: center;
+            }
+
+                .top .manager:hover {
+                    color: #222;
+                    background: #DCA413;
+                }
+
+            .top .profile {
+                text-decoration: none;
+                color: #ffff;
+                border-radius: 4px;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+            }
+
+                .top .profile:hover {
+                    background: #DCA413;
+                }
+
+            .top .login {
+                color: white;
+                text-decoration: none;
+                font-size: 105%;
+                padding-top: 17px;
+                padding-left: 65%;
+            }
+
+                .top .login:hover {
+                    color: #DCA413;
+                }*/
+
+        h1 {
+            font-size: 24px;
+            padding-left: 21px;
+        }
+
+        table {
+            margin: 20px;
+            width: 96%;
+            border-collapse: collapse;
+            background: #fff;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        td, th {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #005574;
+            color: #fff;
+        }
+
+        /* tr:nth-child(even) {
+            background: white;
+        } */
+        .ok {
+            background-color: green;
+        }
+
+        a {
+            color: #000;
+        }
+
+        button {
+            padding: 10px;
+            background: red;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+            button:hover {
+                background: #000;
+                color: #fff;
+            }
+    </style>
+</head>
+
+<body>
+    <header>
+       
+    </header>
+    <br>
+    <div>
+        <h1>Quản Lý Vé Máy Bay Đã Đặt</h1>
+    </div>
+    <table>
+        <tr>
+            <th>Mã Vé</th>
+            <th>Mã Hành Khách</th>
+            <th>Tên Hành Khách</th>
+            <th>Điểm Khởi Hành</th>
+            <th>Điểm Đến</th>
+            <th>Trạng Thái</th>
+            <th>Tổng Tiền</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>160902</td>
+            <td>VQHHN</td>
+            <td>Võ Quốc Hùng</td>
+            <td>Hà Nội</td>
+            <td>TP.HCM</td>
+            <td>Chưa thanh toán</td>
+            <td>2.000.000đ</td>
+            <td><button class="ok">Xác nhận</button></td>
+            <td><button>Hủy vé</button></td>
+        </tr>
+        <tr>
+            <td>140902</td>
+            <td>HGHHP</td>
+            <td>Huỳnh Gia Huy</td>
+            <td>Hải Phòng</td>
+            <td>Đà Nẵng</td>
+            <td>Đã thanh toán</td>
+            <td>1.500.000</td>
+            <td><button class="ok">Xác nhận</button></td>
+            <td><button>Hủy vé</button></td>
+        </tr>
+    </table>
+</body>
