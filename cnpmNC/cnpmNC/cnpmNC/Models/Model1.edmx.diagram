@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b14e91efd58c456695e98dc1d5582bc5" Name="Diagram1">
+        <EntityTypeShape EntityType="cnpmNCModel.ChiTietBay" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.ChuyenBay" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.DatVe" Width="1.5" PointX="8.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.DoanhThu" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.HanhKhach" Width="1.5" PointX="10.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.HoaDon" Width="1.5" PointX="13.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.SanBay" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.TaiKhoan" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.UuDai" Width="1.5" PointX="11.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnpmNCModel.VeChuyenBay" Width="1.5" PointX="3" PointY="12.75" IsExpanded="true" />
+        <AssociationConnector Association="cnpmNCModel.FK_CBCTB" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_SBTGCTB" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_CBDV" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_MCBHK" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_SBDenCB" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_SBDiCB" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_DVHD" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_MDVHK" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_TKDV" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_TKHD" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_UDHD" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_SBDenVCB" ManuallyRouted="false" />
+        <AssociationConnector Association="cnpmNCModel.FK_SBDiVCB" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

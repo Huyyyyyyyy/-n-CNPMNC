@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "TrangChu";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+
+    //Lấy ra ngày cách hiện tại 1 ngày để giới hạn cho user chọn ngày
+    var tomorrow = DateTime.Today.AddDays(+1);
+    var tomorrowString = tomorrow.ToString("yyyy-MM-dd");
+}
+
+<style>
+
+    .search-place{
+        margin:50px 10px 50px 10px;
+        width: 50%;
+        height:120px;
+
+    }
+        .search-place table {
+            position: absolute;
+            width: 120%;
+            margin: auto;
+            height: 100%;
+            position: relative;
+            right: 60%;
+            left: 40%;
+        }
+
+            .search-place table th {
+                background-color: #005574;
+                padding: 10px;
+                width: 100%;
+                color: #ececec;
+                line-height: 20px;
+                border-top-left-radius: 7px;
+                border-top-right-radius: 7px;
+            }
+            .search-place table tr {
+                background-color: white;
+                width: 100%;
+                color: #222;
+                line-height: 10px;
+            }
+
+            .search-place table td{
+                height:20%;
+                padding:15px;
+            }
+
+            .search-place table label {
+                display: block;
+                margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+                vertical-align: top; /* Để đặt label ở phía trên của input */
+                font-size:13px;
+            }
+
+            .search-place table input{
+                border:0;
+            }
+
+            .search-place table select{
+                border:none;
+                height:55%;
+                border-bottom:1px solid #005574;
+                line-height:40%;
+            }
+
+    .search-place table button {
+        border: none;
+        height: 90%;
+        border-radius: 5px;
+        width: 100%;
+        background-color: #ebbd40;
+        color:white;
+    }
+        .search-place table button:hover {
+            background-color: #c79716;
+        }
+</style>
+
+<div class="search-place">
+    <form action="~/DatVe/ChonChuyenBay" method="get">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="6">
+                        <span><i style="font-size:20px" class="ti-ticket"></i>&nbsp;&nbsp;ĐẶT VÉ</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="MaSanBayDi">Từ</label>
+                        <select name="MaSanBayDi">
+                            <option selected disabled>Chọn điểm đi</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay">@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td><i style="font-weight: 700; font-size: 20px; color: #005574" class="ti-arrows-horizontal"></i>&nbsp;</td>
+                    <td>
+                        <label for="MaSanBayDen">Đến</label>
+                        <select name="MaSanBayDen">
+                            <option selected disabled>Chọn điểm đến</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay">@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <label for="NgayKhoiHanh">Ngày đi</label>
+                        <input style="border:none; border-bottom:1px solid #005574; height:55%" type="date" name="NgayKhoiHanh" min="@tomorrowString" value="@tomorrowString" />
+                    </td>
+                    <td>
+                        <label for="SoLuong">Hành khách</label>
+                        <input style="border:none; border-bottom:1px solid #005574; height:55%; text-align:center" name="SoLuong" type="number" min="1" max="4" value="1" />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn-submit">TÌM CHUYẾN BAY</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+

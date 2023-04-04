@@ -1,0 +1,156 @@
+﻿@model cnpmNC.Models.ChiTietBay
+
+@{
+    ViewBag.Title = "CapNhatCTChuyenBay";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+}
+
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        margin: 50px 5px 5px 5px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #005574;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    .form h1 {
+        border-radius: 4px 4px 0 0;
+        padding: 10px 20px;
+        margin: 0 0 25px 0;
+        background-color: #005574;
+        color: #fff;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .form {
+        position: relative;
+        background-color: #fff;
+        border-radius: 4px;
+        margin: 30px 30px 35px 30px;
+        transition: box-shadow 200ms;
+        width: 620px;
+        display: inline-block;
+    }
+
+
+        .form .form-input input {
+            display: block;
+            box-sizing: border-box;
+            width: 260px;
+            height: 2.3125rem;
+            padding: 0.5rem;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        .form .form-input select {
+            display: block;
+            box-sizing: border-box;
+            width: 260px;
+            height: 2.3125rem;
+            padding: 0.5rem;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        .form .form-input label {
+            font-size: 0.875rem;
+            font-weight: bold;
+            line-height: 1.8;
+            color: #636466;
+            margin-left: 20px;
+        }
+
+        .form .form-input {
+            margin-right: 10px;
+            height: 80px;
+        }
+</style>
+
+
+<div class="link">
+    <ul>
+        <li><a href="~/QuanLyChuyenBay/DanhSachChuyenBay">Quản lý chuyến bay<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~/QuanLyChuyenBay/CapNhatChuyenBay">Cập nhật<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~/QuanLyChuyenBay/CapNhatCTChuyenBay">Cập nhật chi tiết</a></li>
+
+    </ul>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form form-horizontal">
+    <h1>Cập nhật chuyến bay</h1>
+    @Html.HiddenFor(model => model.MaCTBay)
+    @Html.HiddenFor(model => model.MaChuyenBay)
+
+    <div class="form-input form-group" style=" display: inline-block">
+        <label for="MaSanBayTG">Sân bay trung gian</label>
+        <div class="col-md-10">
+            <select name="MaSanBayTG">
+                <option disabled selected>Chọn điểm trung gian</option>
+                @{
+                    foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                    {
+                        <option value="@item.MaSanBay" @Html.Raw(item.MaSanBay == Model.MaSanBayTG ? "selected" : "")>@item.TenSanBay</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-input form-group" style=" display: inline-block">
+        <label for="GioDung">Giờ dừng</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GioDung, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+
+    <div class="form-input form-group" style=" display: inline-block">
+        <label for="PhutDung">Phút dừng</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PhutDung, new { @class = "form-control", type = "number" })
+        </div>
+    </div>
+
+    <div class="form-input form-group">
+        <label for="GhiChu">Ghi chú (Nếu có)</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GhiChu, new { @class = "form-control", type = "text" })
+        </div>
+    </div>
+
+    <div class="form-input form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" style="background:#33597C; color:#ececec; float:right;position:relative; left:90px" value="Tiếp tục" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+

@@ -1,0 +1,219 @@
+﻿@model cnpmNC.Models.ChuyenBay
+
+@{
+    ViewBag.Title = "ThemChuyenBay";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+
+    //Lấy ra ngày cách hiện tại 1 ngày để giới hạn cho admin chọn ngày
+    var tomorrow = DateTime.Today.AddDays(+1);
+    var tomorrowString = tomorrow.ToString("yyyy-MM-dd");
+}
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        margin: 50px 5px 5px 5px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #005574;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    .form h1 {
+        border-radius: 4px 4px 0 0;
+        padding: 10px 20px;
+        margin: 0 0 25px 0;
+        background-color: #005574;
+        color: #fff;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .form {
+        position: relative;
+        background-color: #fff;
+        border-radius: 4px;
+        margin: 30px 30px 35px 30px;
+        transition: box-shadow 200ms;
+        width: 830px;
+        display: inline-block;
+    }
+
+
+        .form .form-input input {
+            display: block;
+            box-sizing: border-box;
+            width: 230px;
+            height: 2.3125rem;
+            padding: 0.5rem;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        .form .form-input select {
+            display: block;
+            box-sizing: border-box;
+            width: 230px;
+            height: 2.3125rem;
+            padding: 0.5rem;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        .form .form-input label {
+            font-size: 0.875rem;
+            font-weight: bold;
+            line-height: 1.8;
+            color: #636466;
+            margin-left: 20px;
+        }
+
+        .form .form-input {
+            margin-right: 10px;
+            height: 80px;
+        }
+</style>
+<div class="link">
+    <ul>
+        <li><a href="~/QuanLyChuyenBay/DanhSachChuyenBay">Quản lý chuyến bay<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~/QuanLyChuyenBay/ThemChuyenBay">Thêm mới</a></li>
+    </ul>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="form form-horizontal">
+    <h1>Thêm mới chuyến bay</h1>
+    <div class="form-input form-group">
+        <label for="MaChuyenBay">Mã chuyến bay</label>
+        <div class="col-md-10">
+            <input style="background:#ececec" name="MaChuyenBay" value="@{
+                    String data = new cnpmNC.Models.taoMa.taoMaChuyenBay().TaoMaChuyenBay();
+                    @data
+                }" readonly />
+        </div>
+    </div>
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="MaSanBayDi">Sân bay đi</label>
+        <div class="col-md-10">
+            <select name="MaSanBayDi">
+                @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                {
+                    <option value="@item.MaSanBay">@item.TenSanBay (@item.MaSanBay)</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="MaSanBayDen">Sân bay đến</label>
+        <div class="col-md-10">
+            <select name="MaSanBayDen">
+                @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                {
+                    <option value="@item.MaSanBay">@item.TenSanBay (@item.MaSanBay)</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="NgayKhoiHanh">Ngày khởi hành</label>
+        <div class="col-md-10">
+            <input type="date" name="NgayKhoiHanh" min="@tomorrowString"/>
+            @*Gán giá trị min là ngày hôm sau*@ 
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="GioKhoiHanh">Giờ khởi hành</label>
+        <div class="col-md-10">
+            <input type="time" name="GioKhoiHanh"/>
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="NgayHaCanh">Ngày hạ cánh</label>
+        <div class="col-md-10">
+            <input type="date" name="NgayHaCanh" min="@tomorrowString" />
+            @*Gán giá trị min là ngày hôm sau*@
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="GioHaCanh">Giờ hạ cánh</label>
+        <div class="col-md-10">
+            <input type="time" name="GioHaCanh"/>
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="SLGheTrong">Số lượng ghế trống</label>
+        <div class="col-md-10">
+            <input type="number" value="300" name="SLGheTrong" />
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="GiaVe">Giá vé</label>
+        <div class="col-md-10">
+            <input type="number" name="GiaVe" />
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="TinhTrang">Tình trạng</label>
+        <div class="col-md-10">
+            <select name="TinhTrang">
+                <option value="Opening">Mở vé</option>
+                <option value="Closed">Đóng vé</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="GioBay">Giờ bay</label>
+        <div class="col-md-10">
+            <input type="number" id="GioBay" name="GioBay" min="0" max="23">
+        </div>
+    </div>
+
+    <div class="form-input form-group" style="display:inline-block;">
+        <label for="PhutBay">Phút bay</label>
+        <div class="col-md-10">
+            <input type="number" id="PhutBay" name="PhutBay" min="0" max="59">
+        </div>
+    </div>
+
+    <div class="form-input form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" style="background: #005574; color: #ececec" value="Tiếp tục" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+
+}
+
+
+

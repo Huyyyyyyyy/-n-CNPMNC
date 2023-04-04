@@ -1,0 +1,694 @@
+﻿
+@{
+    ViewBag.Title = "ThanhToan";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+
+
+    //gọi thông tin từ ViewBag
+    string MaChuyenBay = ViewBag.MaChuyenBay;
+
+    // tạo biến lưu số lượng hành khách
+    int SoLuong = 0;
+    SoLuong = ViewBag.SoLuong;
+
+    //Lấy ra ngày cách hiện tại 1 ngày để giới hạn cho user chọn ngày
+    var tomorrow = DateTime.Today.AddDays(+1);
+    var tomorrowString = tomorrow.ToString("yyyy-MM-dd");
+
+
+    //Lấy ra ngày sinh để giới hạn cho user chọn ngày
+    var DOB = DateTime.Today;
+    var maxDOB = DOB.ToString("yyyy-MM-dd");
+
+    // lấy thông tin chuyến bay
+    var ChuyenBayDaChon = new cnpmNC.mapChuyenBay.mapChuyenBay().lichcb(MaChuyenBay);
+
+    //lấy thông tin chi tiết chuyến bay
+    var ChiTietChuyenBayDaChon = new cnpmNC.mapChuyenBay.mapChuyenBay().lichctcb(MaChuyenBay);
+
+    //tạo mảng hành khách tạm từ đối tượng hanhKhachTam
+    cnpmNC.Models.mapHanhKhach.HanhKhachTam[] hanhKhachTams = new cnpmNC.Models.mapHanhKhach.HanhKhachTam[SoLuong];
+
+
+    //lấy địa điểm sân bay đi và sân bay đến
+
+    var DiaDiemDi = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBayDaChon.MaSanBayDi);
+
+    var DiaDiemDen = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBayDaChon.MaSanBayDen);
+
+
+    //tạo biến lưu mã ưu đãi đã chọn
+    var MaUuDai = ViewBag.MaUuDai;
+
+    //lấy ra mã đặt vé từ viewbag
+    string MaDatVe = ViewBag.MaDatVe;
+}
+
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        margin: 50px 5px 5px 5px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #00305B;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    /*xử lý navigation control*/
+
+    .ul-your-procedure {
+        height: 55px;
+        width: 100%;
+        padding: 0 0 0 30px;
+        list-style: none;
+        display: inline-flex;
+        background-color: #F6EDCC;
+        border-top: 1px solid #E6B441;
+    }
+
+        .ul-your-procedure li {
+            padding: 5px 20px 10px 20px;
+            font-size: 16px;
+            border-radius: 7px;
+        }
+
+    .your-procedure .edit-procedure {
+        text-decoration: none;
+        cursor: pointer;
+        float: right;
+        position: absolute;
+        right: 13%;
+        line-height: 60px;
+        font-size: 12px;
+        color: #222;
+    }
+
+        .your-procedure .edit-procedure i {
+            font-size: 25px;
+            color: #E6B441;
+            padding: 5px;
+        }
+
+    .your-procedure .price-flight-procedure {
+        text-decoration: none;
+        float: right;
+        position: absolute;
+        right: 2%;
+        line-height: 60px;
+        font-size: 20px;
+        color: #00305B;
+        font-weight: 600;
+    }
+
+        .your-procedure .price-flight-procedure i {
+            font-size: 25px;
+            color: #E6B441;
+            padding: 5px;
+        }
+
+    /*    xử lý kết quả search*/
+    .search-place {
+        width: 100%;
+        height: 120px;
+        display: none;
+    }
+
+        .search-place table {
+            position: absolute;
+            width: 100%;
+            margin: auto;
+            height: 100%;
+            position: relative;
+        }
+
+            .search-place table th {
+                background-color: white;
+                padding: 10px;
+                width: 100%;
+                color: #005574;
+                line-height: 20px;
+            }
+
+            .search-place table tr {
+                background-color: white;
+                width: 100%;
+                color: #222;
+                line-height: 10px;
+            }
+
+            .search-place table td {
+                height: 20%;
+                padding: 5px 10px 15px 10px;
+            }
+
+            .search-place table label {
+                display: block;
+                margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+                vertical-align: top; /* Để đặt label ở phía trên của input */
+                font-size: 13px;
+            }
+
+            .search-place table input {
+                border: 0;
+                width: 100%;
+            }
+
+            .search-place table select {
+                border: none;
+                width: 100%;
+                height: 55%;
+                border-bottom: 1px solid #005574;
+                line-height: 40%;
+            }
+
+            .search-place table button {
+                border: none;
+                height: 90%;
+                border-radius: 5px;
+                width: 100%;
+                border: 2px solid #ebbd40;
+                color: #005574;
+                background-color: white;
+            }
+
+                .search-place table button:hover {
+                    background-color: #ebbd40;
+                    color: white;
+                }
+
+    /*        xử lý hiển thị thông tin khách hàng*/
+
+
+    /*xử lý phần form điền thông tin và tóm tắt giá*/
+    .information-price {
+        width: 100%;
+        height: auto;
+        display: flex;
+    }
+
+    .passengers-information {
+        width: 66%;
+        margin: 0px 0 20px 20px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        height: fit-content;
+        background-color: white;
+    }
+
+    .content {
+        width: 66%;
+        padding: 20px;
+        display: inline-block;
+    }
+
+    .passengers-information h1 {
+        width: 100%;
+        background-color: #CDE4E1;
+        padding: 10px 0 0 20px;
+        color: #005574;
+        font-size: 20px;
+        line-height: 35px;
+        font-weight: bold;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        user-select: none;
+        border: 1px solid #005F6E;
+    }
+
+    .information-payment {
+        background-color: #F4F9F5;
+        width: 95%;
+        height: auto;
+        margin: 20px;
+        padding: 10px;
+    }
+
+    .passengers-information .brand {
+        width: 40%;
+        margin: 20px;
+        border-radius: 7px;
+        border: 1px solid #005574;
+        background-color: white;
+    }
+
+        .passengers-information .brand img {
+            margin: 10px 15px 10px 15px;
+            width: 8%;
+        }
+
+    .information-payment .info-card {
+        width: 100%;
+        display: flex;
+    }
+
+        .information-payment .info-card table {
+            width: 100%;
+        }
+
+        .information-payment .info-card label {
+            display: block;
+            font-size: 16px;
+        }
+
+        .information-payment .info-card input {
+            border: none;
+            width: 90%;
+            height: 40px;
+            border-bottom: 1px solid #005574;
+            margin-bottom: 20px;
+            background-color: #F4F9F5;
+        }
+
+    .information-payment .direction {
+        width: 100%;
+        height: 70px;
+        padding: 10px;
+    }
+
+    .direction .back-home {
+        text-decoration: none;
+        line-height: 15px;
+        font-weight: bolder;
+        font-size: 22px;
+        background-color: #F4F9F5;
+        color: #005F6E;
+        border-radius: 7px;
+        border: 2px solid #005F6E;
+        padding: 10px 20px 10px 20px;
+        float: right;
+        margin: 0 10px 0 10px;
+    }
+
+        .direction .back-home:hover {
+            background-color: #005F6E;
+            color: white;
+        }
+
+    .direction .purchase {
+        text-decoration: none;
+        line-height: 15px;
+        font-weight: bolder;
+        font-size: 16px;
+        background-color: #F4F9F5;
+        color: #7B5A04;
+        border-radius: 7px;
+        border: 2px solid #7B5A04;
+        padding: 15px 25px 15px 25px;
+        float: right;
+    }
+
+        .direction .purchase:hover {
+            background-color: #7B5A04;
+            color: white;
+        }
+    /*        xử lý phần price-summary*/
+    .price-summary {
+        width: 30%;
+        height: fit-content;
+        background-color: white;
+        margin: 0 40px 40px 40px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+    }
+
+        .price-summary .content {
+            width: 100%;
+            color: #007292;
+            margin: 0;
+            height: fit-content;
+            padding: 0;
+        }
+
+            .price-summary .content h1 {
+                line-height: 50px;
+                padding-left: 20px;
+                color: #005574;
+                font-size: 18px;
+                font-weight: 600;
+                border-bottom: 1px solid #007292;
+                margin: 0;
+            }
+
+        .price-summary .filght-summary {
+            background-color: #CDE4E1;
+            line-height: 20px;
+            padding: 20px;
+            user-select: none;
+            border-bottom: 1px solid #007292;
+        }
+
+            .price-summary .filght-summary a {
+                text-decoration: none;
+                cursor: pointer;
+                color: #005574;
+                font-weight: 600
+            }
+
+        .price-summary .detail-flight-summary {
+            display: none;
+            user-select: none;
+        }
+
+            .price-summary .detail-flight-summary .content {
+                width: 100%;
+                height: auto;
+                background-color: #FCFAE9;
+                color: #222;
+            }
+
+            .price-summary .detail-flight-summary .full-detail {
+                width: 100%;
+                height: fit-content;
+                border-bottom: 1px solid #005574;
+            }
+
+        .price-summary .total-flight {
+            line-height: 20px;
+            padding: 20px;
+        }
+        /*      xử lý phần voucher*/
+        .price-summary .voucher-summary {
+            background-color: #CDE4E1;
+            line-height: 20px;
+            padding: 20px;
+            user-select: none;
+            border-bottom: 1px solid #007292;
+        }
+
+        .price-summary .detail-voucher-summary .content {
+            width: 100%;
+            height: auto;
+            background-color: #FCFAE9;
+            color: #222;
+        }
+
+    .detail-voucher-summary .content select {
+        border: none;
+        width: 80%;
+        height: 50px;
+        background-color: #FCFAE9;
+        border-bottom: 1px solid gray;
+        margin-left: 20px;
+    }
+
+    .price-summary .detail-voucher-summary {
+        display: none;
+    }
+
+    .price-summary .voucher-summary a {
+        text-decoration: none;
+        cursor: pointer;
+        color: #005574;
+        font-weight: 400
+    }
+</style>
+<div class="link">
+    <ul>
+        <li><a href="">Trang chủ<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~">Đặt vé<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Chọn chuyến bay<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Điền thông tin<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Thanh toán</a></li>
+    </ul>
+</div>
+
+@*thông tin đã chọn*@
+<div class="your-procedure">
+    <ul class="ul-your-procedure">
+        <li>
+
+            @{
+                <i style="font-weight: 400; font-size: 20px; color: #222; text-align:center" class="ti-pin-alt"></i>
+
+                <span style="font-weight: 600 ">
+                    @ChuyenBayDaChon.MaSanBayDi
+                </span>
+            }
+            &nbsp;<i style="font-weight: 300; font-size: 16px; color: #222; text-align:center" class="ti-arrows-horizontal"></i>&nbsp;
+            @{
+                <span style="font-weight: 600">
+                    @ChuyenBayDaChon.MaSanBayDen
+                </span>
+            }
+            <span style="display: block; font-size:12px">
+                @string.Format("{0:dddd, dd MMMM yyyy}", ChuyenBayDaChon.NgayKhoiHanh)
+            </span>
+        </li>
+        <li>
+            <i style="font-weight: 400; font-size: 20px; color: #222; text-align:center" class="ti-user"></i>
+            <span style="font-weight:600">Hành khách</span>
+            <span style="display: block; font-size:12px;">
+                @SoLuong Hành khách
+            </span>
+        </li>
+        <li style="background-color: #E6B441">
+            <i style="font-weight: 400; font-size: 20px; color: #222; text-align:center" class="ti-credit-card"></i>
+            <span style="font-weight:600">Thanh toán</span>
+            <span style="display: block; font-size:12px;">
+                Chọn phương thức
+            </span>
+        </li>
+    </ul>
+    <a class="edit-procedure" onclick="hideElement()"><i class="ti-pencil-alt"></i>Thay đổi</a>
+    <a class="price-flight-procedure">
+        <i class="ti-shopping-cart-full"></i>
+        @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong) <sup style="font-weight:400">VND</sup>
+    </a>
+</div>
+
+@*thay đổi thông tin đã chọn*@
+<div id="search-place" class="search-place">
+    <form action="~/DatVe/ChonChuyenBay" method="get">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="6">
+                        <span><i style="font-size:20px" class="ti-pencil-alt"></i>&nbsp;&nbsp;THAY ĐỔI LỊCH TRÌNH</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="MaSanBayDi">Từ</label>
+                        <select name="MaSanBayDi" required>
+                            <option selected disabled>Chọn điểm đi</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay" @Html.Raw(item.MaSanBay == ChuyenBayDaChon.MaSanBayDi ? "selected" : "")>@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td><i style=" font-weight: 700; font-size: 20px; color: #005574" class="ti-arrows-horizontal"></i></td>
+                    <td>
+                        <label for="MaSanBayDen">Đến</label>
+                        <select name="MaSanBayDen" required>
+                            <option selected disabled>Chọn điểm đến</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay" @Html.Raw(item.MaSanBay == ChuyenBayDaChon.MaSanBayDen ? "selected" : "")>@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <label for="NgayKhoiHanh">Ngày đi</label>
+                        <input style="border:none; border-bottom:1px solid #005574; height:55%" type="date" name="NgayKhoiHanh" min="@tomorrowString" value="@tomorrowString" />
+                    </td>
+                    <td>
+                        <label for="SoLuong">Hành khách</label>
+                        <input style="border:none; border-bottom:1px solid #005574; height:55%; text-align:center" name="SoLuong" type="number" min="1" max="4" value="@SoLuong" />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn-submit">LƯU THAY ĐỔI</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+@*hiển thị form điền thông tin hành khách và thông tin liên hệ*@
+<div class="content">
+    <span style="font-size: 25px; display: block; line-height: 30px; font-weight: bold; color: #005574">Thanh Toán</span>
+</div>
+<div class="information-price">
+    <div class="passengers-information">
+        <h1>
+            Thanh Toán @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong) <sub style="font-weight:400">VND</sub>
+            <span style="padding:0 0 10px 0;color:#222; display:block; font-size:14px; font-weight:400">Vui lòng chọn phương thức thanh toán bên dưới</span>
+        </h1>
+        <div class="information-payment">
+            <div class="brand">
+                <img src="~/Image/mastercard.png" />
+                <img src="~/Image/visa.png" />
+                <img src="~/Image/american.png">
+                <img src="~/Image/uatp.png" />
+                <img src="~/Image/jcb.png" />
+            </div>
+            <hr>
+            <div class="info-card">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="creditNumber">Credit Card Number*</label>
+                                <input type="text" name="creditNumber" placeholder="Nhập số thẻ" />
+                            </td>
+                            <td>
+                                <label for="nameCredit">Name on Credit Card*</label>
+                                <input type="text" name="nameCredit" placeholder="Nhập tên chủ thẻ" />
+                            </td>
+                            <td>
+                                <label for="month">Expiration Date*</label>
+                                <input type="month" name="month" placeholder="MM" />
+                            </td>
+                            <td>
+                                <label for="cvc">CVC*</label>
+                                <input type="text" name="cvc" placeholder="CVC" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="country">Country*</label>
+                                <input type="text" name="country" value="Vietnam" readonly />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="direction">
+                <a class="purchase" href="~/DatVe/HoanTatThanhToan">THANH TOÁN</a>
+                <a class="back-home" href="~/Home/TrangChu"><i class="ti-arrow-left"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="price-summary">
+        <div class="content">
+            <h1>Tóm tắt giá</h1>
+        </div>
+        <div class="filght-summary">
+            <span style="line-height:20px">@ChuyenBayDaChon.MaSanBayDi&nbsp; <i style="color: #005574; font-size:18px; font-weight:600" class="ti-arrows-horizontal"></i>&nbsp; @ChuyenBayDaChon.MaSanBayDen</span>
+            <a onclick="showDetailFlight()" style="float:right">@SoLuong Người x @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe) <sup>VND</sup> <i class="ti-angle-down"></i></a>
+        </div>
+        <div class="detail-flight-summary" id="detail-flight-summary">
+            <div class="content">
+                <span style="color: #005574;padding:20px;line-height:50px; font-size:16px; font-weight:bold">Khởi hành&nbsp;</span>
+                <span>@string.Format("{0:hh\\:mm}", ChuyenBayDaChon.GioKhoiHanh)&nbsp;, @string.Format("{0:dd MMMM yyyy}", ChuyenBayDaChon.NgayKhoiHanh)</span>
+            </div>
+            <div class="full-detail">
+                <strong style="line-height:30px; padding-left:20px; display:block">@DiaDiemDi.DiaDiem (@ChuyenBayDaChon.MaSanBayDi)&nbsp;&nbsp;&nbsp;<i class="ti-arrow-circle-right"></i>&nbsp;&nbsp;&nbsp;@DiaDiemDen.DiaDiem (@ChuyenBayDaChon.MaSanBayDen)</strong>
+                <span style="line-height:30px; padding-left:20px; font-size:14px">
+                    Thời gian:
+                    @{
+                        int gioBay = ChuyenBayDaChon.GioBay;
+                        TimeSpan hour = TimeSpan.FromHours(gioBay);
+                        string gio = hour.ToString();
+
+                        int phutBay = ChuyenBayDaChon.PhutBay;
+                        TimeSpan minute = TimeSpan.FromHours(phutBay);
+                        string phut = minute.ToString();
+
+                        string thoiGianBay = gioBay + " hrs " + phutBay + " mins ";
+                        @thoiGianBay
+
+                        if (ChiTietChuyenBayDaChon.MaSanBayTG == null)
+                        {
+                            <span>
+                                &nbsp; / &nbsp; Không dừng
+                            </span>
+                        }
+                        else
+                        {
+                            <span>
+                                &nbsp; / &nbsp; (@ChiTietChuyenBayDaChon.MaSanBayTG)
+                            </span>
+                        }
+                    }
+                </span>
+                <span style="line-height:30px; padding-left:20px; display:block">
+                    <i class="ti-flickr" style="color: #ebbd40;"></i>
+                    <span style="font-size:14px;">&nbsp;@MaChuyenBay</span>
+                </span>
+
+            </div>
+        </div>
+
+        <div class="voucher-summary">
+            <span style="line-height:20px"><i style="color: #005574; font-size:18px; font-weight:600" class="ti-receipt"></i>&nbsp;Ưu đãi</span>
+            <a onclick="showDetailVoucher()" style="float:right">Chọn voucher : @MaUuDai <i class="ti-angle-down"></i></a>
+        </div>
+        <div class="detail-voucher-summary" id="detail-voucher-summary">
+            <div class="content">
+                <form>
+                    <input name="SoLuong" value="@SoLuong" hidden/>
+                    <input name="MaChuyenBay" value="@MaChuyenBay" hidden/>
+                    <input name="MaDatVe" value="@MaDatVe" hidden />
+                    <select id="myVoucher" name="MaUuDai">
+                        @foreach (var item in new cnpmNC.Models.mapUuDai.mapUuDai().DanhSachUuDai())
+                        {
+                            <option value="@item.MaUD">(@item.MaUD) Giảm @item.MucUD%</option>
+                        }
+                    </select>
+                    <input type="submit" value="Áp dụng" />
+                </form>
+            </div>
+        </div>
+
+        <div class="total-flight">
+            <span style="font-weight:bold; font-size:20px;">Tổng</span>
+            <span style="float: right; color: #005574; font-weight:bold; font-size:20px">
+                @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong) <sup style="font-weight:400">VND</sup>
+            </span>
+        </div>
+    </div>
+</div>
+
+@*xử lý ẩn hiển phần chỉnh sửa (search)*@
+<script>
+    function hideElement() {
+        var element = document.getElementById("search-place");
+        if (element.style.display == "inline-block") {
+            element.style.display = "none"
+        } else {
+            element.style.display = "inline-block";
+        }
+
+    }
+
+    //hiển thị thông tin chi tiết chuyến bay
+    function showDetailFlight() {
+        var element = document.getElementById("detail-flight-summary");
+        if (element.style.display == "block") {
+            element.style.display = "none"
+        } else {
+            element.style.display = "block";
+        }
+
+    }
+
+    // hiện thị chọn voucher
+    function showDetailVoucher() {
+        var element = document.getElementById("detail-voucher-summary");
+        if (element.style.display == "block") {
+            element.style.display = "none"
+        } else {
+            element.style.display = "block";
+        }
+
+    }
+</script>
