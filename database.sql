@@ -120,3 +120,38 @@ create table DoanhThu(
 	TongDoanhThu decimal(10,2) not null
 )
 
+use cnpmNC
+go
+
+
+alter table ChuyenBay
+add TinhTrang nvarchar(50) not null default N'Chưa mở bán vé'
+
+alter table ChuyenBay
+drop column ThoiGianBay
+
+alter table ChuyenBay
+add GioBay int not null,
+PhutBay int not null
+
+alter table ChiTietBay
+drop column ThoiGianDung
+
+alter table ChiTietBay
+add GioDung int,
+PhutDung int
+
+
+/*Dữ liệu sân bay*/
+insert into SanBay
+values('HAN',N'Sân bay Quốc tế Nội Bài',N'Hà Nội'),
+('SGN',N'Sân bay Quốc tế Tân Sơn Nhất',N'Hồ Chí Minh'),
+('DAD',N'Sân bay Quốc tế Đà Nẵng',N'Đà Nẵng'),
+('VDO',N'Sân bay Quốc tế Vân Đồn',N'Quảng Ninh'),
+('HPH',N'Sân bay Quốc tế Cát Bi',N'Hải Phòng'),
+('VII',N'Sân bay Quốc tế Vinh',N'Nghệ An'),
+('HUI',N'Sân bay Quốc tế Phú Bài',N'Huế'),
+('CXR',N'Sân bay Quốc tế Cam Ranh',N'Khánh Hòa'),
+('DLI',N'Sân bay Quốc tế Liên Khương',N'Lâm Đồng'),
+('UIH',N'Sân bay Quốc tế Phù Cát',N'Bình Định')
+
