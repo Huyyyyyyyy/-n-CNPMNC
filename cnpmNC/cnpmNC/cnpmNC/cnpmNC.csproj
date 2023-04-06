@@ -132,6 +132,7 @@
     <Compile Include="Controllers\DatVeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyChuyenBayController.cs" />
+    <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -158,6 +159,7 @@
     <Compile Include="Models\mapHanhKhach\HanhKhachTam.cs" />
     <Compile Include="Models\mapHanhKhach\mapHanhKhach.cs" />
     <Compile Include="Models\mapSanBay\mapSanBay.cs" />
+    <Compile Include="Models\mapTaiKhoan\mapTaiKhoan.cs" />
     <Compile Include="Models\mapUuDai\mapUuDai.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
@@ -639,6 +641,9 @@
     <Content Include="Views\DatVe\ThongTinHanhKhach.cshtml" />
     <Content Include="Views\DatVe\ThanhToan.cshtml" />
     <Content Include="Views\DatVe\DatVeHoanTat.cshtml" />
+    <Content Include="Views\TaiKhoan\DanhSachTaiKhoan.cshtml" />
+    <Content Include="Views\TaiKhoan\ThemTaiKhoan.cshtml" />
+    <Content Include="Views\TaiKhoan\CapNhatTaiKhoan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

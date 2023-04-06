@@ -32,6 +32,7 @@ namespace cnpmNC.Controllers
         [HttpPost]
         public ActionResult ThemChuyenBay(ChuyenBay model)
         {
+
             mapChuyenBay.mapChuyenBay map = new mapChuyenBay.mapChuyenBay();
             if (map.ThemMoiCB(model) == true)
             {
