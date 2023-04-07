@@ -38,13 +38,22 @@
 
 
     //tạo biến lưu mã ưu đãi đã chọn
-    string MaUuDai = ViewBag.MaUuDai;
+    string MaUuDai = "";
+    if(String.IsNullOrEmpty(ViewBag.MaUuDai) == true)
+    {
+        MaUuDai = "NON";
+    }
+    else
+    {
+        MaUuDai = ViewBag.MaUuDai;
+    }
+
 
     //Lưu tiền
 
     decimal ThanhTien = 0;
 
-    if (String.IsNullOrEmpty(MaUuDai) == true)
+    if (MaUuDai == "NON")
     {
         ThanhTien = ChuyenBayDaChon.GiaVe*SoLuong;
     }
@@ -63,10 +72,6 @@
 
     //lấy ra mã đặt vé từ viewbag
     string MaDatVe = ViewBag.MaDatVe;
-
-
-
-
 
     cnpmNC.Models.HoaDon hoaDon = new cnpmNC.Models.HoaDon();
 
@@ -521,7 +526,7 @@
     <a class="price-flight-procedure">
         <i class="ti-shopping-cart-full"></i>
         @{
-            if (String.IsNullOrEmpty(MaUuDai) == true)
+            if (MaUuDai == "NON")
             {
                 string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
                 @TongChuaUuDai<sup style="font-weight:400">VND</sup>
@@ -602,7 +607,7 @@
     <div class="passengers-information">
         <h1>
             Thanh Toán @{
-                if (String.IsNullOrEmpty(MaUuDai) == true)
+                if (MaUuDai == "NON")
                 {
                     string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
                     @TongChuaUuDai<sup style="font-weight:400">VND</sup>
@@ -734,7 +739,7 @@
             <span style="line-height:20px"><i style="color: #005574; font-size:18px; font-weight:600" class="ti-receipt"></i>&nbsp;Ưu đãi</span>
             <a onclick="showDetailVoucher()" style="float:right">
                 Chọn voucher  @{
-                    if (String.IsNullOrEmpty(MaUuDai) == true)
+                    if (MaUuDai == "NON")
                     {
 
                     }
@@ -754,17 +759,25 @@
                     <input name="MaChuyenBay" value="@MaChuyenBay" hidden />
                     <input name="MaDatVe" value="@MaDatVe" hidden />
                     <select id="myVoucher" name="MaUuDai">
-                        <option disabled selected value="">Chọn mã ưu đãi</option>
+
                         @foreach (var item in new cnpmNC.Models.mapUuDai.mapUuDai().DanhSachUuDai())
                         {
-                            <option value="@item.MaUD">(@item.MaUD) Giảm @item.MucUD%</option>
+                            if (item.MaUD == "NON")
+                            {
+                                <option selected value="@item.MaUD">Chọn mã ưu đãi</option>
+                            }
+                            else
+                            {
+                                <option value="@item.MaUD">(@item.MaUD) Giảm @item.MucUD%</option>
+
+                            }
                         }
                     </select>
                     <input class="button" type="submit" value="Áp dụng" />
                 </form>
             </div>
             <div class="info-voucher">
-                @if (String.IsNullOrEmpty(MaUuDai) == true)
+                @if (MaUuDai == "NON")
                 {
 
                 }
@@ -786,7 +799,7 @@
             <span style="font-weight:bold; font-size:20px;">Tổng</span>
             <span style="float: right; color: #005574; font-weight:bold; font-size:20px">
                 @{
-                    if (String.IsNullOrEmpty(MaUuDai) == true)
+                    if (MaUuDai == "NON")
                     {
                         string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
                         @TongChuaUuDai<sup style="font-weight:400">VND</sup>
