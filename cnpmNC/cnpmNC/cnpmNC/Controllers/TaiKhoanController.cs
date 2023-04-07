@@ -64,7 +64,7 @@ namespace cnpmNC.Controllers
         public ActionResult XoaTaiKhoan(String TenTK)
         {          
             mapTaiKhoan map = new mapTaiKhoan();
-            map.XoaCB(TenTK);
+            map.XoaTK(TenTK);
 
             return RedirectToAction("DanhSachTaiKhoan");
         }

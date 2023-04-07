@@ -46,7 +46,7 @@ namespace cnpmNC.Models.mapTaiKhoan
             db.SaveChanges();
             return true;
         }
-        public bool XoaCB(String TenTK)
+        public bool XoaTK(String TenTK)
         {
             
             var modelcb = db.TaiKhoans.Find(TenTK);
