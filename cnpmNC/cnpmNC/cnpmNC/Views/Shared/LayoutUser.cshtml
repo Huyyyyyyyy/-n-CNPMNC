@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    var user = (cnpmNC.Models.TaiKhoan)System.Web.HttpContext.Current.Session["user"];
+}
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -21,6 +23,7 @@
             margin: 0;
             font-family: Roboto;
         }
+
         .top {
             width: 100%;
             height: 45px;
@@ -64,7 +67,25 @@
             <a class="manager" href="~/DatVe/DatVe">ƯU ĐÃI</a>
             <a class="manager" href="~/DatVe/DatVe">THÔNG TIN SÂN BAY</a>
             <a class="profile" style="float:right" href=""><i class="ti-settings"></i></a>
-            <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">Tên người dùng</p>
+
+            @{
+                if (user != null)
+                {
+                    <a style="color: #005574; font-weight:bold;border-radius:7px; float: right; text-decoration: none; padding: 3px; margin: 10px; background-color: #ececec;" class="log-out" href="~/AccountUsers/DangXuat">Đăng xuất</a>
+                }
+                else
+                {
+                }
+            }
+            <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
+                @{ if (user == null)
+                    {
+                        <span>Username</span>
+                    }
+                    else
+                    { <span>Hi, @user.HoTen</span>}
+                }
+            </p>
         </div>
         <!--   Code phan main   -->
         <div class="main" style="padding: 10px; background: #EDF3F7;">

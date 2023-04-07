@@ -1,0 +1,138 @@
+﻿
+@model cnpmNC.Models.TaiKhoan
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DangKy</title>
+    <style>
+
+        body {
+            background: white;
+            margin: 0;
+            font-family: -apple-system,BlinkMacSystemFont, "Segoe UI",Roboto,"Helvetica Neue",Arial, "Noto Sans",sans-serif,"Apple Color Emoji", "Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+
+        .page {
+            background: #e2e2e5;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: absolute;
+            place-content: center;
+            width: 100%;
+        }
+
+        .container {
+            display: flex;
+            height: 320px;
+            margin: 0 auto;
+            width: 640px;
+        }
+
+
+        .right {
+            border-radius: 7px;
+            background: #33597C;
+            color: #F1F1F2;
+            position: relative;
+            width: 50%;
+            height: fit-content;
+            bottom: 45%;
+            left: 30%;
+        }
+
+
+        .form {
+            margin: 20px;
+        }
+
+        label {
+            color: #ffff;
+            display: block;
+            font-size: 14px;
+            height: 16px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            display: block;
+            box-sizing: border-box;
+            width: 280px;
+            height: 2.3125rem;
+            padding: 10px;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+
+        #submit {
+            background: #ebbd40;
+            color: #ffff;
+            margin-top: 20px;
+            transition: color 300ms;
+            line-height: 15px;
+        }
+
+            #submit:hover {
+                background-color: forestgreen;
+                cursor: pointer;
+                background-color: #e4a600;
+            }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="page">
+            <div class="container">
+                <div class="right">
+                    <div class="form" method="post">
+                        <h1 style="text-align:center; font-size:25px">ĐĂNG KÝ</h1>
+                        <p style="font-size: 13px; line-height: 30px; border-radius: 10px; background: #D8594F; text-align: center; color: #ececec; font-weight: 500 ">
+                            @ViewBag.error
+                        </p>
+                        <label for="TenTK">Tài khoản</label>
+                        <input type="email" id="email" name="TenTK" placeholder="Nhập tài khoản">
+
+                        <label for="HoTen">Tên hiển thị</label>
+                        <input type="text" id="name" name="HoTen" placeholder="Nhập tên đầy đủ">
+
+                        <label for="SoDT">Phone</label>
+                        <input type="text" id="SoDT" name="SoDT" placeholder="Nhập số điện thoại">
+
+                        <label for="CCCD">CCCD</label>
+                        <input type="text" id="CCCD" name="CCCD" placeholder="Nhập CMND/CCCD">
+
+
+                        @Html.HiddenFor(model => model.New_MatKhau)
+                        @Html.HiddenFor(model => model.A_New_MatKHau)
+                        <input style="display:none;" type="text" id="QuyenTruyCap" name="QuyenTruyCap" value="user">
+
+                        <label for="MatKhau">Mật khẩu</label>
+                        <input type="password" id="password" name="MatKhau" placeholder="Nhập mật khẩu">
+
+                        <label for="A_MatKhau">Xác nhận mật khẩu</label>
+                        <input type="password" id="password" name="A_MatKhau" placeholder="Nhập lại mật khẩu">
+                        <input type="submit" id="submit" value="ĐĂNG KÝ">
+                        <p style="font-size:13px; text-align:center">Đã có tài khoản? <a style="color:#ffff" href="~/AccountUsers/DangNhap">Đăng nhập</a> tại đây</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

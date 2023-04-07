@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "HoanTatThanhToan";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+}
+
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        margin: 50px 5px 5px 5px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #00305B;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    /*xử lý navigation control*/
+
+    .ul-your-procedure {
+        height: 55px;
+        width: 100%;
+        padding: 0 0 0 30px;
+        list-style: none;
+        display: inline-flex;
+        background-color: #F6EDCC;
+        border-top: 1px solid #E6B441;
+    }
+
+        .ul-your-procedure li {
+            padding: 5px 20px 10px 20px;
+            font-size: 16px;
+            border-radius: 7px;
+        }
+
+    .your-procedure .edit-procedure {
+        text-decoration: none;
+        cursor: pointer;
+        float: right;
+        position: absolute;
+        right: 13%;
+        line-height: 60px;
+        font-size: 12px;
+        color: #222;
+    }
+
+        .your-procedure .edit-procedure i {
+            font-size: 25px;
+            color: #E6B441;
+            padding: 5px;
+        }
+
+    .your-procedure .price-flight-procedure {
+        text-decoration: none;
+        float: right;
+        position: absolute;
+        right: 2%;
+        line-height: 60px;
+        font-size: 20px;
+        color: #00305B;
+        font-weight: 600;
+    }
+
+        .your-procedure .price-flight-procedure i {
+            font-size: 25px;
+            color: #E6B441;
+            padding: 5px;
+        }
+
+    /*    xử lý kết quả search*/
+    .search-place {
+        width: 100%;
+        height: 120px;
+        display: none;
+    }
+
+        .search-place table {
+            position: absolute;
+            width: 100%;
+            margin: auto;
+            height: 100%;
+            position: relative;
+        }
+
+            .search-place table th {
+                background-color: white;
+                padding: 10px;
+                width: 100%;
+                color: #005574;
+                line-height: 20px;
+            }
+
+            .search-place table tr {
+                background-color: white;
+                width: 100%;
+                color: #222;
+                line-height: 10px;
+            }
+
+            .search-place table td {
+                height: 20%;
+                padding: 5px 10px 15px 10px;
+            }
+
+            .search-place table label {
+                display: block;
+                margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+                vertical-align: top; /* Để đặt label ở phía trên của input */
+                font-size: 13px;
+            }
+
+            .search-place table input {
+                border: 0;
+                width: 100%;
+            }
+
+            .search-place table select {
+                border: none;
+                width: 100%;
+                height: 55%;
+                border-bottom: 1px solid #005574;
+                line-height: 40%;
+            }
+
+            .search-place table button {
+                border: none;
+                height: 90%;
+                border-radius: 5px;
+                width: 100%;
+                border: 2px solid #ebbd40;
+                color: #005574;
+                background-color: white;
+            }
+
+                .search-place table button:hover {
+                    background-color: #ebbd40;
+                    color: white;
+                }
+    /*xử lý phần form điền thông tin và tóm tắt giá*/
+    .information-price {
+        width: 100%;
+        height: auto;
+        display: flex;
+    }
+
+    .passengers-information {
+        width: 66%;
+        margin: 40px 0 20px 20px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        height: fit-content;
+        position:relative;
+        left:15%;
+
+    }
+
+        .passengers-information h1 {
+            width: 100%;
+            background-color: white;
+            color: #005574;
+            font-size: 18px;
+            line-height: 50px;
+            font-weight: bold;
+            padding-left: 20px;
+            border-radius: 10px;
+            user-select: none;
+        }
+
+        .passengers-information p {
+            padding: 0 20px 0 20px;
+            user-select: none;
+        }
+
+        .passengers-information a {
+            text-decoration: none;
+            text-align: center;
+            float: right;
+            margin: 10px;
+            width: 20%;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            border: none;
+            border-radius: 7px;
+            border: 2px solid #b69027;
+            color: #b69027;
+            user-select: none;
+        }
+
+            .passengers-information a:hover {
+                background-color: #b69027;
+                color: white;
+            }
+</style>
+
+<div class="link">
+    <ul>
+        <li><a href="">Trang chủ<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Đặt vé<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Chọn chuyến bay<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Điền thông tin<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Thanh toán</a></li>
+    </ul>
+</div>
+<div class="information-price">
+    <div class="passengers-information">
+        <h1><i style="padding:5px;color:white; background-color:limegreen; border-radius:15px" class="ti-check"></i> Thanh toán thành công </h1>
+        <p style="font-size:16px">Hoàn tất thanh toán!! </p>
+        <p><strong> Chuyến bay của bạn sẽ được cập nhật trong ít phút!!</strong> Bây giờ bạn có thể quay lại trang chủ để chọn thêm chuyến bay khác hoặc di chuyển đến thông tin vé của bạn</p>
+
+        <a href="">CHUYẾN BAY CỦA TÔI</a>
+        <a href="~/Home/TrangChu">TRANG CHỦ</a>
+
+    </div>
+</div>
+

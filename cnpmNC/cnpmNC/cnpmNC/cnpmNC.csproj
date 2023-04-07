@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountUsersController.cs" />
     <Compile Include="Controllers\DatVeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyChuyenBayController.cs" />
@@ -153,10 +154,12 @@
     <Compile Include="Models\HoaDon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\mapAccount\mapAccount.cs" />
     <Compile Include="Models\mapChuyenBay\mapChuyenBay.cs" />
     <Compile Include="Models\mapDatVe\mapDatVe.cs" />
     <Compile Include="Models\mapHanhKhach\HanhKhachTam.cs" />
     <Compile Include="Models\mapHanhKhach\mapHanhKhach.cs" />
+    <Compile Include="Models\mapHoaDon\mapHoaDon.cs" />
     <Compile Include="Models\mapSanBay\mapSanBay.cs" />
     <Compile Include="Models\mapUuDai\mapUuDai.cs" />
     <Compile Include="Models\Model1.Context.cs">
@@ -187,6 +190,7 @@
     <Compile Include="Models\taoMa\taoMaChuyenBay.cs" />
     <Compile Include="Models\taoMa\taoMaDonDatVe.cs" />
     <Compile Include="Models\taoMa\taoMaHanhKhach.cs" />
+    <Compile Include="Models\taoMa\taoMaHoaDon.cs" />
     <Compile Include="Models\UuDai.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -639,6 +643,9 @@
     <Content Include="Views\DatVe\ThongTinHanhKhach.cshtml" />
     <Content Include="Views\DatVe\ThanhToan.cshtml" />
     <Content Include="Views\DatVe\DatVeHoanTat.cshtml" />
+    <Content Include="Views\DatVe\HoanTatThanhToan.cshtml" />
+    <Content Include="Views\AccountUsers\DangNhap.cshtml" />
+    <Content Include="Views\AccountUsers\DangKy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

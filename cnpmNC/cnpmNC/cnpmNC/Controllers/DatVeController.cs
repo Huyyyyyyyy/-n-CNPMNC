@@ -2,6 +2,7 @@
 using cnpmNC.Models;
 using cnpmNC.Models.mapDatVe;
 using cnpmNC.Models.mapHanhKhach;
+using cnpmNC.Models.mapHoaDon;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,8 @@ namespace cnpmNC.Controllers
             return RedirectToAction("DatVeHoanTat", new { SoLuong = SoLuong, MaChuyenBay = MaChuyenBay, MaDatVe = MaDatVe });
          }
 
+
+        // show thông báo hoàn tất đặt vé
         public ActionResult DatVeHoanTat(int SoLuong, String MaChuyenBay, String MaDatVe)
         {
             ViewBag.SoLuong = SoLuong;
@@ -110,6 +113,7 @@ namespace cnpmNC.Controllers
             return View();
         }
 
+        //xử lý thanh toán
         public ActionResult ThanhToan(String MaUuDai, int SoLuong, String MaChuyenBay, String MaDatVe)
         {
             ViewBag.MaUuDai = MaUuDai;
@@ -118,6 +122,27 @@ namespace cnpmNC.Controllers
             ViewBag.MaDatVe = MaDatVe;
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ThanhToan(HoaDon model)
+        {
+            mapHoaDon map = new mapHoaDon();
+            if (map.ThemMoiHD(model) == true)
+            {
+                return RedirectToAction("HoanTatThanhToan");
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        // thông báo thanh toán hoàn tất
+        public ActionResult HoanTatThanhToan()
+        {
+            return View();
+        }
+
 
     }
 }

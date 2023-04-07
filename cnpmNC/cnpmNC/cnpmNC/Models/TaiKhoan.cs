@@ -11,7 +11,9 @@ namespace cnpmNC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class TaiKhoan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -27,7 +29,21 @@ namespace cnpmNC.Models
         public string HoTen { get; set; }
         public string SoDT { get; set; }
         public string CCCD { get; set; }
-    
+
+        [NotMapped]
+        [Required]
+        [System.ComponentModel.DataAnnotations.Compare("MatKhau")]
+        public string A_MatKhau { get; set; }
+
+        [NotMapped]
+        [Required]
+        public string New_MatKhau { get; set; }
+
+        [NotMapped]
+        [Required]
+        [System.ComponentModel.DataAnnotations.Compare("New_MatKhau")]
+        public string A_New_MatKHau { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DatVe> DatVes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

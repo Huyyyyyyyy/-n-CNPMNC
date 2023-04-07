@@ -155,3 +155,7 @@ values('HAN',N'Sân bay Quốc tế Nội Bài',N'Hà Nội'),
 ('DLI',N'Sân bay Quốc tế Liên Khương',N'Lâm Đồng'),
 ('UIH',N'Sân bay Quốc tế Phù Cát',N'Bình Định')
 
+alter table TaiKhoan 
+alter column MatKhau nvarchar(50)
+
+

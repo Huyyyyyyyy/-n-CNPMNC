@@ -38,10 +38,40 @@
 
 
     //tạo biến lưu mã ưu đãi đã chọn
-    var MaUuDai = ViewBag.MaUuDai;
+    string MaUuDai = ViewBag.MaUuDai;
+
+    //Lưu tiền
+
+    decimal ThanhTien = 0;
+
+    if (String.IsNullOrEmpty(MaUuDai) == true)
+    {
+        ThanhTien = ChuyenBayDaChon.GiaVe*SoLuong;
+    }
+    else
+    {
+        // lấy ra thông tin Uu đãi chọn
+        cnpmNC.Models.UuDai ThongTinUuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(MaUuDai);
+
+        //lấy ra mức ưu đãi
+
+        decimal MucUD = Convert.ToDecimal(ThongTinUuDai.MucUD);
+
+        ThanhTien = ChuyenBayDaChon.GiaVe*SoLuong - (ChuyenBayDaChon.GiaVe * SoLuong * (MucUD / 100));
+    }
+
 
     //lấy ra mã đặt vé từ viewbag
     string MaDatVe = ViewBag.MaDatVe;
+
+
+
+
+
+    cnpmNC.Models.HoaDon hoaDon = new cnpmNC.Models.HoaDon();
+
+
+
 }
 
 <style>
@@ -394,16 +424,34 @@
             height: auto;
             background-color: #FCFAE9;
             color: #222;
+            padding: 10px;
         }
+
 
     .detail-voucher-summary .content select {
         border: none;
-        width: 80%;
+        width: 60%;
         height: 50px;
         background-color: #FCFAE9;
         border-bottom: 1px solid gray;
         margin-left: 20px;
     }
+
+    .detail-voucher-summary .content .button {
+        width: 30%;
+        height: 30px;
+        margin: 5px;
+        border: none;
+        border-radius: 7px;
+        background-color: #FCFAE9;
+        border: 1px solid #ebbd40;
+        color: #ebbd40;
+    }
+
+        .detail-voucher-summary .content .button:hover {
+            color: white;
+            background-color: #ebbd40;
+        }
 
     .price-summary .detail-voucher-summary {
         display: none;
@@ -414,6 +462,12 @@
         cursor: pointer;
         color: #005574;
         font-weight: 400
+    }
+
+    .info-voucher {
+        width: 100%;
+        padding: 20px;
+        border-bottom: 1px solid #007292;
     }
 </style>
 <div class="link">
@@ -466,7 +520,26 @@
     <a class="edit-procedure" onclick="hideElement()"><i class="ti-pencil-alt"></i>Thay đổi</a>
     <a class="price-flight-procedure">
         <i class="ti-shopping-cart-full"></i>
-        @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong) <sup style="font-weight:400">VND</sup>
+        @{
+            if (String.IsNullOrEmpty(MaUuDai) == true)
+            {
+                string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
+                @TongChuaUuDai<sup style="font-weight:400">VND</sup>
+            }
+            else
+            {
+                // lấy ra thông tin Uu đãi chọn
+                cnpmNC.Models.UuDai ThongTinUuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(MaUuDai);
+
+                //lấy ra mức ưu đãi
+
+                decimal MucUD = Convert.ToDecimal(ThongTinUuDai.MucUD);
+
+                int TonDaUuDai = Convert.ToInt32(ChuyenBayDaChon.GiaVe * SoLuong - (ChuyenBayDaChon.GiaVe * SoLuong * (MucUD / 100)));
+                string TongDaUuDai = string.Format("{0:#,##0}", TonDaUuDai);
+                @TongDaUuDai<sup style="font-weight:400">VND</sup>
+            }
+        }
     </a>
 </div>
 
@@ -528,7 +601,26 @@
 <div class="information-price">
     <div class="passengers-information">
         <h1>
-            Thanh Toán @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong) <sub style="font-weight:400">VND</sub>
+            Thanh Toán @{
+                if (String.IsNullOrEmpty(MaUuDai) == true)
+                {
+                    string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
+                    @TongChuaUuDai<sup style="font-weight:400">VND</sup>
+                }
+                else
+                {
+                    // lấy ra thông tin Uu đãi chọn
+                    cnpmNC.Models.UuDai ThongTinUuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(MaUuDai);
+
+                    //lấy ra mức ưu đãi
+
+                    decimal MucUD = Convert.ToDecimal(ThongTinUuDai.MucUD);
+
+                    int TonDaUuDai = Convert.ToInt32(ChuyenBayDaChon.GiaVe * SoLuong - (ChuyenBayDaChon.GiaVe * SoLuong * (MucUD / 100)));
+                    string TongDaUuDai = string.Format("{0:#,##0}", TonDaUuDai);
+                    @TongDaUuDai<sup style="font-weight:400">VND</sup>
+                }
+            }
             <span style="padding:0 0 10px 0;color:#222; display:block; font-size:14px; font-weight:400">Vui lòng chọn phương thức thanh toán bên dưới</span>
         </h1>
         <div class="information-payment">
@@ -571,7 +663,17 @@
                 </table>
             </div>
             <div class="direction">
-                <a class="purchase" href="~/DatVe/HoanTatThanhToan">THANH TOÁN</a>
+                <form action="~/DatVe/ThanhToan" method="post">
+                    <input name="MaHD" type="text" value="@{string MaHD = new cnpmNC.Models.taoMa.taoMaHoaDon().TaoMaHoaDon();@MaHD}" hidden readonly />
+                    <input name="MaDatVe" type="text" value="@MaDatVe" hidden />
+                    <input name="Ngay" type="datetime" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")" hidden />
+                    <input name="TaiKhoanDat" type="email" value="@{cnpmNC.Models.DatVe Email = new cnpmNC.Models.mapDatVe.mapDatVe().ThongTinDonDat(MaDatVe); @Email.TaiKhoanDat}" hidden />
+                    <input name="SoLuongVe" type="number" value="@SoLuong" hidden />
+                    <input name="GiaVe" type="number" value="@{int GiaVe = Convert.ToInt32(ChuyenBayDaChon.GiaVe); @GiaVe}" hidden />
+                    <input name="MaUuDai" type="text" value="@MaUuDai" hidden />
+                    <input name="ThanhTien" type="number" value="@ThanhTien" hidden />
+                    <button class="purchase" type="submit">THANH TOÁN</button>
+                </form>
                 <a class="back-home" href="~/Home/TrangChu"><i class="ti-arrow-left"></i></a>
             </div>
         </div>
@@ -630,29 +732,80 @@
 
         <div class="voucher-summary">
             <span style="line-height:20px"><i style="color: #005574; font-size:18px; font-weight:600" class="ti-receipt"></i>&nbsp;Ưu đãi</span>
-            <a onclick="showDetailVoucher()" style="float:right">Chọn voucher : @MaUuDai <i class="ti-angle-down"></i></a>
+            <a onclick="showDetailVoucher()" style="float:right">
+                Chọn voucher  @{
+                    if (String.IsNullOrEmpty(MaUuDai) == true)
+                    {
+
+                    }
+
+                    else
+                    {
+                        <span>: @MaUuDai</span>
+                    }
+                }
+                <i class="ti-angle-down"></i>
+            </a>
         </div>
         <div class="detail-voucher-summary" id="detail-voucher-summary">
             <div class="content">
                 <form>
-                    <input name="SoLuong" value="@SoLuong" hidden/>
-                    <input name="MaChuyenBay" value="@MaChuyenBay" hidden/>
+                    <input name="SoLuong" value="@SoLuong" hidden />
+                    <input name="MaChuyenBay" value="@MaChuyenBay" hidden />
                     <input name="MaDatVe" value="@MaDatVe" hidden />
                     <select id="myVoucher" name="MaUuDai">
+                        <option disabled selected value="">Chọn mã ưu đãi</option>
                         @foreach (var item in new cnpmNC.Models.mapUuDai.mapUuDai().DanhSachUuDai())
                         {
                             <option value="@item.MaUD">(@item.MaUD) Giảm @item.MucUD%</option>
                         }
                     </select>
-                    <input type="submit" value="Áp dụng" />
+                    <input class="button" type="submit" value="Áp dụng" />
                 </form>
+            </div>
+            <div class="info-voucher">
+                @if (String.IsNullOrEmpty(MaUuDai) == true)
+                {
+
+                }
+                else
+                {
+                    // lấy ra thông tin Uu đãi chọn
+                    cnpmNC.Models.UuDai ThongTinUuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(MaUuDai);
+
+                    //lấy ra mức ưu đãi
+                    int MucUD = ThongTinUuDai.MucUD;
+                    // Tính toán khoảng thời gian giữa ngày tháng hiện tại và ngày tháng mục tiêu
+                    TimeSpan remainingTime = ThongTinUuDai.ThoiGianUD - DateTime.Now;
+                    <span style="font-size:14px">Hết hạn trong @Math.Round(remainingTime.TotalDays, 0) ngày (@Math.Round(remainingTime.TotalHours, 0) giờ)</span>
+                }
             </div>
         </div>
 
         <div class="total-flight">
             <span style="font-weight:bold; font-size:20px;">Tổng</span>
             <span style="float: right; color: #005574; font-weight:bold; font-size:20px">
-                @string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong) <sup style="font-weight:400">VND</sup>
+                @{
+                    if (String.IsNullOrEmpty(MaUuDai) == true)
+                    {
+                        string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
+                        @TongChuaUuDai<sup style="font-weight:400">VND</sup>
+                        ThanhTien = ChuyenBayDaChon.GiaVe;
+                    }
+                    else
+                    {
+                        // lấy ra thông tin Uu đãi chọn
+                        cnpmNC.Models.UuDai ThongTinUuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(MaUuDai);
+
+                        //lấy ra mức ưu đãi
+
+                        decimal MucUD = Convert.ToDecimal(ThongTinUuDai.MucUD);
+
+                        int TonDaUuDai = Convert.ToInt32(ChuyenBayDaChon.GiaVe*SoLuong - (ChuyenBayDaChon.GiaVe * SoLuong * (MucUD / 100)));
+                        string TongDaUuDai = string.Format("{0:#,##0}", TonDaUuDai);
+                        @TongDaUuDai<sup style="font-weight:400">VND</sup>
+                    }
+                }
             </span>
         </div>
     </div>
