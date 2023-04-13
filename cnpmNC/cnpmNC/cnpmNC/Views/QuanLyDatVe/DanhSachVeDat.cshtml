@@ -78,7 +78,12 @@
         margin-bottom: 5px;
     }
 </style>
-<h2>DanhSachVeDat</h2>
+<div class="link">
+    <ul>
+        <li><a href="">Quản lý đơn vé</a></li>
+
+    </ul>
+</div>
 
 <div class="managerVD">
     <table class="table-manager">
@@ -119,7 +124,7 @@
                         @Html.DisplayFor(modelItem => item.ChuyenBay.MaSanBayDi)
                     </td>
 
-                    @if (item.TrangThai == "Done")
+                    @if (item.TrangThai == "Đã xác nhận")
                     {
                         <td style="color:limegreen">
                             @Html.DisplayFor(modelItem => item.TrangThai)
@@ -143,7 +148,7 @@
                         {
                             <a href="~/QuanLyDatVe/XacNhanDatVe?MaDatVe=@item.MaDatVe" style="text-decoration:none">Xác nhận đặt vé</a>
                         }
-                        else if (item.TrangThai == "Done")
+                        else if (item.TrangThai == "Đã xác nhận")
                         {
                             <span></span>
                         }
