@@ -133,6 +133,7 @@
     <Compile Include="Controllers\DatVeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyChuyenBayController.cs" />
+    <Compile Include="Controllers\QuanLyDatVeController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -651,6 +652,7 @@
     <Content Include="Views\TaiKhoan\ThemTaiKhoan.cshtml" />
     <Content Include="Views\TaiKhoan\CapNhatTaiKhoan.cshtml" />
     <Content Include="Views\TaiKhoan\DanhSachTaiKhoan.cshtml" />
+    <Content Include="Views\QuanLyDatVe\DanhSachVeDat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
