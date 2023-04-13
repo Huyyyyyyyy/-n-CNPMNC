@@ -164,86 +164,86 @@ E:\Huyahihi\hoc\CNPMNC\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.Co
 E:\Huyahihi\hoc\CNPMNC\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CopyComplete
 E:\Huyahihi\hoc\CNPMNC\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.dll
 E:\Huyahihi\hoc\CNPMNC\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.pdb
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\cnpmNC.dll.config
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\cnpmNC.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\cnpmNC.pdb
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csc.exe
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csc.exe.config
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csc.rsp
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csi.exe
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csi.exe.config
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csi.rsp
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.Managed.Core.targets
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.Win32.Primitives.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.AppContext.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Console.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Globalization.Calendars.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.Compression.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.Compression.ZipFile.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Net.Http.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Net.Sockets.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.Algorithms.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.Encoding.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.Primitives.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Text.Encoding.CodePages.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Threading.Tasks.Extensions.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.ValueTuple.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.ReaderWriter.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.XmlDocument.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.XPath.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.XPath.XDocument.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\vbc.exe
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\vbc.exe.config
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\vbc.rsp
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\VBCSCompiler.exe
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Antlr3.Runtime.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.SqlServer.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Newtonsoft.Json.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Helpers.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Mvc.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Optimization.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Razor.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Deployment.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Razor.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\WebGrease.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.SqlServer.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Helpers.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Mvc.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Optimization.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Razor.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Deployment.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Razor.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Newtonsoft.Json.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Antlr3.Runtime.pdb
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.AssemblyReference.cache
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CopyComplete
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.dll
-C:\Users\Admin\Desktop\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.pdb
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\cnpmNC.dll.config
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\cnpmNC.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\cnpmNC.pdb
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csc.exe
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csc.exe.config
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csc.rsp
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csi.exe
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csi.exe.config
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\csi.rsp
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.AppContext.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Console.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Globalization.Calendars.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.Compression.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Net.Http.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Net.Sockets.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.ValueTuple.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\vbc.exe
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\vbc.exe.config
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\vbc.rsp
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\VBCSCompiler.exe
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Antlr3.Runtime.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.SqlServer.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Newtonsoft.Json.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Helpers.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Mvc.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Optimization.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Razor.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Razor.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\WebGrease.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\EntityFramework.SqlServer.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Helpers.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Mvc.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Optimization.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.Razor.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\System.Web.WebPages.Razor.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Newtonsoft.Json.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Antlr3.Runtime.pdb
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.AssemblyReference.cache
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CoreCompileInputs.cache
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CopyComplete
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.dll
+C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.pdb

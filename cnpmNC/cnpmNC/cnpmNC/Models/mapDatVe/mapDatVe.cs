@@ -31,11 +31,5 @@ namespace cnpmNC.Models.mapDatVe
                 return false;
             }
         }
-
-        public DatVe DanhSachVe(String MaDatVe)
-        {
-            cnpmNCEntities db = new cnpmNCEntities();
-            return db.DatVes.SingleOrDefault(ma => ma.MaDatVe == MaDatVe);
-        }
     }
 }
