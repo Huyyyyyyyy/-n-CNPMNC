@@ -4,13 +4,13 @@
     ViewBag.Title = "CapNhatTaiKhoan";
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
 }
-
 <style>
     .link {
         width: 100%;
         height: 20px;
         margin: 50px 5px 5px 5px;
     }
+
 
         .link ul {
             width: 100%;
@@ -22,7 +22,7 @@
                 text-decoration: none;
                 font-weight: bold;
                 font-size: 12px;
-                color: #005574;
+                color: #00305B;
             }
 
                 .link ul a i {
@@ -33,7 +33,7 @@
         border-radius: 4px 4px 0 0;
         padding: 10px 20px;
         margin: 0 0 25px 0;
-        background-color: #005574;
+        background-color: #33597C;
         color: #fff;
         font-size: 18px;
         line-height: 22px;
@@ -90,75 +90,79 @@
             margin-right: 10px;
             height: 80px;
         }
+
+    #submit {
+        background: #ebbd40;
+        color: #ffff;
+        margin-top: 20px;
+        transition: color 300ms;
+        line-height: 15px;
+    }
+
+        #submit:hover {
+            background-color: forestgreen;
+            cursor: pointer;
+            background-color: #e4a600;
+        }
 </style>
 <div class="link">
     <ul>
-        <li><a href="~/TaiKhoan/DanhSachTaiKhoan">Quản lý tài khoản<i class="ti-angle-double-right"></i></a></li>
-        <li><a href="~/TaiKhoan/CapNhatTaiKhoan">Cập nhật</a></li>
+        <li><a href="">Quản lý tài khoản<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="">Cập nhật</a></li>
     </ul>
 </div>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form form-horizontal ">
+<div class="form form-horizontal">
     <h1>Cập nhật tài khoản</h1>
-    @Html.HiddenFor(model => model.TenTK)
-
     <div class="form-input form-group" style="display:inline-block;">
-        <label for="TenTK">Tên Tài Khoản</label>
+        <label for="TenTaiKhoan">Tên tài khoản</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.TenTK, new { @class = "form-control" })
+            <input style="background:#ececec;" name="TenTaiKhoan" type="text" readonly value="@Model.TenTK" />
         </div>
     </div>
-
-    <div class="form-input form-group" style="display:inline-block;">
-        <label for="MatKhau">Mật Khẩu</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.MatKhau, new { @class = "form-control", type = "password" })
-        </div>
-    </div>
-
-    <div class="form-input form-group" style="display:inline-block;">
-        <label for="QuyenTruyCap">Quyền Truy Cập</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.QuyenTruyCap, new { @class = "form-control" })
-        </div>
-    </div>
-
+    @Html.HiddenFor(model => model.MatKhau)
+    @Html.HiddenFor(model => model.A_MatKhau)
+    @Html.HiddenFor(model => model.New_MatKhau)
+    @Html.HiddenFor(model => model.A_New_MatKHau)
     <div class="form-input form-group" style="display:inline-block;">
         <label for="HoTen">Họ tên</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.HoTen, new { @class = "form-control" })
+            <input name="HoTen" type="text" value="@Model.HoTen" />
         </div>
     </div>
 
     <div class="form-input form-group" style="display:inline-block;">
         <label for="SoDT">Số điện thoại</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.SoDT, new { @class = "form-control" })
+            <input name="SoDT" type="number" value="@Model.SoDT" />
         </div>
     </div>
 
     <div class="form-input form-group" style="display:inline-block;">
-        <label for="CCCD">CCCD</label>
+        <label for="CCCD">Căn cước công dân</label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.CCCD, new { @class = "form-control" })
+            <input name="CCCD" type="number" value="@Model.CCCD" />
         </div>
     </div>
 
-    
-
-    <div class="form-input" style="display:inline-block;">
-        <a style="text-decoration: none; display: inline-block; background: #005574; color: #ffff; padding: 6px 10px 6px 10px; border-radius: 4px; margin: 0 0 0 16px !important " href="~/TaiKhoan/DanhSachTaiKhoan"><i class="ti-back-left"></i></a>
-    </div>
     <div class="form-input form-group" style="display:inline-block;">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" style="width: 195px; background: #005574; color: #ececec" value="Tiếp tục" class="btn btn-default" />
+        <label for="QuyenTruyCap">Quyền truy cập</label>
+        <div class="col-md-10">
+            <select name="QuyenTruyCap">
+                <option value="user">Người dùng</option>
+                <option value="admin">Quản trị viên</option>
+            </select>
         </div>
     </div>
-</div>
-}
+
+        <div class="form-input form-group" style="display:inline-block;">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="submit" class="btn btn-default" value="LƯU"/>
+            </div>
+        </div>
+    </div>
+    }
 
 

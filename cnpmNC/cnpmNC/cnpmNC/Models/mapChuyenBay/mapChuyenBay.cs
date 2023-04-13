@@ -15,6 +15,17 @@ namespace cnpmNC.mapChuyenBay
             return db.ChuyenBays.SingleOrDefault(ma => ma.MaChuyenBay == MaChuyenBay);
         }
 
+        // tìm chuyến bay dành cho admin trong danh sách chuyến bay 
+
+        public List<ChuyenBay> searchChuyenBay(String tuKhoa)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            var ketQua = db.ChuyenBays.Where(p => p.MaChuyenBay.Contains(tuKhoa)
+                                                || p.MaSanBayDi.Contains(tuKhoa)
+                                                || p.MaSanBayDen.Contains(tuKhoa));
+            return ketQua.ToList();
+        }
+
         //Xử lý tra cứu chuyến bay
         public List<ChuyenBay> DanhSachChuyenBay(String MaSanBayDi, String MaSanBayDen, Nullable<DateTime> NgayKhoiHanh)
         {

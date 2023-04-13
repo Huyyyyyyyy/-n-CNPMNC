@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace cnpmNC.Models.mapTaiKhoan
@@ -8,23 +10,20 @@ namespace cnpmNC.Models.mapTaiKhoan
     public class mapTaiKhoan
     {
         cnpmNCEntities db = new cnpmNCEntities();
-        public TaiKhoan lichcb(String TenTK)
-        {           
-            return db.TaiKhoans.SingleOrDefault(ma => ma.TenTK == TenTK);
-        }
-        public bool ThemMoiTK(TaiKhoan model)
+        public TaiKhoan TimTaiKhoan(String TenTK)
         {
             try
-            {               
-                db.TaiKhoans.Add(model);
-                db.SaveChangesAsync();
-                return true;
+            {
+                cnpmNCEntities db = new cnpmNCEntities();
+                var model = db.TaiKhoans.SingleOrDefault(m => m.TenTK == TenTK.ToLower());
+                return model;
             }
             catch
             {
-                return false;
+                return null;
             }
         }
+
         public bool updateTK(TaiKhoan model)
         {          
             var updateModel = db.TaiKhoans.Find(model.TenTK);
@@ -60,6 +59,24 @@ namespace cnpmNC.Models.mapTaiKhoan
             {
                 return false;
             }
+        }
+
+
+
+        //create a string MD5
+        public static string GetMD5(string str)
+        {
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] fromData = Encoding.UTF8.GetBytes(str);
+            byte[] targetData = md5.ComputeHash(fromData);
+            string byte2String = null;
+
+            for (int i = 0; i < targetData.Length; i++)
+            {
+                byte2String += targetData[i].ToString("x2");
+
+            }
+            return byte2String;
         }
     }
 }

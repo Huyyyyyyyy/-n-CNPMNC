@@ -10,7 +10,7 @@ namespace cnpmNC.Controllers
 {
     public class TaiKhoanController : Controller
     {
-        cnpmNCEntities db = new cnpmNCEntities();
+
         // GET: TaiKhoan
         public ActionResult Index()
         {
@@ -30,31 +30,55 @@ namespace cnpmNC.Controllers
         [HttpPost]
         public ActionResult ThemTaiKhoan(TaiKhoan model)
         {
-            mapTaiKhoan map = new mapTaiKhoan();
-            
-            if (map.ThemMoiTK(model) == true)
+            cnpmNCEntities db = new cnpmNCEntities();
+
+            var check = db.TaiKhoans.FirstOrDefault(s => s.TenTK == model.TenTK);
+            if (check == null)
             {
-                return RedirectToAction("DanhSachTaiKhoan");
+                if (model.A_MatKhau == model.MatKhau)
+                {
+                    model.MatKhau = mapTaiKhoan.GetMD5(model.MatKhau);
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.TaiKhoans.Add(model);
+                    db.SaveChanges();
+                    return RedirectToAction("DanhSachTaiKhoan");
+                }
+                else
+                {
+                    ViewBag.error = "Xác nhận mật khẩu không khớp";
+                    return View();
+                }
+
             }
             else
             {
-                return View(model);
+                ViewBag.error = "Tài khoản đã tồn tại";
+                return View();
             }
         }
         public ActionResult CapNhatTaiKhoan(String TenTK)
         {
             var map = new mapTaiKhoan();
-            var TKEdit = map.lichcb(TenTK);
+            var TKEdit = map.TimTaiKhoan(TenTK);
             return View(TKEdit);
         }
 
         [HttpPost]
         public ActionResult CapNhatTaiKhoan(TaiKhoan model)
         {
-            mapTaiKhoan map = new mapTaiKhoan();
-            if (map.updateTK(model) == true)
+            cnpmNCEntities db = new cnpmNCEntities();
+            var find = new mapTaiKhoan().TimTaiKhoan(model.TenTK);
+
+            var check = db.TaiKhoans.FirstOrDefault(s => s.TenTK == model.TenTK);
+            if (check != null)
             {
-                return RedirectToAction("DanhSachTaiKhoan", new { TenTK = model.TenTK });
+                db.Configuration.ValidateOnSaveEnabled = false;
+                check.HoTen = model.HoTen;
+                check.CCCD = model.CCCD;
+                check.SoDT = model.SoDT;
+                db.SaveChanges();
+                return RedirectToAction("DanhSachTaiKhoan");
+
             }
             else
             {

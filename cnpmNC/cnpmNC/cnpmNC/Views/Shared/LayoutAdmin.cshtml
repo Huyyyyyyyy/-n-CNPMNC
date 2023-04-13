@@ -45,21 +45,17 @@
                     background: #DCA413;
                 }
 
-            .top .profile {
+            .top .setting {
                 text-decoration: none;
                 color: #ffff;
                 border-radius: 4px;
                 text-align: center;
                 padding: 10px 10px 10px 10px;
-                margin:5px;
+                margin: 5px;
             }
 
-                .top .profile:hover {
-                    background: #DCA413;
-                }
-
-
     </style>
+
 </head>
 <body>
     <div class="full">
@@ -71,7 +67,7 @@
             <a class="manager" href="">DOANH THU</a>
 
 
-            <a class="profile" style="float:right" href=""><i class="ti-settings"></i></a>
+            <a class="setting" style="float:right" href=""><i class="ti-settings"></i></a>
 
             @{
                 if (user != null)
@@ -85,7 +81,14 @@
             <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
                 @{ if (user == null)
                     {
-                        <span>Admin</span>
+                     <script>
+                      //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+                      // Hiển thị thông báo
+                      alert("Phiên đăng nhập đã hết hạn!");
+
+                      // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                      window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+                      </script>
                     }
                     else
                     { <span>Hi Admin, @user.HoTen</span>}
@@ -97,9 +100,10 @@
         <div class="main" style="padding: 10px; margin-top:0px; background: #EDF3F7;">
             @RenderBody()
         </div>
-        <div style="display: flex; padding: 7px; background: #005574" class="footer">
-            <p style="color: #ececec; text-align:center; font-weight:200; line-height:50px;margin:0px; position:relative; left:15%">© 2023 Group 21 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
+        <div style="padding: 7px; background: #005574" class="footer">
+            <p style="color: #ececec; text-align:center; font-weight:200; line-height:50px; margin:0">© 2023 Group 21 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
         </div>
     </div>
 </body>
 </html>
+

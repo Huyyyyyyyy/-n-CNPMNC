@@ -5,72 +5,154 @@
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
 }
 
-<h2>ThemTaiKhoan</h2>
+<!DOCTYPE html>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>TaiKhoan</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.TenTK, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TenTK, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenTK, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DangKy</title>
+    <style>
+        .link {
+            width: 100%;
+            height: 20px;
+            margin: 50px 5px 5px 5px;
+        }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            .link ul {
+                width: 100%;
+                list-style-type: none;
+                display: flex;
+            }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.QuyenTruyCap, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.QuyenTruyCap, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.QuyenTruyCap, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                .link ul a {
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 12px;
+                    color: #005574;
+                }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    .link ul a i {
+                        margin: 0 10px 0 10px;
+                    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoDT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoDT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoDT, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        .form {
+            margin: 20px;
+            padding:20px;
+            background:white;
+            width:fit-content;
+            border-radius:7px;
+            box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.1);
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CCCD, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CCCD, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+            .form h1 {
+                background-color: #005574;
+                text-align: center;
+                font-size: 25px;
+                line-height: 40px;
+                color: white;
+                border-top-left-radius: 7px;
+                border-top-right-radius: 7px;
+            }
+
+        label {
+            display: block;
+            font-size: 14px;
+            height: 16px;
+            margin-top: 20px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            display: block;
+            box-sizing: border-box;
+            width: 280px;
+            height: 2.3125rem;
+            padding: 10px;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        select {
+            display: block;
+            box-sizing: border-box;
+            width: 280px;
+            height: 2.3125rem;
+            padding: 10px;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        #submit {
+            background: #ebbd40;
+            color: #ffff;
+            margin-top: 20px;
+            transition: color 300ms;
+            line-height: 15px;
+        }
+
+            #submit:hover {
+                background-color: forestgreen;
+                cursor: pointer;
+                background-color: #e4a600;
+            }
+    </style>
+</head>
+<body>
+    <div class="link">
+        <ul>
+            <li><a href="">Quản lý tài khoản<i class="ti-angle-double-right"></i></a></li>
+            <li><a href="">Tạo mới</a></li>
+        </ul>
     </div>
-}
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+        <div class="right">
+            <div class="form" method="post">
+                <h1>TẠO MỚI</h1>
+                <p style="font-size: 13px; line-height: 30px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; background: #D8594F; text-align: center; color: #ececec; font-weight: 500 ">
+                    @ViewBag.error
+                </p>
+                <label for="TenTK">Tài khoản</label>
+                <input type="email" id="email" name="TenTK" placeholder="Nhập tài khoản">
+
+                <label for="HoTen">Tên hiển thị</label>
+                <input type="text" id="name" name="HoTen" placeholder="Nhập tên đầy đủ">
+
+                <label for="SoDT">Phone</label>
+                <input type="text" id="SoDT" name="SoDT" placeholder="Nhập số điện thoại">
+
+                <label for="CCCD">CCCD</label>
+                <input type="text" id="CCCD" name="CCCD" placeholder="Nhập CMND/CCCD">
+
+                @Html.HiddenFor(model => model.New_MatKhau)
+                @Html.HiddenFor(model => model.A_New_MatKHau)
+
+                <label for="QuyenTruyCap">Quyền truy cập</label>
+                <select name="QuyenTruyCap">
+                    <option value="user">Người dùng</option>
+                    <option value="admin">Quản trị viên</option>
+                </select>
+
+                <label for="MatKhau">Mật khẩu</label>
+                <input type="password" id="password" name="MatKhau" placeholder="Nhập mật khẩu">
+
+                <label for="A_MatKhau">Xác nhận mật khẩu</label>
+                <input type="password" id="password" name="A_MatKhau" placeholder="Nhập lại mật khẩu">
+                <input type="submit" id="submit" value="HOÀN TẤT">
+            </div>
+        </div>
+    }
+</body>
+</html>
+

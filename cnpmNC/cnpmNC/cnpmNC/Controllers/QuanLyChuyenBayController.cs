@@ -25,6 +25,17 @@ namespace cnpmNC.Controllers
             return View(dscb);
         }
 
+        //xử lý tra cứu trong danh sách chuyến bay
+        [HttpPost] 
+        public ActionResult KetQuaTraCuu(String tuKhoa)
+        {
+            var ketQua = new mapChuyenBay.mapChuyenBay().searchChuyenBay(tuKhoa);
+
+            // Trả về kết quả dưới dạng JSON
+            return Json(ketQua);
+        }
+
+
         public ActionResult ThemChuyenBay()
         {
             return View();

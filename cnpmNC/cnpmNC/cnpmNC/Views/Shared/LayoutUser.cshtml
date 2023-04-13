@@ -77,23 +77,42 @@
                 {
                 }
             }
-            <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
-                @{ if (user == null)
-                    {
-                        <span>Username</span>
-                    }
-                    else
-                    { <span>Hi, @user.HoTen</span>}
+        <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
+            @{ if (user == null)
+                {
+                    <script>
+                      //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+                      // Hiển thị thông báo
+                      alert("Phiên đăng nhập đã hết hạn!");
+
+                      // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                      window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+                    </script>
                 }
-            </p>
+                else
+                { <span>Hi, @user.HoTen</span>}
+            }
+        </p>
         </div>
         <!--   Code phan main   -->
         <div class="main" style="padding: 10px; background: #EDF3F7;">
             @RenderBody()
         </div>
-        <div style="display: flex; padding: 7px; background: #005574" class="footer">
-            <p style="color: #ececec; text-align:center; font-weight:200; line-height:50px;margin:0px; position:relative; left:15%">© 2023 Group 21 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
+        <div style="padding: 7px; background: #005574" class="footer">
+            <p style="color: #ececec; text-align:center; font-weight:200; line-height:50px">© 2023 Group 21 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
         </div>
     </div>
 </body>
 </html>
+<script>
+        $(document).ready(function () {
+            //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+            if (@User.Identity.IsAuthenticated.ToString().ToLower() == "false") {
+                // Hiển thị thông báo
+                alert("Phiên đăng nhập đã hết hạn!");
+
+            // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+            }
+        });
+</script>

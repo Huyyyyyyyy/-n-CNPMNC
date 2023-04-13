@@ -39,18 +39,20 @@
             font-size: 18px;
             line-height: 22px;
         }
+        .table-manager{
+            width:100%;
+        }
 
         .managerCB .table-manager thead th {
             color: #222;
-            width: 150px;
             text-align: center;
             border: 1px solid #005574;
             background-color: #ebbd40;
         }
 
         .managerCB .table-manager tbody td {
-            width: 80px;
-            text-align: center;
+            width:12.5%;
+            text-align:center;
             border: 1px solid #005574;
         }
 
@@ -74,33 +76,27 @@
 </style>
 <div class="link">
     <ul>
-        <li><a href="~/TaiKhoan/DanhSachTaiKhoan">Danh Sách Tài Khoản</a></li>
+        <li><a href="">Quản lý tài khoản</a></li>
     </ul>
 </div>
 <div class="managerCB">
     <table class="table-manager">
         <thead>
             <tr>
-                <td colspan="13"></td>
-                <td class="control" colspan="4">
-                    <a href="">Thông tin tài khoản</a>
-                </td>
-                <td class="control">
+
+                <td class="control" colspan="17">
                     <a href="~/TaiKhoan/ThemTaiKhoan"><i class="ti-plus"></i></a>
 
                 </td>
             </tr>
             <tr>
-                <td colspan="18">
-                    <h1>Quản lý Tài Khoản</h1>
+                <td colspan="17">
+                    <h1>Quản lý tài khoản</h1>
                 </td>
             </tr>
             <tr>
                 <th>
                     Tên tài khoản
-                </th>
-                <th>
-                    Mật khẩu
                 </th>
                 <th>
                     Quyền truy cập
@@ -114,7 +110,9 @@
                 <th>
                     CCCD
                 </th>
-                
+                <th>Sửa</th>
+                <th>Xóa</th>
+
             </tr>
         </thead>
 
@@ -124,9 +122,6 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.TenTK)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MatKhau)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.QuyenTruyCap)
