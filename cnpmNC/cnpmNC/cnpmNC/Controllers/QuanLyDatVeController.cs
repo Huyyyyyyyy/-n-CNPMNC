@@ -28,7 +28,7 @@ namespace cnpmNC.Controllers
             cnpmNCEntities db = new cnpmNCEntities();
             var map = new mapDatVe();
             var vedat = map.DanhSachVe(MaDatVe);
-            vedat.TrangThai = "Done";
+            vedat.TrangThai = "Đã xác nhận";
             DatVe model = db.DatVes.FirstOrDefault(ma => ma.MaDatVe == MaDatVe);
             model.TrangThai = vedat.TrangThai;
             db.SaveChanges();
