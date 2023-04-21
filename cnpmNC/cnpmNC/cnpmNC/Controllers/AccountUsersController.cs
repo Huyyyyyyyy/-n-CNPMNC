@@ -122,7 +122,7 @@ namespace cnpmNC.Controllers
         public ActionResult DangXuat()
         {
             Session.Clear();//remove session
-            return RedirectToAction("DangNhap");
+            return RedirectToAction("TrangChu","Home");
 
         }
     }

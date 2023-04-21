@@ -145,7 +145,7 @@
     .link {
         width: 100%;
         height: 20px;
-        margin: 50px 5px 5px 5px;
+        padding:50px 20px 35px 20px;
     }
 
         .link ul {
@@ -179,6 +179,7 @@
         border-radius: 7px;
         color: red;
         border: 1px solid red;
+        margin-top:20px;
     }
 
     .date-flights {
@@ -190,6 +191,7 @@
         color: #00305B;
         padding: 5px 10px 5px 10px;
         border-bottom: 2px solid #00305B;
+        margin-top:20px;
     }
 
     .have-result{
@@ -344,86 +346,88 @@
 <div class="content">
     <span style="font-size: 25px; display: block; line-height: 30px; font-weight: bold; color: #005574">Chọn Chuyến Bay</span>
     <span style="font-weight: 400; ">Có (@tong) kết quả</span>
-</div>
 
-@{
-    //nếu không có chuyến bay sẽ báo (No-result)
-    if (tong == 0)
-    {
-        <div class="no-result">
-            <i style="font-size:30px;font-weight:400; float:left; padding:10px;" class="ti-face-sad"></i>
-            <span style="font-size:18px; font-weight:600; line-height:30px;">Không tìm thấy chuyến bay bạn muốn</span>
-            <span style="font-weight: 400; font-size: 14px; display: block">Vui lòng chọn ngày khác</span>
-        </div>
-    }
-    //Nếu có sẽ hiện (have-result)
-    else
-    {
-        <div class="date-flights">
-            <span>@string.Format("{0:dddd, dd MMMM yyyy}", NgayKhoiHanh)</span>
-        </div>
-        foreach (var item in Model)
+    @{
+        //nếu không có chuyến bay sẽ báo (No-result)
+        if (tong == 0)
         {
-            <div class="have-result">
-                <div class="flight-result">
-                    <div class="info-flight">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td style="font-size: 25px; font-weight:600; color: #00305B">@string.Format("{0:hh\\:mm}", item.GioKhoiHanh)</td>
-                                    <td style="text-align: center; font-size: 30px; color: #ebbd40; padding: 15px 80px 5px 80px "><span class="ti-arrow-circle-right"></span></td>
-                                    <td style="font-size: 25px; font-weight: 600; color: #00305B">@string.Format("{0:hh\\:mm}", item.GioHaCanh)</td>
-                                    <td> <span class="ti-flickr" style="color: #ebbd40; padding:5px;"></span>@item.MaChuyenBay</td>
-                                </tr>
-                                <tr>
-                                    <td style="color: #222; font-weight: 600; font-size: 20px;">@item.MaSanBayDi</td>
-                                    <td></td>
-                                    <td style="color: #222; font-weight: 600; font-size: 20px;">@item.MaSanBayDen</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        @{
-                                            int gioBay = item.GioBay;
-                                            TimeSpan hour = TimeSpan.FromHours(gioBay);
-                                            string gio = hour.ToString();
-
-                                            int phutBay = item.PhutBay;
-                                            TimeSpan minute = TimeSpan.FromHours(phutBay);
-                                            string phut = minute.ToString();
-
-                                            string thoiGianBay = gioBay + " hrs " + phutBay + " mins ";
-                                            @thoiGianBay
-
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <a style="cursor:pointer" onclick="showDetails()">Chi tiết <i class="ti-angle-down"></i></a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="price-flight">
-                        @{ if (item.TinhTrang == "Opening")
-                            {
-                                <a href="~/DatVe/ThongTinHanhKhach?SoLuong=@SoLuong&MaChuyenBay=@item.MaChuyenBay">
-                                    @string.Format("{0:#,##0}", item.GiaVe) VND
-                                </a>
-                                <span style="float:right; position:relative; top:20%;right:0" class="ti-angle-right"></span>
-                            }
-                            else
-                            {
-                                <span style="cursor:not-allowed">Chưa mở bán vé cho chuyến bay này</span>
-                            }
-                        }
-                    </div>
-                </div>
+            <div class="no-result">
+                <i style="font-size:30px;font-weight:400; float:left; padding:10px;" class="ti-face-sad"></i>
+                <span style="font-size:18px; font-weight:600; line-height:30px;">Không tìm thấy chuyến bay bạn muốn</span>
+                <span style="font-weight: 400; font-size: 14px; display: block">Vui lòng chọn ngày khác</span>
             </div>
         }
+        //Nếu có sẽ hiện (have-result)
+        else
+        {
+            <div class="date-flights">
+                <span>@string.Format("{0:dddd, dd MMMM yyyy}", NgayKhoiHanh)</span>
+            </div>
+            foreach (var item in Model)
+            {
+                <div class="have-result">
+                    <div class="flight-result">
+                        <div class="info-flight">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-size: 25px; font-weight:600; color: #00305B">@string.Format("{0:hh\\:mm}", item.GioKhoiHanh)</td>
+                                        <td style="text-align: center; font-size: 30px; color: #ebbd40; padding: 15px 80px 5px 80px "><span class="ti-arrow-circle-right"></span></td>
+                                        <td style="font-size: 25px; font-weight: 600; color: #00305B">@string.Format("{0:hh\\:mm}", item.GioHaCanh)</td>
+                                        <td> <span class="ti-flickr" style="color: #ebbd40; padding:5px;"></span>@item.MaChuyenBay</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #222; font-weight: 600; font-size: 20px;">@item.MaSanBayDi</td>
+                                        <td></td>
+                                        <td style="color: #222; font-weight: 600; font-size: 20px;">@item.MaSanBayDen</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            @{
+                                                int gioBay = item.GioBay;
+                                                TimeSpan hour = TimeSpan.FromHours(gioBay);
+                                                string gio = hour.ToString();
+
+                                                int phutBay = item.PhutBay;
+                                                TimeSpan minute = TimeSpan.FromHours(phutBay);
+                                                string phut = minute.ToString();
+
+                                                string thoiGianBay = gioBay + " hrs " + phutBay + " mins ";
+                                                @thoiGianBay
+
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a style="cursor:pointer" onclick="showDetails()">Chi tiết <i class="ti-angle-down"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="price-flight">
+                            @{ if (item.TinhTrang == "Opening")
+                                {
+                                    <a href="~/DatVe/ThongTinHanhKhach?SoLuong=@SoLuong&MaChuyenBay=@item.MaChuyenBay">
+                                        @string.Format("{0:#,##0}", item.GiaVe) VND
+                                    </a>
+                                    <span style="float:right; position:relative; top:20%;right:0" class="ti-angle-right"></span>
+                                }
+                                else
+                                {
+                                    <span style="cursor:not-allowed">Chưa mở bán vé cho chuyến bay này</span>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     }
-}
+</div>
+
+
 
 
 @*xử lý ẩn hiển phần chỉnh sửa (search)*@
