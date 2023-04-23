@@ -24,5 +24,57 @@ namespace cnpmNC.Models.mapUuDai
 
             return data;
         }
+        //thêm mới ưu đãi
+        public bool ThemMoiUD(UuDai model)
+        {
+            try
+            {
+                cnpmNCEntities db = new cnpmNCEntities();
+                db.UuDais.Add(model);
+                db.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //cập nhật ưu đãi
+        public bool updateUD(UuDai model)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            var updateModel = db.UuDais.Find(model.MaUD);
+
+            if (updateModel == null) 
+            {
+                return false;
+            }
+
+            //cập nhật giá trị
+            updateModel.MucUD = model.MucUD;
+            updateModel.ThoiGianUD = model.ThoiGianUD;
+
+            db.SaveChanges();
+            return true;    
+        }
+
+        //xóa ưu đãi
+        public bool XoaUD(String MaUD)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            var model = db.UuDais.Find(MaUD);   
+
+            if (model != null)
+            {
+                db.UuDais.Remove(model);
+                db.SaveChangesAsync();
+                return true;
+            }
+            else 
+            { 
+                return false; 
+            }
+        }
     }
 }

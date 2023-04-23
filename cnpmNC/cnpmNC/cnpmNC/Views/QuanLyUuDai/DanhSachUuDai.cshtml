@@ -1,9 +1,9 @@
-﻿@model IEnumerable<cnpmNC.Models.DatVe>
-
+﻿@model IEnumerable<cnpmNC.Models.UuDai>
 @{
-    ViewBag.Title = "DanhSachVeDat";
+    ViewBag.Title = "DanhSachUuDai";
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
 }
+
 
 <style>
     .link {
@@ -82,11 +82,12 @@
         margin-bottom: 5px;
         text-align: center
     }
+
 </style>
+
 <div class="link">
     <ul>
-        <li><a href="">Quản lý đơn vé</a></li>
-
+        <li><a href="~/QuanLyUuDai/DanhSachUuDai">Quản lý ưu đãi</a></li>
     </ul>
 </div>
 
@@ -94,62 +95,51 @@
     <table class="table-manager">
         <thead>
             <tr>
-                <td colspan="7">
-                    <h1>Quản lý vé đặt</h1>
+                <td colspan="3"></td>
+                <td class="control">
+                </td>
+                <td class="control">
+                    <a href="~/QuanLyUuDai/ThemUuDai"><i class="ti-plus"></i></a>
                 </td>
             </tr>
             <tr>
-                <th>Mã Đặt Vé</th>
-                <th>Số Lượng Vé</th>
-                <th>Tài Khoản Đặt</th>
-                <th>Tổng tiền</th>
-                <th>Mã Sân Bay Đi</th>
-                <th>Trạng Thái</th>
-                <th>Thao Tác</th>
+                <td colspan="5">
+                    <h1>Quản lý ưu đãi</h1>
+                </td>
+            </tr>
+            <tr>
+                <th>Mã Ưu Đãi</th>
+                <th>Mức Ưu Đãi (%)</th>
+                <th>Ngày Hết Hiệu Lực</th>
+                <th>Sửa</th>
+                <th>Xóa</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>@item.MaDatVe</td>
-                    <td>@item.SoLuongVe</td>
-                    <td>@item.TaiKhoanDat</td>
-                    <td>@item.TongTien</td>
-                    <td>@item.ChuyenBay.MaSanBayDi</td>
+                if (item.MaUD == "UD0001")
+                {
 
-                    @if (item.TrangThai == "Đã xác nhận")
-                    {
-                        <td style="color:limegreen">@item.TrangThai</td>
-                    }
-                    else if (item.TrangThai == "Chưa thanh toán")
-                    {
-                        <td style="color:red">@item.TrangThai</td>
-                    }
-                    else
-                    {
-                        <td style="color:yellow">@item.TrangThai</td>
-                    }
-
-                <td>
-                    @if (item.TrangThai == "Đã thanh toán")
-                    {
-                        <a href="~/QuanLyDatVe/XacNhanDatVe?MaDatVe=@item.MaDatVe" style="text-decoration:none">Xác nhận đặt vé</a>
-                    }
-                    else if (item.TrangThai == "Đã xác nhận")
-                    {
-                        <span></span>
-                    }
-                    else
-                    {
-                        <span></span>
-                    }
-                </td>
-
-
-                </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@item.MaUD</td>
+                        <td>@item.MucUD %</td>
+                        <td>@string.Format("{0:dd/MM/yy}", item.ThoiGianUD)</td>
+                        <td>
+                            <a href="~/QuanLyUuDai/CapNhatUuDai?MaUD=@item.MaUD" style="text-decoration:none; color:#00305B"><i class="ti-marker-alt"></i></a>
+                        </td>
+                        <td>
+                            <a onclick="if (confirm('Bạn chắc chắn xóa ưu đãi này không !?')) { location.href='/QuanLyUuDai/XoaUuDai?MaUD=@item.MaUD'}" href="#" style="text-decoration:none; color:#00305B"><i class="ti-trash"></i></a>
+                        </td>
+                    </tr>
+                }
             }
         </tbody>
     </table>
 </div>
+
+
 

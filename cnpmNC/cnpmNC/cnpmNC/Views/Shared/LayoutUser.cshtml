@@ -66,6 +66,9 @@
             <a class="manager" href="~/Home/TrangChu">TRANG CHỦ</a>
             <a class="manager" href="~/DatVe/DatVe">ƯU ĐÃI</a>
             <a class="manager" href="~/DatVe/DatVe">THÔNG TIN SÂN BAY</a>
+            <a class="manager" href="~/DonVeCuaToi/DonVeCuaToi">ĐƠN VÉ CỦA TÔI</a>
+            <a class="manager" href="~/ChuyenBayCuaToi/ChuyenBayCuaToi">CHUYẾN BAY CỦA TÔI</a>
+
             <a class="profile" style="float:right" href=""><i class="ti-settings"></i></a>
 
             @{
@@ -77,25 +80,25 @@
                 {
                 }
             }
-        <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
-            @{ if (user == null)
-                {
-                    <script>
+            <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
+                @{ if (user == null)
+                    {
+                        <script>
                       //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
                       // Hiển thị thông báo
                       alert("Phiên đăng nhập đã hết hạn!");
 
                       // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
                       window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
-                    </script>
+                        </script>
+                    }
+                    else
+                    { <span>Hi, @user.HoTen</span>}
                 }
-                else
-                { <span>Hi, @user.HoTen</span>}
-            }
-        </p>
+            </p>
         </div>
         <!--   Code phan main   -->
-        <div class="main" style="background: #EDF3F7;">
+        <div class="main" style="background: #EDF3F7; min-height:1000px;">
             @RenderBody()
         </div>
         <div style="padding: 7px; background: #005574" class="footer">

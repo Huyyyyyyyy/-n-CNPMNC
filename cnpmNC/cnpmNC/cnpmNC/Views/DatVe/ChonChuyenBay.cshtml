@@ -414,9 +414,14 @@
                                     </a>
                                     <span style="float:right; position:relative; top:20%;right:0" class="ti-angle-right"></span>
                                 }
-                                else
+                                else if (item.TinhTrang == "Closed")
                                 {
                                     <span style="cursor:not-allowed">Chưa mở bán vé cho chuyến bay này</span>
+                                }
+                                else if (item.SLGheTrong == 0)
+                                {
+                                    <span style="cursor:not-allowed">Chuyến bay hiện đã hết chỗ</span>
+
                                 }
                             }
                         </div>

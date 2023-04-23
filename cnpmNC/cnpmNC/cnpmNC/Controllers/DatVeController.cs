@@ -128,8 +128,19 @@ namespace cnpmNC.Controllers
         public ActionResult ThanhToan(HoaDon model)
         {
             mapHoaDon map = new mapHoaDon();
+            cnpmNCEntities db = new cnpmNCEntities();
             if (map.ThemMoiHD(model) == true)
             {
+                //lấy thông tin đơn vé 
+                var donVeDat = new mapDatVe().ThongTinDonDat(model.MaDatVe);
+                // lấy thông tin chuyến bay đã đặt
+                var chuyenBayDat = new mapChuyenBay.mapChuyenBay().lichcb(donVeDat.MaChuyenBay);
+                // trừ ghế trong chuyến bay khi thanh toán hoàn tất
+                ChuyenBay chuyenBay = db.ChuyenBays.SingleOrDefault(m => m.MaChuyenBay == chuyenBayDat.MaChuyenBay);
+
+                chuyenBay.SLGheTrong = chuyenBay.SLGheTrong - model.SoLuongVe;
+
+                db.SaveChanges();
                 return RedirectToAction("HoanTatThanhToan");
             }
             else

@@ -1,11 +1,9 @@
-﻿using cnpmNC.Models.mapDatVe;
-using cnpmNC.Models;
-using System;
-using System.Collections.Generic;
+﻿using cnpmNC.Models;
+using cnpmNC.Models.mapDatVe;
+using cnpmNC.Models.mapHanhKhach;
+using cnpmNC.Models.mapHoaDon;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Reflection;
 
 namespace cnpmNC.Controllers
 {
@@ -31,8 +29,39 @@ namespace cnpmNC.Controllers
             vedat.TrangThai = "Đã xác nhận";
             DatVe model = db.DatVes.FirstOrDefault(ma => ma.MaDatVe == MaDatVe);
             model.TrangThai = vedat.TrangThai;
+
+            //lấy ra hành khách từ đơn vé 
+            var hanhKhach = new mapHanhKhach().TimHanhKhach(model.MaDatVe);
+
+            //lấy ra hóa đơn của người dùng
+            var hoaDon = new mapHoaDon().TimHoaDon(model.MaDatVe);
+
+            // lấy thông tin chuyến bay đã đặt
+            var chuyenBayDat = new mapChuyenBay.mapChuyenBay().lichcb(model.MaChuyenBay);
+
+            // tiến hành tạo vé chuyến bay cho từng hành khách có trong đơn vé đã đặt 
+            foreach (var item in hanhKhach)
+            {
+                VeChuyenBay veChuyenBay = new VeChuyenBay();
+                veChuyenBay.MaVe = new cnpmNC.Models.taoMa.taoMaVe().TaoMaVe();
+                veChuyenBay.MaDatVe = model.MaDatVe;
+                veChuyenBay.MaHD = hoaDon.MaHD;
+                veChuyenBay.MaHK = item.MaHK;
+                veChuyenBay.TenHanhKhach = item.TenHK;
+                veChuyenBay.MaChuyenBay = model.MaChuyenBay;
+                veChuyenBay.NgayKhoiHanh = chuyenBayDat.NgayKhoiHanh;
+                veChuyenBay.GioKhoiHanh = chuyenBayDat.GioKhoiHanh;
+                veChuyenBay.MaSanBayDi = chuyenBayDat.MaSanBayDi;
+                veChuyenBay.MaSanBayDen = chuyenBayDat.MaSanBayDen;
+
+                db.VeChuyenBays.Add(veChuyenBay);
+                db.SaveChanges();
+            }
+
             db.SaveChanges();
             return RedirectToAction("DanhSachVeDat");
+
+
         }
     }
 }

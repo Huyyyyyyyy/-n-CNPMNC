@@ -130,10 +130,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountUsersController.cs" />
+    <Compile Include="Controllers\ChuyenBayCuaToiController.cs" />
     <Compile Include="Controllers\DatVeController.cs" />
+    <Compile Include="Controllers\DonVeCuaToiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\QuanLyChuyenBayController.cs" />
     <Compile Include="Controllers\QuanLyDatVeController.cs" />
+    <Compile Include="Controllers\QuanLyUuDaiController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -157,6 +160,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\mapAccount\mapAccount.cs" />
+    <Compile Include="Models\mapChuyenBayCuaToi\mapChuyenBayCuaToi.cs" />
     <Compile Include="Models\mapChuyenBay\mapChuyenBay.cs" />
     <Compile Include="Models\mapDatVe\mapDatVe.cs" />
     <Compile Include="Models\mapHanhKhach\HanhKhachTam.cs" />
@@ -165,6 +169,7 @@
     <Compile Include="Models\mapSanBay\mapSanBay.cs" />
     <Compile Include="Models\mapTaiKhoan\mapTaiKhoan.cs" />
     <Compile Include="Models\mapUuDai\mapUuDai.cs" />
+    <Compile Include="Models\mapVeChuyenBay\mapVeChuyenBay.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -194,6 +199,8 @@
     <Compile Include="Models\taoMa\taoMaDonDatVe.cs" />
     <Compile Include="Models\taoMa\taoMaHanhKhach.cs" />
     <Compile Include="Models\taoMa\taoMaHoaDon.cs" />
+    <Compile Include="Models\taoMa\taoMaUuDai.cs" />
+    <Compile Include="Models\taoMa\taoMaVe.cs" />
     <Compile Include="Models\UuDai.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -589,6 +596,7 @@
     <Content Include="Image\hue.jpg" />
     <Content Include="Image\jcb.png" />
     <Content Include="Image\mastercard.png" />
+    <Content Include="Image\plane-icon.png" />
     <Content Include="Image\the-red-bridge.jpg" />
     <Content Include="Image\tphcm.jpg" />
     <Content Include="Image\uatp.png" />
@@ -749,6 +757,11 @@
     <Content Include="Views\TaiKhoan\CapNhatTaiKhoan.cshtml" />
     <Content Include="Views\TaiKhoan\DanhSachTaiKhoan.cshtml" />
     <Content Include="Views\QuanLyDatVe\DanhSachVeDat.cshtml" />
+    <Content Include="Views\QuanLyUuDai\CapNhatUuDai.cshtml" />
+    <Content Include="Views\QuanLyUuDai\DanhSachUuDai.cshtml" />
+    <Content Include="Views\QuanLyUuDai\ThemUuDai.cshtml" />
+    <Content Include="Views\DonVeCuaToi\DonVeCuaToi.cshtml" />
+    <Content Include="Views\ChuyenBayCuaToi\ChuyenBayCuaToi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

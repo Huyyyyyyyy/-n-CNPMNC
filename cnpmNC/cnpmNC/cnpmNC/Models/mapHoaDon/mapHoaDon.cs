@@ -28,5 +28,12 @@ namespace cnpmNC.Models.mapHoaDon
                 return false;
             }
         }
+
+        //tìm hóa đơn từ mã đặt vé
+        public HoaDon TimHoaDon(String MaDatVe)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            return db.HoaDons.SingleOrDefault(k => k.MaDatVe == MaDatVe);
+        }
     }
 }

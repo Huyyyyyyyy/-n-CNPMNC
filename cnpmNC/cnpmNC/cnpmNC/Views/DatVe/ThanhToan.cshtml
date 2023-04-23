@@ -41,7 +41,7 @@
     string MaUuDai = "";
     if(String.IsNullOrEmpty(ViewBag.MaUuDai) == true)
     {
-        MaUuDai = "NON";
+        MaUuDai = "UD0001";
     }
     else
     {
@@ -53,7 +53,7 @@
 
     decimal ThanhTien = 0;
 
-    if (MaUuDai == "NON")
+    if (MaUuDai == "UD0001")
     {
         ThanhTien = ChuyenBayDaChon.GiaVe*SoLuong;
     }
@@ -537,7 +537,7 @@
     <a class="price-flight-procedure">
         <i class="ti-shopping-cart-full"></i>
         @{
-            if (MaUuDai == "NON")
+            if (MaUuDai == "UD0001")
             {
                 string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
                 @TongChuaUuDai<sup style="font-weight:400">VND</sup>
@@ -618,7 +618,7 @@
     <div class="passengers-information">
         <h1>
             Thanh Toán @{
-                if (MaUuDai == "NON")
+                if (MaUuDai == "UD0001")
                 {
                     string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
                     @TongChuaUuDai<sup style="font-weight:400">VND</sup>
@@ -750,7 +750,7 @@
             <span style="line-height:20px"><i style="color: #005574; font-size:18px; font-weight:600" class="ti-receipt"></i>&nbsp;Ưu đãi</span>
             <a onclick="showDetailVoucher()" style="float:right">
                 Chọn voucher  @{
-                    if (MaUuDai == "NON")
+                    if (MaUuDai == "UD0001")
                     {
 
                     }
@@ -773,7 +773,7 @@
 
                         @foreach (var item in new cnpmNC.Models.mapUuDai.mapUuDai().DanhSachUuDai())
                         {
-                            if (item.MaUD == "NON")
+                            if (item.MaUD == "UD0001")
                             {
                                 <option selected value="@item.MaUD">Chọn mã ưu đãi</option>
                             }
@@ -788,7 +788,7 @@
                 </form>
             </div>
             <div class="info-voucher">
-                @if (MaUuDai == "NON")
+                @if (MaUuDai == "UD0001")
                 {
 
                 }
@@ -810,7 +810,7 @@
             <span style="font-weight:bold; font-size:20px;">Tổng</span>
             <span style="float: right; color: #005574; font-weight:bold; font-size:20px">
                 @{
-                    if (MaUuDai == "NON")
+                    if (MaUuDai == "UD0001")
                     {
                         string TongChuaUuDai = string.Format("{0:#,##0}", ChuyenBayDaChon.GiaVe * SoLuong);
                         @TongChuaUuDai<sup style="font-weight:400">VND</sup>

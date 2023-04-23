@@ -1,0 +1,266 @@
+﻿
+@{
+    ViewBag.Title = "DonVeCuaToi";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+
+    var user = (cnpmNC.Models.TaiKhoan)System.Web.HttpContext.Current.Session["user"];
+
+    if (user == null)
+    {
+        <script>
+                      //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+                      // Hiển thị thông báo
+                      alert("Phiên đăng nhập đã hết hạn!");
+
+                      // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                      window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+        </script>
+    }
+
+
+
+}
+
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        padding: 50px 20px 35px 20px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #00305B;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    .managerCB {
+        margin: 20px;
+    }
+
+        .managerCB h1 {
+            border-radius: 4px 4px 0 0;
+            padding: 10px 20px;
+            margin: 0px 0 5px 0;
+            background-color: #005574;
+            color: #fff;
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+    input:focus {
+        outline: none;
+    }
+
+    .table-manager {
+        width: 100%;
+    }
+
+    .managerCB .table-manager thead th {
+        color: #222;
+        width: 80px;
+        text-align: center;
+        border: 1px solid #005574;
+        background-color: #ebbd40;
+    }
+
+    .managerCB .table-manager tbody td {
+        width: 80px;
+        text-align: center;
+        border: 1px solid #005574;
+    }
+
+    .managerCB .table-manager tbody tr:nth-child(even) {
+        background-color: gainsboro;
+    }
+
+    .managerCB .table-manager tbody tr:nth-child(odd) {
+        background-color: #ffff;
+    }
+
+    .control a {
+        text-decoration: none;
+        padding: 12px 27px 12px 27px;
+        background: #33597C;
+        color: #ffff;
+        border-radius: 4px;
+        float: right;
+        margin-bottom: 5px;
+        text-align: center
+    }
+    .detail-ticket{
+        display: contents;
+    }
+
+    .detail-ticket td {
+        text-align: start !important;
+        background-color: white;
+        padding: 5px 5px 5px 20px;
+        line-height: 22px;
+    }
+
+    .detail-ticket .detail-ticket-content {
+        font-weight: bold;
+    }
+
+    .information-important {
+        margin-left: 20px;
+        font-family: Diavlo,Arial;
+    }
+</style>
+<div class="link">
+    <ul>
+        <li><a href="~">Đơn vé của tôi</a></li>
+    </ul>
+</div>
+<div class="managerCB">
+    <table class="table-manager">
+        <thead>
+            <tr>
+                <td colspan="18">
+                    <h1>
+                        Đơn vé của tôi
+                    </h1>
+                </td>
+            </tr>
+            <tr>
+                <th>Ngày / Date</th>
+                <th>Chuyến bay/ Flight</th>
+                <th>Khởi hành / Departure</th>
+                <th>Thời gian / Time</th>
+                <th>Đến / Arrival</th>
+                <th>Thời gian / Time</th>
+                <th colspan="2">Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (user == null)
+                {
+                <tr>
+                    <td>
+                        <script>
+                      //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+                      // Hiển thị thông báo
+                      alert("Phiên đăng nhập đã hết hạn!");
+
+                      // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                      window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+                        </script>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in new cnpmNC.Models.mapChuyenBayCuaToi.mapChuyenBayCuaToi().DanhSachDonVe(user.TenTK))
+                {
+                    cnpmNC.Models.ChuyenBay ChuyenBay = new cnpmNC.mapChuyenBay.mapChuyenBay().lichcb(item.MaChuyenBay);
+                    <tr style="background-color: #FCFAE9">
+                        <td>@string.Format("{0:dd/MM/yyyy}", ChuyenBay.NgayKhoiHanh)</td>
+                        <td>@item.MaChuyenBay</td>
+                        <td>
+                            @{var sanBayDi = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDi);
+                                <span>@sanBayDi.DiaDiem (@ChuyenBay.MaSanBayDi)</span>}
+                        </td>
+                        <td>
+                            @ChuyenBay.GioKhoiHanh.ToString("hh\\:mm")
+                        </td>
+                        <td>
+                            @{var sanBayDen = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDen);
+                                <span>@sanBayDen.DiaDiem (@ChuyenBay.MaSanBayDen)</span>}
+                        </td>
+                        <td>
+                            @ChuyenBay.GioHaCanh.ToString("hh\\:mm")
+                        </td>
+
+                        @{if (item.TrangThai == "Đã thanh toán")
+                            {
+                                <td><a style="text-decoration:none;opacity:50%; color:gray; line-height:20px; font-weight:bold" href=""><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
+                                <td></td>
+                            }
+                            else if (item.TrangThai == "Đã xác nhận")
+                            {
+                                <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/ChuyenBayCuaToi/ChuyenBayCuaToi?MaDatVe=@item.MaDatVe"><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/DatVe/ThanhToan?SoLuong=@item.SoLuongVe&MaChuyenBay=@item.MaChuyenBay&MaDatVe=@item.MaDatVe"><i class="ti-credit-card">  </i>Thanh toán</a></td>
+                                <td><a style="text-decoration:none; color:red; line-height:20px; font-weight:bold" href=""><i class="ti-bolt-alt">  </i>Yêu cầu hủy vé</a></td>
+                            }
+                        }
+
+                    </tr>
+                    <tr class="detail-ticket" id="detail-ticket">
+                        <td colspan="9">
+                            MÃ ĐẶT VÉ / RESERVATION CODE: <span class="detail-ticket-content">@item.MaDatVe</span> <br />
+                            ĐIỆN THOẠI / PHONE: <span class="detail-ticket-content">@user.SoDT</span><br />
+                            HÀNH KHÁCH / PASSENGER: @foreach (var hanhKhach in new cnpmNC.Models.mapHanhKhach.mapHanhKhach().TimHanhKhach(item.MaDatVe))
+                            {
+                                <br /> <span class="detail-ticket-content">@hanhKhach.TenHK</span>
+                            }
+                            <br />
+                            @if (item.TrangThai == "Đã thanh toán")
+                            {
+                                <span>TRẠNG THÁI / STATUS: <span class="detail-ticket-content">@item.TrangThai</span>  (Vé của bạn sẽ được xác nhận sau ít phút)<br /></span>
+                            }
+                            else
+                            {
+                                <span>TRẠNG THÁI / STATUS: <span class="detail-ticket-content">@item.TrangThai</span><br /></span>
+
+                            }
+
+
+                            GIÁ VÉ / PRICE: <span class="detail-ticket-content">@{String gia = string.Format("{0:#,##0}", ChuyenBay.GiaVe); @gia <span>VNĐ</span> }</span>
+                            @*nếu trang thái đã thanh toán hoặc đã xác nhận thì lấy ra thông tin hóa đơn*@
+                            @if (item.TrangThai == "Đã thanh toán" || item.TrangThai == "Đã xác nhận")
+                            {
+                                //lấy ra thông tin hóa đơn từ mã đặt vé
+                                var hoaDon = new cnpmNC.Models.mapHoaDon.mapHoaDon().TimHoaDon(item.MaDatVe);
+
+                                //lấy ra thông tin ưu đãi từ mã hóa đơn
+                                var uuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(hoaDon.MaUuDai);
+                                <br /><span>MÃ GIẢM GIÁ / VOUCHER: <span class="detail-ticket-content"> @hoaDon.MaUuDai (Giảm @uuDai.MucUD %)</span></span>
+
+                                //in ra tổng tiền trong hóa đơn
+                                <br /><span>THÀNH TIỀN / TOTAL: <span class="detail-ticket-content">@{String totalPrice = string.Format("{0:#,##0}", hoaDon.ThanhTien); @totalPrice}<span> VNĐ</span></span></span>
+                            }
+                            else
+                            {
+                                <br /> <span>THÀNH TIỀN / TOTAL: <span class="detail-ticket-content">@{String total = string.Format("{0:#,##0}", item.TongTien); @total}<span> VNĐ</span></span></span>
+
+                            }
+                        </td>
+                    </tr>
+
+                }
+            }
+
+        </tbody>
+    </table>
+</div>
+
+<div class="information-important">
+    <h2 style="font-size:16px; line-height:30px; padding-left:10px; border-left:5px solid #0685AA ">THÔNG TIN QUAN TRỌNG</h2>
+    <strong>Giấy giờ tùy thân: </strong><span>Quý khách vui lòng mang theo giấy tờ tùy thân (CCCD/CMND, Giấy phép lái xe, Giấy khai sinh)
+    khi làm thủ tục. </span><br/>
+    <strong>Thời gian: </strong><span>Đến sân ít nhất 1h30 trước giờ bay để làm thủ tục.</span>
+    <p>Vui lòng đọc kỹ mọi thông tin trên vé trước khi nhận và thanh toán. Chúng tôi không chịu trách nhiệm 
+    nào về sai sót thông tin sau khi quý khách đã nhận vé và thanh toán</p>
+</div>
+
+
+
+
+
+
