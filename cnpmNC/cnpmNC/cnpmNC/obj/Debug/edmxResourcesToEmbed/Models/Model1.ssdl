@@ -41,12 +41,12 @@
   </EntityType>
   <EntityType Name="DoanhThu">
     <Key>
-      <PropertyRef Name="MaDT" />
+      <PropertyRef Name="Ngay" />
     </Key>
-    <Property Name="MaDT" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="Ngay" Type="date" Nullable="false" />
     <Property Name="SoVeBan" Type="int" Nullable="false" />
     <Property Name="TongDoanhThu" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="LoiNhuan" Type="decimal" Precision="10" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="HanhKhach">
     <Key>
@@ -97,7 +97,7 @@
       <PropertyRef Name="TenTK" />
     </Key>
     <Property Name="TenTK" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="MatKhau" Type="nvarchar" MaxLength="9" Nullable="false" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="50" />
     <Property Name="QuyenTruyCap" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="HoTen" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="SoDT" Type="nvarchar" MaxLength="11" Nullable="false" />
@@ -282,6 +282,37 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="cnpmNCModelStoreContainer">
     <EntitySet Name="ChiTietBay" EntityType="Self.ChiTietBay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ChuyenBay" EntityType="Self.ChuyenBay" Schema="dbo" store:Type="Tables" />

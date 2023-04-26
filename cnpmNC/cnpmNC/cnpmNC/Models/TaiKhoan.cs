@@ -30,6 +30,7 @@ namespace cnpmNC.Models
         public string SoDT { get; set; }
         public string CCCD { get; set; }
 
+
         [NotMapped]
         [Required]
         [System.ComponentModel.DataAnnotations.Compare("MatKhau")]

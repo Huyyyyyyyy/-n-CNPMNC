@@ -18,7 +18,7 @@ namespace cnpmNC.Models
         public string MaDatVe { get; set; }
         public System.DateTime Ngay { get; set; }
         public string TaiKhoanDat { get; set; }
-        public int SoLuongVe { get; set; }  
+        public int SoLuongVe { get; set; }
         public decimal GiaVe { get; set; }
         public string MaUuDai { get; set; }
         public decimal ThanhTien { get; set; }

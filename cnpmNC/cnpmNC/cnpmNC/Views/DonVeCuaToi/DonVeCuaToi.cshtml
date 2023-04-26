@@ -235,7 +235,7 @@
                                 //in ra tổng tiền trong hóa đơn
                                 <br /><span>THÀNH TIỀN / TOTAL: <span class="detail-ticket-content">@{String totalPrice = string.Format("{0:#,##0}", hoaDon.ThanhTien); @totalPrice}<span> VNĐ</span></span></span>
                             }
-                            else
+                            else if (item.TrangThai == "Chưa thanh toán")
                             {
                                 <br /> <span>THÀNH TIỀN / TOTAL: <span class="detail-ticket-content">@{String total = string.Format("{0:#,##0}", item.TongTien); @total}<span> VNĐ</span></span></span>
 

@@ -12,6 +12,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link href="~/Content/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/Content/dist/css/adminlte.min.css" rel="stylesheet" />
     <!-- link icons -->
     <link rel="stylesheet" href="~/icons/themify-icons/themify-icons.css">
     <style>
@@ -53,7 +60,6 @@
                 padding: 10px 10px 10px 10px;
                 margin: 5px;
             }
-
     </style>
 
 </head>
@@ -64,7 +70,7 @@
             <a class="manager" href="~/QuanLyUuDai/DanhSachUuDai">ƯU ĐÃI</a>
             <a class="manager" href="~/QuanLyDatVe/DanhSachVeDat">ĐƠN ĐẶT VÉ</a>
             <a class="manager" href="~/TaiKhoan/DanhSachTaiKhoan">QUẢN LÝ TÀI KHOẢN</a>
-            <a class="manager" href="">DOANH THU</a>
+            <a class="manager" href="~/DoanhThu/ThongKeDoanhThu">DOANH THU</a>
 
 
             <a class="setting" style="float:right" href=""><i class="ti-settings"></i></a>
@@ -81,14 +87,14 @@
             <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
                 @{ if (user == null)
                     {
-                     <script>
+                        <script>
                       //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
                       // Hiển thị thông báo
                       alert("Phiên đăng nhập đã hết hạn!");
 
                       // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
                       window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
-                      </script>
+                        </script>
                     }
                     else
                     { <span>Hi Admin, @user.HoTen</span>}
@@ -106,4 +112,16 @@
     </div>
 </body>
 </html>
+
+<!-- jQuery -->
+<script src="~/Content/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="~/Content/plugins/chart.js/Chart.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/Content/dist/js/adminlte.min.js"></script>
+
+
+
 
