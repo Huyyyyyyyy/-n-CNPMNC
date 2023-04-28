@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+    var user = (cnpmNC.Models.TaiKhoan)System.Web.HttpContext.Current.Session["user"];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quản Lý Vé Máy Bay Đã Đặt</title>
+    <style>
+        .user {
+            margin-left: 10px;
+        }
+
+        .background {
+            background: url('~/Asset/Asset/image/background.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        td {
+        }
+
+        .button-logout {
+            text-decoration: none;
+            line-height: 40px;
+            color: white;
+            background-color: #E6B441;
+            border-radius: 7px;
+            margin: 10px;
+        }
+
+        .button-logout:hover{
+            text-decoration:none ;
+            color:white;
+             
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+    </header>
+    <div class="link">
+        <ul>
+            <li><a href="~">Tài khoản</a></li>
+        </ul>
+    </div>
+    <div class="background mt-5">
+        <div class="container">
+            <div class="row py-4">
+                <div class="col-4">
+                    <div class="card shadow-sm">
+                        <div class="d-flex flex-column">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="d-flex flex-row pt-2 px-3 align-items-center">
+                                        <div><img src="~/Asset/Asset/image/user.png" /></div>
+                                        <div class="user">
+                                            @using (Html.BeginForm("RedirectToMeIndex", "Home", FormMethod.Get))
+                                            {
+                                                <a href="#" style="color: black" onclick="this.closest('form').submit(); return false;">Tài khoản của tôi</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="card  shadow">
+                        <div class="card-header">
+                            Tài khoản
+                        </div>
+                        <div class="px-2">
+                            <table class="table table-borderless">
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><img src="~/Asset/Asset/image/person.png" /></td>
+                                        <td>Họ và tên</td>
+                                        <td>@user.HoTen</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="~/Asset/Asset/image/call.png" /></td>
+                                        <td>Phone</td>
+                                        <td>@user.SoDT</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="~/Asset/Asset/image/email.png" /></td>
+                                        <td>Email</td>
+                                        <td>@user.TenTK</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="~/Asset/Asset/image/wallet.png" /></td>
+                                        <td>CCCD</td>
+                                        <td>@user.CCCD</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a class="button-logout" href="~/AccountUsers/DangXuat">ĐĂNG XUẤT</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>

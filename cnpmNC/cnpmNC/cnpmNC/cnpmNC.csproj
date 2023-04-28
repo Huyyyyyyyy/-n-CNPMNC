@@ -135,6 +135,7 @@
     <Compile Include="Controllers\DoanhThuController.cs" />
     <Compile Include="Controllers\DonVeCuaToiController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\QuanLyChuyenBayController.cs" />
     <Compile Include="Controllers\QuanLyDatVeController.cs" />
     <Compile Include="Controllers\QuanLyUuDaiController.cs" />
@@ -218,6 +219,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Asset\Asset\image\background.jpg" />
+    <Content Include="Asset\Asset\image\call.png" />
+    <Content Include="Asset\Asset\image\email.png" />
+    <Content Include="Asset\Asset\image\information.png" />
+    <Content Include="Asset\Asset\image\medal.png" />
+    <Content Include="Asset\Asset\image\person.png" />
+    <Content Include="Asset\Asset\image\user.png" />
+    <Content Include="Asset\Asset\image\wallet.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -2831,6 +2840,7 @@
     <Content Include="Views\DonVeCuaToi\DonVeCuaToi.cshtml" />
     <Content Include="Views\ChuyenBayCuaToi\ChuyenBayCuaToi.cshtml" />
     <Content Include="Views\DoanhThu\ThongKeDoanhThu.cshtml" />
+    <Content Include="Views\Profile\profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
