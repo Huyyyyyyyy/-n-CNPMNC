@@ -42,8 +42,12 @@
   <EntityType Name="DoanhThu">
     <Key>
       <PropertyRef Name="Ngay" />
+      <PropertyRef Name="Thang" />
+      <PropertyRef Name="Nam" />
     </Key>
-    <Property Name="Ngay" Type="date" Nullable="false" />
+    <Property Name="Ngay" Type="int" Nullable="false" />
+    <Property Name="Thang" Type="int" Nullable="false" />
+    <Property Name="Nam" Type="int" Nullable="false" />
     <Property Name="SoVeBan" Type="int" Nullable="false" />
     <Property Name="TongDoanhThu" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="LoiNhuan" Type="decimal" Precision="10" Scale="2" Nullable="false" />

@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "ThongKeDoanhThu";
     Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+
+
+    List<cnpmNC.Models.HoaDon> hoaDons = ViewBag.hoaDon;
 }
 
 <!-- Google Font: Source Sans Pro -->
@@ -34,6 +37,117 @@
                 .link ul a i {
                     margin: 0 10px 0 10px;
                 }
+
+
+                .statistical{
+                    width:50%;
+                }
+                    .statistical .card-success .card-header {
+                        background-color: #005574;
+                    }
+
+                    .statistical .card-info .card-header {
+                        background-color: #005574;
+                    }
+
+
+                    .content {
+                        width: 100%;
+                        display: flex;
+                    }
+                    .content .history{
+                        width:50%;
+                        margin:0 20px 0 0;
+                    }
+
+    .history table {
+        width: 100%;
+        margin: 0 0 20px 20px;
+        height: 120px;
+        box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.1);
+    }
+
+        .history table th {
+            background-color: #005574;
+            width: 100%;
+            padding: 10px;
+            color: #ececec;
+            line-height: 20px;
+            font-size: 16px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: 400;
+            user-select: revert;
+            cursor: default;
+        }
+
+    .history table th ::selection {
+        background-color: transparent;
+        color: inherit;
+    }
+
+    .history table tr {
+        background-color: #FBF9F2;
+        width: 100%;
+        color: #222;
+        line-height: 10px;
+    }
+
+    .history table td {
+        width:25%;
+        height: 20%;
+        padding: 15px;
+        text-align:center;
+
+    }
+
+    .history table label {
+        display: block;
+        margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+        vertical-align: top; /* Để đặt label ở phía trên của input */
+        font-size: 13px;
+    }
+
+    .history table input {
+        border: 0;
+        background-color: #FBF9F2;
+        width: 100%;
+        height: 55%;
+        border-bottom: 1px solid #005574;
+        line-height: 40%;
+    }
+
+    .history table input:focus {
+        outline: none;
+    }
+
+    .history table select {
+        border: none;
+        height: 55%;
+        border-bottom: 1px solid #005574;
+        line-height: 40%;
+        background-color: #FBF9F2;
+        width: 100%;
+    }
+
+
+    .history table button {
+        border: none;
+        height: 70%;
+        border-radius: 5px;
+        width: 100%;
+        background-color: #ebbd40;
+        color: white;
+    }
+
+    .history table button:hover {
+        background-color: #c79716;
+    }
+
+    .history table .titlte{
+        border: 1px solid #cac7c7;
+        background-color:#ececec;
+    }
 </style>
 
 <div class="link">
@@ -42,106 +156,371 @@
     </ul>
 </div>
 
-
-
-<!-- BAR CHART -->
-<div class="card card-success">
-    <div class="card-header">
-        <h3 class="card-title">Thống Kê Doanh Thu</h3>
-
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                <i class="fas fa-times"></i>
-            </button>
+<div class="content">
+    <div class="statistical">
+        <!-- BAR CHART -->
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Thống Kê Doanh Thu </h3>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- /.card-body -->
         </div>
-    </div>
-    <div class="card-body">
-        <div class="chart">
-            <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+
+
+        <!-- LINE CHART -->
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">Doanh Số Bán Vé</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- /.card-body -->
         </div>
+        <!-- /.card -->
+
     </div>
-    <!-- /.card-body -->
+    <div class="history">
+        <form action="~/DoanhThu/ThongKeDoanhThu" method="get">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            <span>Tra cứu</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="Ngay">Ngày</label>
+                            <select name="Ngay">
+                                <option selected disabled>Chọn ngày</option>
+                                @for (int i = 1; i <= 31; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+
+                        </td>
+                        <td>
+                            <label for="Thang">Tháng</label>
+                            <select name="Thang" required>
+                                <option selected disabled>Chọn tháng</option>
+                                @for (int i = 1; i <= 12; i++)
+                                {
+                                    <option value="@i">Tháng @i</option>
+                                }
+                            </select>
+                        </td>
+                        <td>
+                            <label for="Nam">Năm</label>
+                            <select name="Nam" required>
+                                <option selected disabled>Chọn năm</option>
+                                @for (int i = 2010; i <= 2023 && i >= 2010; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </td>
+                        <td><button type="submit">Tra cứu</button></td>
+                    </tr>
+                    @if (hoaDons == null)
+                    {
+
+                        <tr>
+                            <td colspan="4">Nhập thông tin cần tra cứu</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="titlte"> Ngày </td >
+                            <td class="titlte"> Hóa Đơn </td >
+                            <td class="titlte"> Số Vé </td >
+                            <td class="titlte"> Thành Tiền </td >
+                        </tr>
+                        foreach (var item in hoaDons)
+                        {
+                            <tr>
+                                <td> @string.Format("{0:dd-MM-yyyy}", item.Ngay) </td>
+                                <td > @item.MaHD </td >
+                                <td > @item.SoLuongVe </td >
+                                <td> @{String totalPrice = string.Format("{0:#,##0}", item.ThanhTien); @totalPrice}  VNĐ</td>
+
+                            </tr >
+                                    }
+                                    }
+
+                </tbody>
+            </table>
+        </form>
+    </div>
+
 </div>
-<!-- jQuery -->
-<script src="~/Content/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
 
-<script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- AdminLTE App -->
-<script src="~/Content/dist/js/adminlte.min.js"></script>
+<!-- jquery -->
+<script src="~/content/plugins/jquery/jquery.min.js"></script>
+<!-- bootstrap 4 -->
 
-    <!-- ChartJS -->
+<script src="~/content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- adminlte app -->
+<script src="~/content/dist/js/adminlte.min.js"></script>
+
+<!-- chartjs -->
+@section scripts{
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
     <script src="~/Content/plugins/chart.js/Chart.min.js"></script>
+
+
     <script>
         $(function () {
             /* ChartJS
-                * -------
-                * Here we will create a few charts using ChartJS
-                */
+             * -------
+             * Here we will create a few charts using ChartJS
+             */
+
+            //--------------
+            //- AREA CHART -
+            //--------------
+            var arrDoanhThu = [];
+            var arrLoiNhuan = [];
+            var arrMonth = [];
+            var loggedValues = {};
+
+            $.ajax({
+                url: 'DuLieuDoanhThu',
+                type: 'GET',
+                data: {},
+                success: function (rs) {
+                    console.log(rs.Data)
+
+                    for (var t = 1; t <= 12; t++) {
+                        var logged = loggedValues[t]; // Kiểm tra giá trị đã được log chưa
+                        if (!logged) { // Nếu chưa log giá trị
+                            var found = false;
+                            $.each(rs.Data, function (i, item) {
+                                if (item.Thang == t) {
+                                    console.log(item.Thang);
+                                    console.log(item.TongDoanhThu);
+                                    console.log(item.TongLoiNhuan);
+                                    arrMonth.push("Th " + item.Thang);
+                                    arrDoanhThu.push(item.TongDoanhThu);
+                                    arrLoiNhuan.push(item.TongLoiNhuan);
+                                    loggedValues[t] = true; // Đánh dấu đã log giá trị
+                                    found = true;
+                                    return false; // Thoát khỏi vòng lặp khi đã tìm thấy giá trị
+                                }
+                            });
+                            if (!found) {
+                                console.log(t);
+                                console.log(0);
+                                console.log(0);
+                                arrMonth.push("Th " + t);
+                                arrDoanhThu.push(0);
+                                arrLoiNhuan.push(0);
+
+                            }
+                        }
+                    }
+
+
+
+                    var areaChartData = {
+                        labels: arrMonth,
+                        datasets: [
+                            {
+                                label: 'Lợi nhuận',
+                                backgroundColor: '#005574',
+                                borderColor: 'rgba(60,141,188,0.8)',
+                                pointRadius: false,
+                                pointColor: '#3b8bba',
+                                pointStrokeColor: 'rgba(60,141,188,1)',
+                                pointHighlightFill: '#fff',
+                                pointHighlightStroke: 'rgba(60,141,188,1)',
+                                data: arrLoiNhuan
+                            },
+                            {
+                                label: 'Doanh thu',
+                                backgroundColor: '#ebbd40',
+                                borderColor: 'rgba(210, 214, 222, 1)',
+                                pointRadius: false,
+                                pointColor: 'rgba(210, 214, 222, 1)',
+                                pointStrokeColor: '#c1c7d1',
+                                pointHighlightFill: '#fff',
+                                pointHighlightStroke: 'rgba(220,220,220,1)',
+                                data: arrDoanhThu
+                            },
+                        ]
+                    }
+
+
+                    var areaChartOptions = {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false,
+                                }
+                            }],
+                            yAxes: [{
+                                gridLines: {
+                                    display: false,
+                                }
+                            }]
+                        }
+                    }
+
+                    //-------------
+                    //- BAR CHART -
+                    //-------------
+                    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+                    var barChartData = $.extend(true, {}, areaChartData)
+                    var temp0 = areaChartData.datasets[0]
+                    var temp1 = areaChartData.datasets[1]
+                    barChartData.datasets[0] = temp1
+                    barChartData.datasets[1] = temp0
+
+                    var barChartOptions = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        datasetFill: false
+                    }
+
+                    new Chart(barChartCanvas, {
+                        type: 'bar',
+                        data: barChartData,
+                        options: barChartOptions
+                    })
+
+                }
+            });
+        })
+    </script>
+
+    <script>
+        $(function () {
+            /* ChartJS
+             * -------
+             * Here we will create a few charts using ChartJS
+             */
 
             //--------------
             //- AREA CHART -
             //--------------
 
-            // Get context with jQuery - using jQuery's .get() method.
+            var arrSLVe = [];
+            var arrMonth = [];
+            var loggedValues = {};
+
+            $.ajax({
+                url: 'DuLieuDoanhThu',
+                type: 'GET',
+                data: {},
+                success: function (rs) {
+                    console.log(rs.Data)
+
+                    for (var t = 1; t <= 12; t++) {
+                        var logged = loggedValues[t]; // Kiểm tra giá trị đã được log chưa
+                        if (!logged) { // Nếu chưa log giá trị
+                            var found = false;
+                            $.each(rs.Data, function (i, item) {
+                                if (item.Thang == t) {
+                                    console.log(item.TongSoVe)
+                                    arrMonth.push("Th " + item.Thang);
+                                    arrSLVe.push(item.TongSoVe)
+                                    loggedValues[t] = true; // Đánh dấu đã log giá trị
+                                    found = true;
+                                    return false; // Thoát khỏi vòng lặp khi đã tìm thấy giá trị
+                                }
+                            });
+                            if (!found) {
+                                console.log(t);
+                                console.log(0);
+                                arrMonth.push("Th " + t);
+                                arrSLVe.push(0);
+
+                            }
+                        }
+                    }
 
 
-            var areaChartData = {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [
-                    {
-                        label: 'Lợi nhuận',
-                        backgroundColor: 'rgba(60,141,188,0.9)',
-                        borderColor: 'rgba(60,141,188,0.8)',
-                        pointRadius: false,
-                        pointColor: '#3b8bba',
-                        pointStrokeColor: 'rgba(60,141,188,1)',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(60,141,188,1)',
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    },
-                    {
-                        label: 'Doanh thu',
-                        backgroundColor: 'rgba(210, 214, 222, 1)',
-                        borderColor: 'rgba(210, 214, 222, 1)',
-                        pointRadius: false,
-                        pointColor: 'rgba(210, 214, 222, 1)',
-                        pointStrokeColor: '#c1c7d1',
-                        pointHighlightFill: '#fff',
-                        pointHighlightStroke: 'rgba(220,220,220,1)',
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                ]
-            }
+                    var areaLineChartData = {
+                        labels: arrMonth,
+                        datasets: [
+                            {
+                                label: 'Số vé bán',
+                                backgroundColor: 'rgba(60,141,188,0.9)',
+                                borderColor: '#ebbd40',
+                                pointRadius: false,
+                                pointColor: '#3b8bba',
+                                pointStrokeColor: 'rgba(60,141,188,1)',
+                                pointHighlightFill: '#fff',
+                                pointHighlightStroke: 'rgba(60,141,188,1)',
+                                data: arrSLVe
+                            }
+                        ]
+                    }
 
-            // This will get the first returned node in the jQuery collection.
 
-            //-------------
-            //- BAR CHART -
-            //-------------
-            var barChartCanvas = $('#barChart').get(0).getContext('2d')
-            var barChartData = $.extend(true, {}, areaChartData)
-            var temp0 = areaChartData.datasets[0]
-            var temp1 = areaChartData.datasets[1]
-            barChartData.datasets[0] = temp1
-            barChartData.datasets[1] = temp0
+                    var areaChartOptions = {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            xAxes: [{
+                                gridLines: {
+                                    display: false,
+                                }
+                            }],
+                            yAxes: [{
+                                gridLines: {
+                                    display: false,
+                                }
+                            }]
+                        }
+                    }
 
-            var barChartOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                datasetFill: false
-            }
+                    //-------------
+                    //- LINE CHART -
+                    //--------------
+                    var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+                    var lineChartOptions = $.extend(true, {}, areaChartOptions)
+                    var lineChartData = $.extend(true, {}, areaLineChartData)
+                    lineChartData.datasets[0].fill = false;
+                    lineChartOptions.datasetFill = false
 
-            new Chart(barChartCanvas, {
-                type: 'bar',
-                data: barChartData,
-                options: barChartOptions
-            })
+                    var lineChart = new Chart(lineChartCanvas, {
+                        type: 'line',
+                        data: lineChartData,
+                        options: lineChartOptions
+                    })
+                }
+            });
+
+
+
         })
     </script>
+
+
+
+
+}
 
 

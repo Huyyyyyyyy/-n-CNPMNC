@@ -164,6 +164,7 @@
     <Compile Include="Models\mapChuyenBayCuaToi\mapChuyenBayCuaToi.cs" />
     <Compile Include="Models\mapChuyenBay\mapChuyenBay.cs" />
     <Compile Include="Models\mapDatVe\mapDatVe.cs" />
+    <Compile Include="Models\mapDoanhThu\mapDoanhThu.cs" />
     <Compile Include="Models\mapHanhKhach\HanhKhachTam.cs" />
     <Compile Include="Models\mapHanhKhach\mapHanhKhach.cs" />
     <Compile Include="Models\mapHoaDon\mapHoaDon.cs" />
@@ -2642,13 +2643,6 @@
     <Content Include="plugin\font\Diavlo_BOLD_II_37.otf" />
     <Content Include="plugin\font\Diavlo_BOOK_II_37.otf" />
     <Content Include="plugin\font\Diavlo_LIGHT_II_37.otf" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\dist\css\adminlte.css.map" />
     <Content Include="Content\dist\css\adminlte.min.css.map" />
     <Content Include="Content\dist\css\alt\adminlte.components.css.map" />
@@ -2782,6 +2776,13 @@
     <Content Include="Content\plugins\summernote\summernote.js.map" />
     <Content Include="Content\plugins\summernote\summernote.min.js.map" />
     <Content Include="Content\plugins\toastr\toastr.js.map" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

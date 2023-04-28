@@ -14,7 +14,9 @@ namespace cnpmNC.Models
     
     public partial class DoanhThu
     {
-        public System.DateTime Ngay { get; set; }
+        public int Ngay { get; set; }
+        public int Thang { get; set; }
+        public int Nam { get; set; }
         public int SoVeBan { get; set; }
         public decimal TongDoanhThu { get; set; }
         public decimal LoiNhuan { get; set; }

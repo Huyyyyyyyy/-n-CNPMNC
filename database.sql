@@ -114,13 +114,16 @@ create table VeChuyenBay(
 )
 
 create table DoanhThu(
-	Ngay date primary key,
+	Ngay int not null,
+	Thang int not null,
+	Nam int  not null, 
 	SoVeBan int not null,
 	TongDoanhThu decimal(10,2) not null,
 	LoiNhuan decimal(10,2) not null
+
+	primary key (Ngay, Thang ,Nam)
 )
 
-drop table DoanhThu
 use cnpmNC
 go
 
@@ -162,26 +165,33 @@ alter column MatKhau nvarchar(50)
 use cnpmNC
 go
 
+
 create trigger tinhDoanhThu on HoaDon
 after insert
 as
 begin
 	if(select Ngay
 		from DoanhThu
-		where Ngay = (select Ngay from inserted)) is not null 
+		where Ngay = (select DAY(Ngay) from inserted)
+		and Thang = (select MONTH(Ngay) from inserted)
+		and Nam = (select YEAR(Ngay) from inserted)) is not null 
 		begin
 				update DoanhThu
 				set SoVeBan = SoVeBan + (select SoLuongVe
 											from inserted),
 				TongDoanhThu = TongDoanhThu + (select ThanhTien from inserted),
 				LoiNhuan = ((TongDoanhThu + (select ThanhTien from inserted))*0.1)
-				where Ngay = (select Ngay from inserted)
+				where Ngay = (select DAY(Ngay) from inserted)
+				and Thang = (select MONTH(Ngay) from inserted)
+				and Nam = (select YEAR(Ngay) from inserted)
 				end
 	else
 		begin
 			insert into DoanhThu
 			values(
-			(select Ngay from inserted),
+			(select DAY(Ngay) from inserted),
+			(select MONTH(Ngay) from inserted),
+			(select YEAR(Ngay) from inserted),
 			(select sum(hd.SoLuongVe) from HoaDon hd inner join inserted i
 				on hd.MaHD = i.MaHD
 				where hd.Ngay = i.Ngay),

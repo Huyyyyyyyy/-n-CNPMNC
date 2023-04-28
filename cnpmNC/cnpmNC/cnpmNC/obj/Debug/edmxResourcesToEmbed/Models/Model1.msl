@@ -47,6 +47,8 @@
       <EntityTypeMapping TypeName="cnpmNCModel.DoanhThu">
         <MappingFragment StoreEntitySet="DoanhThu">
           <ScalarProperty Name="Ngay" ColumnName="Ngay" />
+          <ScalarProperty Name="Thang" ColumnName="Thang" />
+          <ScalarProperty Name="Nam" ColumnName="Nam" />
           <ScalarProperty Name="SoVeBan" ColumnName="SoVeBan" />
           <ScalarProperty Name="TongDoanhThu" ColumnName="TongDoanhThu" />
           <ScalarProperty Name="LoiNhuan" ColumnName="LoiNhuan" />

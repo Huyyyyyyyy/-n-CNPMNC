@@ -35,5 +35,18 @@ namespace cnpmNC.Models.mapHoaDon
             cnpmNCEntities db = new cnpmNCEntities();
             return db.HoaDons.SingleOrDefault(k => k.MaDatVe == MaDatVe);
         }
+
+
+        //tìm hóa đơn theo ngày tháng năm
+        public List<HoaDon> TimHoaDonTheoDate(Nullable<int> Ngay, Nullable<int> Thang, Nullable<int> Nam)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            var data = (from HoaDon in db.HoaDons
+                        where (HoaDon.Ngay.Day == Ngay || Ngay == null) &
+                        (HoaDon.Ngay.Month == Thang) &
+                        (HoaDon.Ngay.Year == Nam)
+                        select HoaDon).ToList();
+            return data;
+        }
     }
 }
