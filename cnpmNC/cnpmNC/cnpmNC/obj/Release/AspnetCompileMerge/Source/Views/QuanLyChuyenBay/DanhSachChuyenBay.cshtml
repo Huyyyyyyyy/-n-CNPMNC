@@ -1,0 +1,253 @@
+﻿@model IEnumerable<cnpmNC.Models.ChuyenBay>
+@{
+    ViewBag.Title = "DanhSachChuyenBay";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+
+    var modelData = Model;
+}
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        margin: 50px 5px 5px 5px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #00305B;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    .managerCB {
+    }
+
+        .managerCB h1 {
+            border-radius: 4px 4px 0 0;
+            padding: 10px 20px;
+            margin: 0px 0 5px 0;
+            background-color: #005574;
+            color: #fff;
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+    input:focus {
+        outline: none;
+    }
+
+    .table-manager {
+        width: 100%;
+    }
+
+    .managerCB .table-manager thead th {
+        color: #222;
+        width: 80px;
+        text-align: center;
+        border: 1px solid #005574;
+        background-color: #ebbd40;
+    }
+
+    .managerCB .table-manager tbody td {
+        width: 80px;
+        text-align: center;
+        border: 1px solid #005574;
+    }
+
+    .managerCB .table-manager tbody tr:nth-child(even) {
+        background-color: gainsboro;
+    }
+
+    .managerCB .table-manager tbody tr:nth-child(odd) {
+        background-color: #ffff;
+    }
+
+    .control a {
+        text-decoration: none;
+        padding: 12px 27px 12px 27px;
+        background: #33597C;
+        color: #ffff;
+        border-radius: 4px;
+        float: right;
+        margin-bottom: 5px;
+        text-align: center
+    }
+</style>
+
+<div class="link">
+    <ul>
+        <li><a href="~/QuanLyChuyenBay/DanhSachChuyenBay">Quản lý chuyến bay</a></li>
+    </ul>
+</div>
+
+<div class="managerCB">
+    <table class="table-manager">
+        <thead>
+            <tr>
+                <td colspan="14"></td>
+                <td class="control" colspan="3">
+                    <a style="width:100%" href="">Thông tin sân bay</a>
+                </td>
+                <td class="control">
+                    <a href="~/QuanLyChuyenBay/ThemChuyenBay"><i class="ti-plus"></i></a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="18">
+                    <h1>
+                        Quản lý chuyến bay
+                    </h1>
+                </td>
+            </tr>
+            <tr>
+                <th>Mã CB</th>
+                <th>SB Đi</th>
+                <th>SB Đến</th>
+                <th>Ngày Bay</th>
+                <th>Giờ Bay</th>
+                <th>Ngày Đến</th>
+                <th>Giờ Đến</th>
+                <th>TG Bay</th>
+                <th>Ghế Trống</th>
+                <th>Mã CT</th>
+                <th>SBTG</th>
+                <th>TG Dừng</th>
+                <th>Giá Vé</th>
+                <th>Ghi Chú</th>
+                <th>Trạng Thái</th>
+                <th>Sửa</th>
+                <th>Xóa</th>
+                <th>Mở/Đóng Vé</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in modelData)
+            {
+
+
+                <tr>
+                    <td>@item.MaChuyenBay</td>
+                    <td>@item.MaSanBayDi</td>
+                    <td>@item.MaSanBayDen</td>
+                    <td>@string.Format("{0:dd/MM/yy}", item.NgayKhoiHanh)</td>
+                    <td>@item.GioKhoiHanh.ToString("hh\\:mm")</td>
+                    <td>@string.Format("{0:dd/MM/yy}", item.NgayHaCanh)</td>
+                    <td>@item.GioHaCanh.ToString("hh\\:mm")</td>
+                    <td>
+                        @{
+                            int gioBay = item.GioBay;
+                            TimeSpan hour = TimeSpan.FromHours(gioBay);
+                            string gio = hour.ToString();
+
+                            int phutBay = item.PhutBay;
+                            TimeSpan minute = TimeSpan.FromHours(phutBay);
+                            string phut = minute.ToString();
+
+                            string thoiGianBay = gioBay + "h" + phutBay + "m";
+                            @thoiGianBay
+
+                        }
+                    </td>
+                    <td>@item.SLGheTrong</td>
+                    @foreach (var ct in new cnpmNC.mapChuyenBay.mapChuyenBay().LayChiTietChuyenBay(item.MaChuyenBay))
+                    {
+                        <td>@ct.MaCTBay</td>
+                        <td>
+                            @{
+                                if (ct.MaSanBayTG == null)
+                                {
+                                    <span>Không</span>
+                                }
+                                else
+                                {
+                                    @ct.MaSanBayTG
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                if (ct.GioDung.HasValue || ct.PhutDung.HasValue)
+                                {
+                                    int? gioDung = ct.GioDung;
+                                    string resultHour = gioDung.ToString();
+
+                                    int? phutDung = ct.PhutDung;
+                                    string resultMinute = phutDung.ToString();
+
+                                    string thoiGianDung = gioDung + "h" + phutDung + "m";
+                                    @thoiGianDung
+                                }
+                                else
+                                {
+                                    <span>Không</span>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @{
+                                String gia = string.Format("{0:#,##0}", item.GiaVe);
+                                @gia}
+                    </td>
+                    <td>
+                        @{
+                            if (ct.GhiChu == null)
+                            {
+                                <span>Không</span>
+                            }
+                            else
+                            {
+                                @ct.GhiChu
+                            }
+                        }
+                    </td>
+                    if (item.TinhTrang == "Opening")
+                    {
+                        <td style="color:limegreen">
+                            @item.TinhTrang
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color: red">
+                            @item.TinhTrang
+                        </td>
+                    }
+                }
+                    <td><a href="~/QuanLyChuyenBay/CapNhatChuyenBay?MaChuyenBay=@item.MaChuyenBay" style="text-decoration:none; color:#00305B"><i class="ti-marker-alt"></i></a></td>
+                    <td><a onclick="if (confirm('Bạn chắc chắn xóa chuyến bay này không !?')) { location.href='/QuanLyChuyenBay/XoaChuyenBay?MaChuyenBay=@item.MaChuyenBay' }" href="#" style="text-decoration:none; color:#00305B"><i class="ti-trash"></i></a></td>
+                    @{
+                        if (item.TinhTrang == "Closed")
+                        {
+                            <td style="background-color: #7ed97e">
+                                <a onclick="if (confirm('Xác nhận mở bán vé cho chuyến bay này ?')) {location.href='/QuanLyChuyenBay/DongMoVe?MaChuyenBay=@item.MaChuyenBay'}" href="#" style="text-decoration:none; color:#00305B">MỞ VÉ</a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="background-color: #e15050">
+                                <a onclick="if (confirm('Xác nhận đóng đặt vé cho chuyến bay này ?')) { location.href='/QuanLyChuyenBay/DongMoVe?MaChuyenBay=@item.MaChuyenBay' }" href="#" style="text-decoration:none; color:#00305B">ĐÓNG VÉ</a>
+                            </td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+

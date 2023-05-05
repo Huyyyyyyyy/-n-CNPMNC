@@ -1,0 +1,635 @@
+﻿@{
+    ViewBag.Title = "TrangChu";
+    Layout = null;
+
+    //Lấy ra ngày cách hiện tại 1 ngày để giới hạn cho user chọn ngày
+    var tomorrow = DateTime.Today.AddDays(+1);
+    var tomorrowString = tomorrow.ToString("yyyy-MM-dd");
+
+    var user = (cnpmNC.Models.TaiKhoan)System.Web.HttpContext.Current.Session["user"];
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRWAYS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- link icons -->
+    <link rel="stylesheet" href="~/icons/themify-icons/themify-icons.css">
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Be+Vietnam:100,100i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <!--Styles-->
+    <link href="~/plugin/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/stylehome.css" rel="stylesheet" />
+
+    <style>
+
+        body {
+            font-size: 15px;
+            vertical-align: middle;
+            line-height: 18px;
+            font-weight: normal !important;
+            margin: 0;
+            font-family: Roboto;
+        }
+
+        .top {
+            width: 100%;
+            height: 45px;
+            position: fixed;
+            z-index: 999;
+        }
+
+            .top .manager {
+                text-decoration: none;
+                color: #ffff;
+                padding: 17px;
+                line-height: 45px;
+                border-radius: 4px;
+                text-align: center;
+            }
+
+                .top .manager:hover {
+                    color: #222;
+                    background: #DCA413;
+                }
+
+            .top .profile {
+                text-decoration: none;
+                color: #ffff;
+                border-radius: 4px;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+            }
+
+                .top .profile:hover {
+                    background: #DCA413;
+                }
+
+        input:focus {
+            outline: none;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        .search-place {
+            width: 100%;
+            background-image: url(https://assets.airtrfx.com/cdn-cgi/image/height=500,quality=85,format=auto/https://media.jtdwjcwq6f4wp4ce.com/vn/homepage-default.jpg);
+            /*background-image:url('/Image//banner.png');*/
+            background-repeat: no-repeat;
+            background-size: 100%;
+            height: 350px;
+        }
+
+            .search-place table {
+                position: absolute;
+                width: 80%;
+                margin: auto;
+                height: 200px;
+                position: relative;
+                top: 100px;
+                box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.1);
+            }
+
+                .search-place table th {
+                    background-color: #0685AA;
+                    padding: 30px 10px 30px 10px;
+                    width: 100%;
+                    color: #ececec;
+                    line-height: 20px;
+                    font-size: 36px;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    font-weight: 400;
+                    user-select: revert;
+                    cursor: default;
+                }
+
+                    .search-place table th ::selection {
+                        background-color: transparent;
+                        color: inherit;
+                    }
+
+                .search-place table tr {
+                    background-color: #FBF9F2;
+                    width: 100%;
+                    color: #222;
+                    line-height: 10px;
+                }
+
+                .search-place table td {
+                    height: 20%;
+                    padding: 15px;
+                }
+
+                .search-place table label {
+                    display: block;
+                    margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+                    vertical-align: top; /* Để đặt label ở phía trên của input */
+                    font-size: 13px;
+                }
+
+                .search-place table input {
+                    border: 0;
+                    background-color: #FBF9F2;
+                    width: 100%;
+                }
+
+                .search-place table select {
+                    border: none;
+                    height: 55%;
+                    border-bottom: 1px solid #005574;
+                    line-height: 40%;
+                    background-color: #FBF9F2;
+                    width: 100%;
+                }
+
+
+                .search-place table button {
+                    border: none;
+                    height: 70%;
+                    border-radius: 5px;
+                    width: 100%;
+                    background-color: #ebbd40;
+                    color: white;
+                }
+
+                    .search-place table button:hover {
+                        background-color: #c79716;
+                    }
+
+
+        .content {
+            padding: 10px 30px 10px 80px;
+        }
+    </style>
+</head>
+<body>
+    <div class="full">
+        <div class="top" style="background: #005574">
+            @if (user == null)
+            {
+                <a class="manager" href="~/Home/TrangChu">TRANG CHỦ</a>
+                <a class="manager" href="">ƯU ĐÃI</a>
+                <a class="manager" href="">THÔNG TIN SÂN BAY</a>
+                <a class="manager" href="~/AccountUsers/DangNhap">ĐƠN VÉ CỦA TÔI</a>
+                <a class="manager" href="~/AccountUsers/DangNhap">CHUYẾN BAY CỦA TÔI</a>
+            }
+            else
+            {
+                <a class="manager" href="~/Home/TrangChu">TRANG CHỦ</a>
+                <a class="manager" href="">ƯU ĐÃI</a>
+                <a class="manager" href="">THÔNG TIN SÂN BAY</a>
+                <a class="manager" href="~/DonVeCuaToi/DonVeCuaToi">ĐƠN VÉ CỦA TÔI</a>
+                <a class="manager" href="~/ChuyenBayCuaToi/ChuyenBayCuaToi">CHUYẾN BAY CỦA TÔI</a>
+
+                <a class="profile" style="float:right" href="~/Profile/profile"><i class="ti-settings"></i></a>
+
+
+            }
+
+
+
+            @{
+                if (user != null)
+                {
+                    <a style="color: #005574; font-weight:bold;border-radius:7px; float: right; text-decoration: none; padding: 3px; margin: 10px; background-color: #ececec;" class="log-out" href="~/AccountUsers/DangXuat">Đăng xuất</a>
+                }
+                else
+                {
+                }
+            }
+            <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
+                @{ if (user == null)
+                    {
+                        <a style="color: #005574; background-color:white; text-decoration:none;padding:15px; font-weight:600" href="~/AccountUsers/DangNhap">ĐĂNG NHẬP</a>
+                    }
+                    else
+                    { <span>Hi, @user.HoTen</span>}
+                }
+            </p>
+        </div>
+        <div class="main" style="background: #EDF3F7;">
+            <div class="search-place">
+                <form action="~/DatVe/ChonChuyenBay" method="get">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="6">
+                                    <span style="font-family:'Diavlo',sans-serif ;">Ưu Đãi Chuyến Bay Từ <span style="color: #BCA21D">591,000VND<sup>*</sup></span></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="MaSanBayDi">Từ</label>
+                                    <select name="MaSanBayDi">
+                                        <option selected disabled>Chọn điểm đi</option>
+                                        @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                                        {
+                                            <option value="@item.MaSanBay">@item.DiaDiem (@item.MaSanBay)</option>
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <label for="MaSanBayDen">Đến</label>
+                                    <select name="MaSanBayDen">
+                                        <option selected disabled>Chọn điểm đến</option>
+                                        @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                                        {
+                                            <option value="@item.MaSanBay">@item.DiaDiem (@item.MaSanBay)</option>
+                                        }
+                                    </select>
+                                </td>
+                                <td>
+                                    <label for="NgayKhoiHanh">Ngày đi</label>
+                                    <input style="border:none; border-bottom:1px solid #005574; height:55%" type="date" name="NgayKhoiHanh" min="@tomorrowString" value="@tomorrowString" />
+                                </td>
+                                <td>
+                                    <label for="SoLuong">Hành khách</label>
+                                    <select style="border:none; border-bottom:1px solid #005574; height:55%; text-align:center" name="SoLuong" type="number">
+                                        <option value="1">1 Hành khách </option>
+                                        <option value="2">2 Hành khách </option>
+                                        <option value="3">3 Hành khách </option>
+                                        <option value="4">4 Hành khách </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button type="submit" class="btn-submit">TÌM CHUYẾN BAY</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+
+
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="title-search">
+                            <h2 style="font-family:Diavlo,Arial;font-size:22px; line-height:40px; padding-left:10px; border-left:5px solid #0685AA ">KHÁM PHÁ ĐIỂM ĐẾN</h2>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 50px; margin-bottom: 100px;">
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/ur2mrg23d91mex03l4mw.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Tp Hồ Chí Minh (SGN) đến  Hà Nội (HAN)</h3>
+                                    <p>10/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">1.086.000VND <sup>*</sup></h3>
+                                    <p>Đã xem : 8 phút trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/tphcm.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Hà Nội (HAN)  đến  Tp Hồ Chí Minh (SGN)</h3>
+                                    <p>31/03/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">1.009.000VND <sup>*</sup></h3>
+                                    <p>Đã xem : 8 phút trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/ur2mrg23d91mex03l4mw.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Hà Nội (HAN)  đến  Đà Nẵng (DAD)</h3>
+                                    <p>04/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">943.000VND <sup>*</sup></h3>
+                                    <p>Đã xem : 5 giờ trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/ur2mrg23d91mex03l4mw.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Tp Hồ Chí Minh (SGN)  đến  Đà Nẵng (DAD)</h3>
+                                    <p>02/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">873.550VND <sup>*</sup></h3>
+                                    <p>Đã xem : 1 giờ trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/dn-hcm.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Đà Nẵng (DAD) đến Tp Hồ Chí Minh (SGN) </h3>
+                                    <p>12/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">973.550VND <sup>*</sup></h3>
+                                    <p>Đã xem : 1 giờ trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/hinh-anh-phu-quoc-ve-dem_1.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Tp Hồ Chí Minh (SGN) đến Phú Quốc (PQC) </h3>
+                                    <p>01/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">855.000VND <sup>*</sup></h3>
+                                    <p>Đã xem : 1 giờ trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/3-min-6.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Đà Nẵng (DAD) đến Hà Nội (HAN) </h3>
+                                    <p>11/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">943.000VND <sup>*</sup></h3>
+                                    <p>Đã xem : 11 giờ trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="~/Image/hue.jpg" alt="" class="img-thumbnail">
+                                </div>
+                                <div class="product-title">
+                                    <h3>Tp Hồ Chí Minh (SGN) đến Huế (HUI) </h3>
+                                    <p>17/04/2023</p>
+                                </div>
+                                <div class="product-price">
+                                    <p>Từ</p>
+                                    <h3 class="price">943.000VND <sup>*</sup></h3>
+                                    <p>Đã xem : 11 giờ trước</p>
+                                    <p>Một chiều / Phổ thông</p>
+                                </div>
+                                <div class="buy-now">
+                                    <button class="btn btn-warning btn-buy-now" data-toggle="modal" data-target="#exampleModal"> ĐẶT VÉ NGAY</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="title-search">
+                            <h2 style="font-family:Diavlo,Arial;font-size:22px; line-height:40px; padding-left:10px; border-left:5px solid #0685AA ">KHÁM PHÁ CHUYẾN BAY</h2>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="table-responsive" style="margin-top: 50px">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Từ</th>
+                                            <th>Đến</th>
+                                            <th>Ngày</th>
+                                            <th>Loại Giá vé</th>
+                                            <th>Giá</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: middle">TP. Hồ Chí Minh (SGN)</td>
+                                            <td style="vertical-align: middle">Hà nội (HAN)</td>
+                                            <td style="vertical-align: middle">08/05/2023</td>
+                                            <td style="vertical-align: middle">Một chiều / Phổ thông</td>
+                                            <td>
+                                                <p>Từ</p>
+                                                <p><span style="color: #ce9938;">1.650.550</span> <span>VND <sup>*</sup></span></p>
+                                                <p>Đã xem : 6h trước</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Hà nội (HAN)</td>
+                                            <td style="vertical-align: middle">TP. Hồ Chí Minh (SGN)</td>
+                                            <td style="vertical-align: middle">08/05/2023</td>
+                                            <td style="vertical-align: middle">Một chiều / Phổ thông</td>
+                                            <td>
+                                                <p>Từ</p>
+                                                <p><span style="color: #ce9938;">1.650.550</span> <span>VND <sup>*</sup></span></p>
+                                                <p>Đã xem : 6h trước</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">Hà nội (HAN)</td>
+                                            <td style="vertical-align: middle">Đà Nẵng (DAD)</td>
+                                            <td style="vertical-align: middle">23/09/2023</td>
+                                            <td style="vertical-align: middle">Một chiều / Phổ thông</td>
+                                            <td>
+                                                <p>Từ</p>
+                                                <p><span style="color: #ce9938;">999.000</span> <span>VND <sup>*</sup></span></p>
+                                                <p>Đã xem : 12h trước</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">TP. Hồ Chí Minh (SGN)</td>
+                                            <td style="vertical-align: middle">Đà Nẵng (DAD)</td>
+                                            <td style="vertical-align: middle">16/07/2023</td>
+                                            <td style="vertical-align: middle">Một chiều / Phổ thông</td>
+                                            <td>
+                                                <p>Từ</p>
+                                                <p><span style="color: #ce9938;">838.000</span> <span>VND <sup>*</sup></span></p>
+                                                <p>Đã xem : 8h trước</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">TP. Hồ Chí Minh (SGN)</td>
+                                            <td style="vertical-align: middle">Phú Quốc (PQC)</td>
+                                            <td style="vertical-align: middle">17/05/2023</td>
+                                            <td style="vertical-align: middle">Một chiều / Phổ thông</td>
+                                            <td>
+                                                <p>Từ</p>
+                                                <p><span style="color: #ce9938;">899.000</span> <span>VND <sup>*</sup></span></p>
+                                                <p>Đã xem : 3h trước</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle">TP. Hồ Chí Minh (SGN)</td>
+                                            <td style="vertical-align: middle">Huế (HUI)</td>
+                                            <td style="vertical-align: middle">10/05/2023</td>
+                                            <td style="vertical-align: middle">Một chiều / Phổ thông</td>
+                                            <td>
+                                                <p>Từ</p>
+                                                <p><span style="color: #ce9938;">943.000</span> <span>VND <sup>*</sup></span></p>
+                                                <p>Đã xem : 1h trước</p>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <div class="col-md-12">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div>
+                                <!-- <h3 class="modal-title" id="exampleModalLabel">Đặt chuyến bay</h3> <br> -->
+
+                                <div class="row" style="padding: 0px; margin: 0px">
+                                    <div class="col-md-5">
+                                        <select name="hanhKhach" class="form-control select-passengers">
+                                            <option value="1">1 Hành khách</option>
+                                            <option value="2">2 Hành khách</option>
+                                            <option value="3">3 Hành khách</option>
+                                            <option value="4">4 Hành khách</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="a123 promotion" style="display: none">
+                                            <div class="row">
+                                                <div class="col-md-12" style="margin-top: 15px">
+                                                    <input type="text" class="form-control" placeholder="Nhập mã">
+                                                </div>
+                                                <div class="col-md-12" style="margin-top: 15px; border-top: 1px solid">
+                                                    <a href="" class="modal-success">Hoàn thành</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Từ</label>
+                                            <select name="" class="form-control custom-select">
+                                                <option value="">Chọn điểm khởi hành</option>
+                                                <option value="">Tp Hồ Chí Minh (SGN)</option>
+                                                <option value="">Hà Nội (HAN)</option>
+                                                <option value="">Đà Nẵng (DAD)</option>
+                                                <option value="">Phú Quốc (PQC)</option>
+                                                <option value="">Huế (HUI)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label">Đến</label>
+                                            <select name="" class="form-control custom-select">
+                                                <option value="">Chọn điểm đến</option>
+                                                <option value="">Tp Hồ Chí Minh (SGN)</option>
+                                                <option value="">Hà Nội (HAN)</option>
+                                                <option value="">Đà Nẵng (DAD)</option>
+                                                <option value="">Phú Quốc (PQC)</option>
+                                                <option value="">Huế (HUI)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Khởi hành</label>
+                                            <input type="date" class="form-control custom-select" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-warning btn-search">Tìm kiếm</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 7px; background: #005574" class="footer">
+            <p style="color: #ececec; text-align:center; font-weight:200; line-height:50px">© 2023 Group 21 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
+        </div>
+    </div>
+</body>
+</html>
+<script src="~/plugin/jquery/jquery.min.js"></script>
+<script src="~/plugin/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/Scripts/main.js"></script>
+
+

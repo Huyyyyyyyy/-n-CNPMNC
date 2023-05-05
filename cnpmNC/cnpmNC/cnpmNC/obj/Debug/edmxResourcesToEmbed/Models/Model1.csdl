@@ -49,6 +49,7 @@
     <NavigationProperty Name="HoaDons" Relationship="Self.FK_DVHD" FromRole="DatVe" ToRole="HoaDon" />
     <NavigationProperty Name="HanhKhaches" Relationship="Self.FK_MDVHK" FromRole="DatVe" ToRole="HanhKhach" />
     <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_TKDV" FromRole="DatVe" ToRole="TaiKhoan" />
+    <NavigationProperty Name="HuyVe" Relationship="Self.HV_DV" FromRole="DatVe" ToRole="HuyVe" />
   </EntityType>
   <EntityType Name="DoanhThu">
     <Key>
@@ -93,6 +94,15 @@
     <NavigationProperty Name="DatVe" Relationship="Self.FK_DVHD" FromRole="HoaDon" ToRole="DatVe" />
     <NavigationProperty Name="TaiKhoan" Relationship="Self.FK_TKHD" FromRole="HoaDon" ToRole="TaiKhoan" />
     <NavigationProperty Name="UuDai" Relationship="Self.FK_UDHD" FromRole="HoaDon" ToRole="UuDai" />
+  </EntityType>
+  <EntityType Name="HuyVe">
+    <Key>
+      <PropertyRef Name="MaDatVe" />
+    </Key>
+    <Property Name="MaDatVe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LyDo" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TinhTrang" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="DatVe" Relationship="Self.HV_DV" FromRole="HuyVe" ToRole="DatVe" />
   </EntityType>
   <EntityType Name="SanBay">
     <Key>
@@ -264,6 +274,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="HV_DV">
+    <End Role="DatVe" Type="Self.DatVe" Multiplicity="1" />
+    <End Role="HuyVe" Type="Self.HuyVe" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DatVe">
+        <PropertyRef Name="MaDatVe" />
+      </Principal>
+      <Dependent Role="HuyVe">
+        <PropertyRef Name="MaDatVe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TKHD">
     <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="1" />
     <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
@@ -319,6 +341,7 @@
     <EntitySet Name="DoanhThus" EntityType="Self.DoanhThu" />
     <EntitySet Name="HanhKhaches" EntityType="Self.HanhKhach" />
     <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
+    <EntitySet Name="HuyVes" EntityType="Self.HuyVe" />
     <EntitySet Name="SanBays" EntityType="Self.SanBay" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TaiKhoans" EntityType="Self.TaiKhoan" />
@@ -360,6 +383,10 @@
       <End Role="TaiKhoan" EntitySet="TaiKhoans" />
       <End Role="DatVe" EntitySet="DatVes" />
     </AssociationSet>
+    <AssociationSet Name="HV_DV" Association="Self.HV_DV">
+      <End Role="DatVe" EntitySet="DatVes" />
+      <End Role="HuyVe" EntitySet="HuyVes" />
+    </AssociationSet>
     <AssociationSet Name="FK_TKHD" Association="Self.FK_TKHD">
       <End Role="TaiKhoan" EntitySet="TaiKhoans" />
       <End Role="HoaDon" EntitySet="HoaDons" />
@@ -392,11 +419,11 @@
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(cnpmNCModel.sp_helpdiagramdefinition_Result)">
+    <FunctionImport Name="sp_helpdiagramdefinition">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(cnpmNCModel.sp_helpdiagrams_Result)">
+    <FunctionImport Name="sp_helpdiagrams">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -407,15 +434,4 @@
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
-  <ComplexType Name="sp_helpdiagramdefinition_Result">
-    <Property Type="Int32" Name="version" Nullable="true" />
-    <Property Type="Binary" Name="definition" Nullable="true" />
-  </ComplexType>
-  <ComplexType Name="sp_helpdiagrams_Result">
-    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-    <Property Type="Int32" Name="ID" Nullable="false" />
-    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-    <Property Type="Int32" Name="OwnerID" Nullable="false" />
-  </ComplexType>
 </Schema>

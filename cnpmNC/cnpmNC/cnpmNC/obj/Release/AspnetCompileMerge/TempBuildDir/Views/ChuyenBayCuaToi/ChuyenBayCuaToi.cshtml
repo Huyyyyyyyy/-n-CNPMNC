@@ -1,0 +1,393 @@
+﻿
+@{
+    ViewBag.Title = "ChuyenBayCuaToi";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+
+    //lấy mã đặt vé từ ViewBag
+    string MaDatVe = ViewBag.MaDatVe;
+
+    var user = (cnpmNC.Models.TaiKhoan)System.Web.HttpContext.Current.Session["user"];
+    if (user == null)
+    {
+        <script>
+                      //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+                      // Hiển thị thông báo
+                      alert("Phiên đăng nhập đã hết hạn!");
+
+                      // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                      window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+        </script>
+    }
+}
+
+<style>
+    .link {
+        width: 100%;
+        height: 20px;
+        padding: 50px 20px 35px 20px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #00305B;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    .search-place table {
+        width: 50%;
+        margin: 0 0 20px 20px;
+        height: 120px;
+        box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.1);
+    }
+
+        .search-place table th {
+            background-color: #0685AA;
+            width: 100%;
+            padding: 10px;
+            color: #ececec;
+            line-height: 20px;
+            font-size: 16px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-weight: 400;
+            user-select: revert;
+            cursor: default;
+        }
+
+            .search-place table th ::selection {
+                background-color: transparent;
+                color: inherit;
+            }
+
+        .search-place table tr {
+            background-color: #FBF9F2;
+            width: 100%;
+            color: #222;
+            line-height: 10px;
+        }
+
+        .search-place table td {
+            height: 20%;
+            padding: 15px;
+        }
+
+        .search-place table label {
+            display: block;
+            margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+            vertical-align: top; /* Để đặt label ở phía trên của input */
+            font-size: 13px;
+        }
+
+        .search-place table input {
+            border: 0;
+            background-color: #FBF9F2;
+            width: 100%;
+            height: 55%;
+            border-bottom: 1px solid #005574;
+            line-height: 40%;
+        }
+
+            .search-place table input:focus {
+                outline: none;
+            }
+
+        .search-place table select {
+            border: none;
+            height: 55%;
+            border-bottom: 1px solid #005574;
+            line-height: 40%;
+            background-color: #FBF9F2;
+            width: 100%;
+        }
+
+
+        .search-place table button {
+            border: none;
+            height: 70%;
+            border-radius: 5px;
+            width: 100%;
+            background-color: #ebbd40;
+            color: white;
+        }
+
+            .search-place table button:hover {
+                background-color: #c79716;
+            }
+
+    .show-your-ticket {
+        margin: 20px;
+        width: 50%;
+        background-color: white;
+        padding: 10px;
+        border-radius: 7px;
+        font-family: Diavlo,Arial;
+    }
+
+        .show-your-ticket .day-ticket {
+            width: 100%;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 25px;
+            border-bottom: 2px solid gray;
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        .show-your-ticket .passengers-ticket {
+            width: 100%;
+            margin-top: 5px;
+            line-height: 18px;
+        }
+
+        .show-your-ticket .flight-ticket {
+            width: 100%;
+            margin-top: 0px;
+            line-height: 18px;
+            font-size: 18px;
+        }
+
+    .detail-flight-ticket {
+        width: 100%;
+        margin-top: 5px;
+        display: flex;
+    }
+
+        .detail-flight-ticket .content {
+            width: 25%;
+            background-color: #ececec;
+            padding: 10px;
+            border-bottom-left-radius: 35px;
+        }
+
+        .detail-flight-ticket .info {
+            width: 75%;
+        }
+
+            .detail-flight-ticket .info table {
+                width: 100%;
+                border: 2px solid #ececec;
+            }
+
+    .info table td {
+        width: 33%;
+        padding: 10px;
+        vertical-align: top;
+    }
+
+    .passengers-information {
+        font-family: Roboto;
+        width: 100%;
+        padding: 10px;
+    }
+
+        .passengers-information table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+            .passengers-information table td, th {
+                width: 33%;
+                border: 1px solid #b4b4b4;
+                line-height: 22px;
+            }
+
+            .passengers-information table th {
+                background-color: #ececec;
+            }
+</style>
+
+<div class="link">
+    <ul>
+        <li><a href="">Chuyến bay của tôi</a></li>
+    </ul>
+</div>
+
+<div class="search-place">
+    <form action="~/ChuyenBayCuaToi/ChuyenBayCuaToi" method="get">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3">
+                        <span>TÌM CHUYẾN BAY CỦA BẠN</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="MaDatVe">Mã Đặt Vé / Reservation Code</label>
+                        <input name="MaDatVe" placeholder="Nhập mã đặt vé của bạn" required />
+                    </td>
+                    <td>
+                        <label>Điểm Khởi Hành / Departure City</label>
+                        <select name="MaSanBayDi">
+                            <option disabled selected>Chọn điểm khởi hành</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay">@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn-submit">TÌM KIẾM</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<div class="show-your-ticket">
+    @{if (MaDatVe == null || MaDatVe == "")
+        {
+            <span>Vui lòng nhập mã đặt vé và địa điểm khởi hành để tra cứu </span>
+        }
+        else
+        {
+            // tìm đơn vé từ mã đặt vé
+            var donDatVe = new cnpmNC.Models.mapDatVe.mapDatVe().ThongTinDonDat(MaDatVe);
+            if (user!= null && donDatVe.TaiKhoanDat == user.TenTK && donDatVe != null)
+            {
+                //tìm chuyến bay
+                var chuyenBay = new cnpmNC.mapChuyenBay.mapChuyenBay().lichcb(donDatVe.MaChuyenBay);
+
+                //tìm chi tiết chuyến bay
+                var chiTietChuyenBay = new cnpmNC.mapChuyenBay.mapChuyenBay().lichctcb(chuyenBay.MaChuyenBay);
+
+                //tìm địa điểm
+                var sanBayDi = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(chuyenBay.MaSanBayDi);
+                var sanBayDen = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(chuyenBay.MaSanBayDen);
+
+
+
+                <h2 style="font-size:16px; line-height:30px; padding-left:10px; border-left:5px solid #0685AA ">VÉ ĐIỆN TỬ</h2>
+                <h3 class="day-ticket">
+                    @string.Format(" NGÀY " + "{0: dd}" + " THÁNG " + "{0: M, }" + "{0:yyyy}", chuyenBay.NgayKhoiHanh)
+                    <i class="ti-control-play"></i>
+                    @string.Format(" NGÀY " + "{0: dd}" + " THÁNG " + "{0: M, }" + "{0:yyyy}", chuyenBay.NgayHaCanh)
+                    <span style="font-weight:400; font-size:12px">&nbsp;&nbsp;CHUYẾN ĐI ĐẾN&nbsp;</span>&nbsp;@sanBayDi.DiaDiem
+                </h3>
+                <div class="passengers-ticket">
+                    <span style="font-size:12px;">ĐÃ CHUẨN BỊ CHO</span> <br />
+                    @*tìm hành khách*@
+                    @foreach (var hanhKhach in new cnpmNC.Models.mapHanhKhach.mapHanhKhach().TimHanhKhach(MaDatVe))
+                    {
+                        <span style="font-size:18px; font-weight:bold">@hanhKhach.TenHK</span><br />
+                    }
+                    <br />
+                    <p style="font-size: 12px; width: 100%; border-bottom: 2px solid gray; "> MÃ ĐẶT VÉ  <span style="font-size:11px">@MaDatVe</span></p>
+                </div>
+                <div class="flight-ticket">
+                    <span>
+                        <img src="~/Image/plane-icon.png" width="5%" />
+                        KHỞI HÀNH:
+                        <span style="font-weight:bold"> @string.Format("{0: dddd, dd MM}", chuyenBay.NgayHaCanh)</span>
+                        <span style="font-size:14px">&nbsp;Vui lòng kiểm tra thời gian bay trước khi khởi hành </span>
+                    </span>
+                </div>
+                <div class="detail-flight-ticket">
+                    <div class="content">
+                        <span style="font-size:18px; font-weight:bold">@chuyenBay.MaChuyenBay</span><br />
+                        <span style="font-size:14px">
+                            Thời gian bay:<br />
+                            @{
+                                int gioBay = chuyenBay.GioBay;
+                                TimeSpan hour = TimeSpan.FromHours(gioBay);
+                                string gio = hour.ToString();
+
+                                int phutBay = chuyenBay.PhutBay;
+                                TimeSpan minute = TimeSpan.FromHours(phutBay);
+                                string phut = minute.ToString();
+
+                                string thoiGianBay = gioBay + " tiếng " + phutBay + " phút ";
+                                @thoiGianBay
+                            }
+                        </span>
+                    </div>
+                    <div class="info">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td style="">
+                                        <span style="font-weight:bold"> @sanBayDi.MaSanBay</span><br />
+                                        @sanBayDi.DiaDiem,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <i style="font-weight:bolder" class="ti-control-play"></i><br />
+                                        Việt Nam
+                                    </td>
+                                    <td>
+                                        <span style="font-weight:bold"> @sanBayDen.MaSanBay</span><br />
+                                        @sanBayDen.DiaDiem,<br />
+                                        Việt Nam
+                                    </td>
+                                    <td rowspan="2" style="font-size: 12px; border: 2px solid #ececec;">
+                                        Máy bay: <br />
+                                        AIRBUS INDUSTRIE <br />
+                                        A321 JET<br />
+                                        Điểm dừng:
+                                        @if (chiTietChuyenBay.MaSanBayTG == null)
+                                        {
+                                            <span>Không</span>
+                                        }
+                                        else
+                                        {<span>@chiTietChuyenBay.MaSanBayTG</span>}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border-top:2px solid #ececec;">
+                                        Giờ khởi hành: <br />
+                                        <span style="font-weight:bold">@string.Format("{0:hh\\:mm}", chuyenBay.GioKhoiHanh)</span>
+                                    </td>
+                                    <td style="border:2px solid #ececec;">
+                                        Giờ đến: <br />
+                                        <span style="font-weight:bold">@string.Format("{0:hh\\:mm}", chuyenBay.GioHaCanh)</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><div class="passengers-information">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Tên Hành Khách</th>
+                                <th>Ghế</th>
+                                <th>Tình Trạng Chổ</th>
+                            </tr>
+                            @foreach (var item in new cnpmNC.Models.mapHanhKhach.mapHanhKhach().TimHanhKhach(MaDatVe))
+                            {
+                                <tr>
+                                    <td><i style="color:green" class="ti-angle-double-right"></i>@item.TenHK</td>
+                                    <td>Được thông báo khi check in </td>
+                                    <td>@donDatVe.TrangThai</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <span style="color:red">Chúng tôi không tìm thấy chuyến bay của bạn ! Vui lòng thử lại </span>
+
+            }
+
+        }
+    }
+</div>
+
+
+
+
+
+
+

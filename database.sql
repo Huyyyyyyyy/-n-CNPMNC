@@ -126,6 +126,18 @@ create table DoanhThu(
 
 use cnpmNC
 go
+create table HuyVe(
+	MaDatVe nvarchar(10) primary key,
+	LyDo nvarchar(400) not null,
+	TinhTrang nvarchar(150) not null,
+
+	constraint HV_DV foreign key (MaDatVe) references DatVe(MaDatVe)
+)
+
+
+
+use cnpmNC
+go
 
 
 alter table ChuyenBay

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="cnpmNCEntities-Web.config Connection String" description="cnpmNCEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=DESKTOP-IO61VOE\SQLEXPRESS;initial catalog=cnpmNC;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\Huyahihi\\hoc\\CNPMNC\\-n-CNPMNC\\cnpmNC\\cnpmNC\\cnpmNC\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='cnpmNCEntities']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,451 @@
+﻿@model List<cnpmNC.Models.ChuyenBay>
+@{
+    ViewBag.Title = "ChonChuyenBay";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+    // tạo biến lưu số lượng hành khách
+    int SoLuong = 0;
+    SoLuong = ViewBag.SoLuong;
+
+    string MaSanBayDi = "";
+    MaSanBayDi = ViewBag.MaSanBayDi;
+
+    string MaSanBayDen = "";
+    MaSanBayDen = ViewBag.MaSanBayDen;
+
+    Nullable<DateTime> NgayKhoiHanh = ViewBag.NgayKhoiHanh;
+
+
+    //Lấy ra ngày cách hiện tại 1 ngày để giới hạn cho user chọn ngày
+    var tomorrow = DateTime.Today.AddDays(+1);
+    var tomorrowString = tomorrow.ToString("yyyy-MM-dd");
+
+    //xử lý tổng chuyến bay
+    var tp = Model;
+    //tổng chuyến bay tìm kiếm
+    int tong = 0;
+    tong = tp.Count();
+    //tổng chuyến bay hiện có
+    int tongcb = new cnpmNC.mapChuyenBay.mapChuyenBay().DSCB().Count();
+}
+
+<style>
+    /*xử lý navigation control*/
+    input:focus {
+        outline: none;
+    }
+
+    button:focus {
+        outline: none;
+    }
+
+    .ul-your-procedure {
+        height: 55px;
+        width: 100%;
+        padding: 0 0 0 30px;
+        list-style: none;
+        display: inline-flex;
+        background-color: #F6EDCC;
+        border-top: 1px solid #E6B441;
+    }
+
+        .ul-your-procedure li {
+            padding: 5px 20px 10px 20px;
+            font-size: 16px;
+            border-radius: 7px;
+        }
+
+    .your-procedure .edit-procedure {
+        text-decoration: none;
+        cursor: pointer;
+        float: right;
+        position: absolute;
+        right: 5%;
+        line-height: 60px;
+        font-size: 12px;
+        color: #222;
+    }
+
+        .your-procedure .edit-procedure i {
+            font-size: 25px;
+            color: #E6B441;
+            padding: 5px;
+        }
+
+
+    /*    xử lý kết quả search*/
+    .search-place {
+        width: 100%;
+        height: 120px;
+        display: none;
+    }
+
+        .search-place table {
+            position: absolute;
+            width: 100%;
+            margin: auto;
+            height: 100%;
+            position: relative;
+        }
+
+            .search-place table th {
+                background-color: white;
+                padding: 10px;
+                width: 100%;
+                color: #005574;
+                line-height: 20px;
+            }
+
+            .search-place table tr {
+                background-color: white;
+                width: 100%;
+                color: #222;
+                line-height: 10px;
+            }
+
+            .search-place table td {
+                height: 20%;
+                padding: 5px 10px 15px 10px;
+            }
+
+            .search-place table label {
+                display: block;
+                margin-bottom: 5px; /* Để tạo khoảng cách giữa label và input */
+                vertical-align: top; /* Để đặt label ở phía trên của input */
+                font-size: 13px;
+            }
+
+            .search-place table input {
+                border: 0;
+                width: 100%;
+            }
+
+            .search-place table select {
+                border: none;
+                width: 100%;
+                height: 55%;
+                border-bottom: 1px solid #005574;
+                line-height: 40%;
+            }
+
+            .search-place table button {
+                border: none;
+                height: 90%;
+                border-radius: 5px;
+                width: 100%;
+                border: 2px solid #ebbd40;
+                color: #ebbd40;
+                background-color: white;
+            }
+
+                .search-place table button:hover {
+                    background-color: #ebbd40;
+                    color: white;
+                }
+    /*    xử lý kết quả search*/
+    .link {
+        width: 100%;
+        height: 20px;
+        padding:50px 20px 35px 20px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #00305B;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    /*xử lý phẩn kết quả chuyến bay đã tra cứu*/
+    .content {
+        width: 100%;
+        padding: 0 20px 10px 20px;
+    }
+
+    .no-result {
+        width: 100%;
+        height: 30%;
+        padding: 10px;
+        background-color: white;
+        border-radius: 7px;
+        color: red;
+        border: 1px solid red;
+        margin-top:20px;
+    }
+
+    .date-flights {
+        width: 100%;
+        line-height: 40px;
+        background-color: white;
+        font-weight: 600;
+        font-size: 18px;
+        color: #00305B;
+        padding: 5px 10px 5px 10px;
+        border-bottom: 2px solid #00305B;
+        margin-top:20px;
+    }
+
+    .have-result{
+        width:100%;
+        background:white;
+        padding:5px;
+
+    }
+
+        .have-result .flight-result {
+            margin: 10px;
+            width: auto;
+            height: 150px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+            border: 1px solid #ececec;
+            display: flex;
+        }
+
+        .flight-result table td{
+            padding: 5px 10px 5px 10px ;
+            
+        }
+
+    .price-flight {
+        text-align:center;
+        margin: 10px;
+        width: 30%;
+        height: 85%;
+        background-color: #FBF9E4;
+        border: 1px solid #7B5A04;
+        border-radius:7px;
+        cursor:pointer;
+    }
+
+    .price-flight a{
+        position:relative;
+        font-size:30px;
+        font-weight:400;
+        padding:30px;
+        top:45%;
+        text-decoration:none;
+        color:#222;
+    }
+
+        .price-flight span {
+            position: relative;
+            font-size: 20px;
+            font-weight: 400;
+            padding: 30px;
+            top: 45%;
+            color: #222;
+            user-select: none;
+        }
+
+</style>
+
+@*direction*@
+<div class="link">
+    <ul>
+        <li><a href="~/Home/TrangChu">Trang chủ<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~/DatVe/DatVe">Đặt vé<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~/DatVe/ChonChuyenBay">Chọn chuyến bay</a></li>
+    </ul>
+</div>
+
+@*thông tin đã chọn*@
+<div class="your-procedure">
+    <ul class="ul-your-procedure">
+        <li style="background-color: #E6B441">
+
+            @{
+                <i style="font-weight: 400; font-size: 20px; color: #222; text-align:center" class="ti-pin-alt"></i>
+
+                <span style="font-weight: 600 ">@MaSanBayDi</span>
+            }
+            &nbsp;<i style="font-weight: 300; font-size: 16px; color: #222; text-align:center" class="ti-arrows-horizontal"></i>&nbsp;
+            @{
+                <span style="font-weight: 600">@MaSanBayDen</span>
+            }
+            <span style="display: block; font-size:12px">
+                Chọn chuyến bay
+            </span>
+        </li>
+        <li>
+            <i style="font-weight: 400; font-size: 20px; color: #222; text-align:center" class="ti-user"></i>
+            <span style="font-weight:600">Hành khách</span>
+            <span style="display: block; font-size:12px;">
+                @SoLuong Hành khách
+            </span>
+        </li>
+        <li>
+            <i style="font-weight: 400; font-size: 20px; color: #222; text-align:center" class="ti-credit-card"></i>
+            <span>Thanh toán</span>
+        </li>
+    </ul>
+    <a class="edit-procedure" onclick="hideElement()"><i class="ti-pencil-alt"></i>Thay đổi</a>
+</div>
+
+@*thay đổi thông tin đã chọn*@
+<div id="search-place" class="search-place">
+    <form action="~/DatVe/ChonChuyenBay" method="get">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="6">
+                        <span><i style="font-size:20px" class="ti-pencil-alt"></i>&nbsp;&nbsp;THAY ĐỔI LỊCH TRÌNH</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label for="MaSanBayDi">Từ</label>
+                        <select name="MaSanBayDi" required>
+                            <option selected disabled>Chọn điểm đi</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay" @Html.Raw(item.MaSanBay == MaSanBayDi ? "selected" : "")>@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td><i style=" font-weight: 700; font-size: 20px; color: #005574" class="ti-arrows-horizontal"></i></td>
+                    <td>
+                        <label for="MaSanBayDen">Đến</label>
+                        <select name="MaSanBayDen" required>
+                            <option selected disabled>Chọn điểm đến</option>
+                            @foreach (var item in new cnpmNC.Models.mapSanBay.mapSanBay().DanhSachThanhPho())
+                            {
+                                <option value="@item.MaSanBay" @Html.Raw(item.MaSanBay == MaSanBayDen ? "selected" : "")>@item.DiaDiem (@item.MaSanBay)</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <label for="NgayKhoiHanh">Ngày đi</label>
+                        <input style="border:none; border-bottom:1px solid #005574; height:55%" type="date" name="NgayKhoiHanh" min="@tomorrowString" value="@tomorrowString" />
+                    </td>
+                    <td>
+                        <label for="SoLuong">Hành khách</label>
+                        <input style="border:none; border-bottom:1px solid #005574; height:55%; text-align:center" name="SoLuong" type="number" min="1" max="4" value="@SoLuong" />
+                    </td>
+                    <td>
+                        <button type="submit" class="btn-submit">LƯU THAY ĐỔI</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+@*hiển thị kết quả chuyến bay đã tra cứu*@
+
+<div class="content">
+    <span style="font-size: 25px; display: block; line-height: 30px; font-weight: bold; color: #005574">Chọn Chuyến Bay</span>
+    <span style="font-weight: 400; ">Có (@tong) kết quả</span>
+
+    @{
+        //nếu không có chuyến bay sẽ báo (No-result)
+        if (tong == 0)
+        {
+            <div class="no-result">
+                <i style="font-size:30px;font-weight:400; float:left; padding:10px;" class="ti-face-sad"></i>
+                <span style="font-size:18px; font-weight:600; line-height:30px;">Không tìm thấy chuyến bay bạn muốn</span>
+                <span style="font-weight: 400; font-size: 14px; display: block">Vui lòng chọn ngày khác</span>
+            </div>
+        }
+        //Nếu có sẽ hiện (have-result)
+        else
+        {
+            <div class="date-flights">
+                <span>@string.Format("{0:dddd, dd MMMM yyyy}", NgayKhoiHanh)</span>
+            </div>
+            foreach (var item in Model)
+            {
+                <div class="have-result">
+                    <div class="flight-result">
+                        <div class="info-flight">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-size: 25px; font-weight:600; color: #00305B">@string.Format("{0:hh\\:mm}", item.GioKhoiHanh)</td>
+                                        <td style="text-align: center; font-size: 30px; color: #ebbd40; padding: 15px 80px 5px 80px "><span class="ti-arrow-circle-right"></span></td>
+                                        <td style="font-size: 25px; font-weight: 600; color: #00305B">@string.Format("{0:hh\\:mm}", item.GioHaCanh)</td>
+                                        <td> <span class="ti-flickr" style="color: #ebbd40; padding:5px;"></span>@item.MaChuyenBay</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="color: #222; font-weight: 600; font-size: 20px;">@item.MaSanBayDi</td>
+                                        <td></td>
+                                        <td style="color: #222; font-weight: 600; font-size: 20px;">@item.MaSanBayDen</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            @{
+                                                int gioBay = item.GioBay;
+                                                TimeSpan hour = TimeSpan.FromHours(gioBay);
+                                                string gio = hour.ToString();
+
+                                                int phutBay = item.PhutBay;
+                                                TimeSpan minute = TimeSpan.FromHours(phutBay);
+                                                string phut = minute.ToString();
+
+                                                string thoiGianBay = gioBay + " hrs " + phutBay + " mins ";
+                                                @thoiGianBay
+
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a style="cursor:pointer" onclick="showDetails()">Chi tiết <i class="ti-angle-down"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="price-flight">
+                            @{ if (item.TinhTrang == "Opening")
+                                {
+                                    <a href="~/DatVe/ThongTinHanhKhach?SoLuong=@SoLuong&MaChuyenBay=@item.MaChuyenBay">
+                                        @string.Format("{0:#,##0}", item.GiaVe) VND
+                                    </a>
+                                    <span style="float:right; position:relative; top:20%;right:0" class="ti-angle-right"></span>
+                                }
+                                else if (item.TinhTrang == "Closed")
+                                {
+                                    <span style="cursor:not-allowed">Chưa mở bán vé cho chuyến bay này</span>
+                                }
+                                else if (item.SLGheTrong == 0)
+                                {
+                                    <span style="cursor:not-allowed">Chuyến bay hiện đã hết chỗ</span>
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+
+
+
+@*xử lý ẩn hiển phần chỉnh sửa (search)*@
+<script>
+    function hideElement() {
+        var element = document.getElementById("search-place");
+        if (element.style.display == "inline-block") {
+            element.style.display = "none"
+        } else {
+            element.style.display = "inline-block";
+        }
+
+    }
+</script>
+
+

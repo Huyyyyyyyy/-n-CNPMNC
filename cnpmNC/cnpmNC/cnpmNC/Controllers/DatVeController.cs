@@ -5,6 +5,7 @@ using cnpmNC.Models.mapHanhKhach;
 using cnpmNC.Models.mapHoaDon;
 using cnpmNC.Models.mapUuDai;
 using Microsoft.Ajax.Utilities;
+using PayPal.Api;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,50 +109,159 @@ namespace cnpmNC.Controllers
         // show thông báo hoàn tất đặt vé
         public ActionResult DatVeHoanTat(int SoLuong, String MaChuyenBay, String MaDatVe)
         {
+
             ViewBag.SoLuong = SoLuong;
             ViewBag.MaChuyenBay = MaChuyenBay;
             ViewBag.MaDatVe = MaDatVe;
             return View();
         }
 
-        //xử lý thanh toán
+
+
+
+
+
+        //xử lý giao diện thanh toán
         public ActionResult ThanhToan(String MaUuDai, int SoLuong, String MaChuyenBay, String MaDatVe)
         {
+            cnpmNCEntities db = new cnpmNCEntities();
             ViewBag.MaUuDai = MaUuDai;
             ViewBag.SoLuong = SoLuong;
             ViewBag.MaChuyenBay = MaChuyenBay;
             ViewBag.MaDatVe = MaDatVe;
+            // tìm đơn vé dưới database
+            var donDatVe = db.DatVes.SingleOrDefault(d => d.MaDatVe == MaDatVe);
+
+            // lưu đơn vé vào session
+            Session["donDatVe"] = donDatVe;
+
+            //tìm đơn vé
+            DatVe order = db.DatVes.Find(donDatVe.MaDatVe);
+
+
+            //tìm chuyến bay 
+            ChuyenBay modelChuyenBay = db.ChuyenBays.Find(order.MaChuyenBay);
+
+            // tạo một model hóa đơn và thêm đổ dữ liệu vào 
+            HoaDon modelHoaDon = new HoaDon();
+
+            modelHoaDon.MaHD = new cnpmNC.Models.taoMa.taoMaHoaDon().TaoMaHoaDon();
+            modelHoaDon.MaDatVe = order.MaDatVe;
+            modelHoaDon.Ngay = DateTime.Now;
+            modelHoaDon.TaiKhoanDat = order.TaiKhoanDat;
+            modelHoaDon.SoLuongVe = order.SoLuongVe;
+            modelHoaDon.GiaVe = modelChuyenBay.GiaVe;
+
+
+            //tạo biến lưu mã ưu đãi đã chọn
+            if (String.IsNullOrEmpty(MaUuDai) == true)
+            {
+                MaUuDai = "UD0001";
+                modelHoaDon.MaUuDai = MaUuDai;
+            }
+            else
+            {
+                modelHoaDon.MaUuDai = MaUuDai;
+            }
+
+            //Lưu tiền
+
+            decimal ThanhTien = 0;
+
+            if (MaUuDai == "UD0001")
+            {
+                ThanhTien = modelChuyenBay.GiaVe * order.SoLuongVe;
+            }
+            else
+            {
+                // lấy ra thông tin Uu đãi chọn
+                cnpmNC.Models.UuDai ThongTinUuDai = new cnpmNC.Models.mapUuDai.mapUuDai().LayThongTinUuDai(MaUuDai);
+
+                //lấy ra mức ưu đãi
+
+                decimal MucUD = Convert.ToDecimal(ThongTinUuDai.MucUD);
+
+
+                ThanhTien = modelChuyenBay.GiaVe * order.SoLuongVe - (modelChuyenBay.GiaVe * order.SoLuongVe * (MucUD / 100));
+            }
+
+            modelHoaDon.ThanhTien = ThanhTien;
+
+
+            //lưu model hóa đơn tạm thời vào session
+            Session["hoaDonTemp"] = modelHoaDon;
+
+
             return View();
         }
 
-        [HttpPost]
-        public ActionResult ThanhToan(HoaDon model)
+
+        public ActionResult ThanhToanVoiCredit()
         {
             mapHoaDon map = new mapHoaDon();
             cnpmNCEntities db = new cnpmNCEntities();
-            if (map.ThemMoiHD(model) == true)
+
+            HoaDon hoaDon = Session["hoaDonTemp"] as HoaDon;
+
+            //lấy thông tin đơn vé 
+            var donVeDat = new mapDatVe().ThongTinDonDat(hoaDon.MaDatVe);
+            // lấy thông tin chuyến bay đã đặt
+            var chuyenBayDat = new mapChuyenBay.mapChuyenBay().lichcb(donVeDat.MaChuyenBay);
+            if (map.ThemMoiHD(hoaDon) == true)
             {
-                //lấy thông tin đơn vé 
-                var donVeDat = new mapDatVe().ThongTinDonDat(model.MaDatVe);
-                // lấy thông tin chuyến bay đã đặt
-                var chuyenBayDat = new mapChuyenBay.mapChuyenBay().lichcb(donVeDat.MaChuyenBay);
+
                 // trừ ghế trong chuyến bay khi thanh toán hoàn tất
                 ChuyenBay chuyenBay = db.ChuyenBays.SingleOrDefault(m => m.MaChuyenBay == chuyenBayDat.MaChuyenBay);
 
-                chuyenBay.SLGheTrong = chuyenBay.SLGheTrong - model.SoLuongVe;
+                chuyenBay.SLGheTrong = chuyenBay.SLGheTrong - hoaDon.SoLuongVe;
 
                 db.SaveChanges();
+
+                Session.Remove("donDatVe");
+                Session.Remove("MaUuDai");
+                Session.Remove("hoaDonTemp");
                 return RedirectToAction("HoanTatThanhToan");
             }
             else
             {
-                return View(model);
+                return RedirectToAction("ThanhToan","DatVe", new {MaUuDai = hoaDon.MaUuDai, SoLuong = hoaDon.SoLuongVe, MaChuyenBay = chuyenBayDat.MaChuyenBay, MaDatVe = hoaDon.MaDatVe});
             }
         }
+
+
+        //action xử lý chọn phương thức thanh toán
+        public ActionResult PhuongThucThanhToan(String PhuongThuc)
+        {
+
+            //add order 
+            DatVe modelDonVe = Session["donDatVe"] as DatVe;
+            string MaUuDai = Session["MaUuDai"] as string;
+            HoaDon hoaDon = Session["hoaDonTemp"] as HoaDon;
+
+            if(PhuongThuc == "paypal")
+            {
+                return RedirectToAction("PaymentWithPaypal", "PayPal");
+            }
+            else if (PhuongThuc == "international")
+            {
+                return RedirectToAction("ThanhToanVoiCredit","DatVe");
+            }
+            else if (PhuongThuc == "momo")
+            {
+                return RedirectToAction("PaymentWithMomo", "Momo");
+            }
+
+            Session.Remove("donDatVe");
+            Session.Remove("MaUuDai");
+            Session.Remove("hoaDonTemp");
+            return RedirectToAction("TrangChu","Home");
+        }
+
 
         // thông báo thanh toán hoàn tất
         public ActionResult HoanTatThanhToan()
         {
+
             return View();
         }
 

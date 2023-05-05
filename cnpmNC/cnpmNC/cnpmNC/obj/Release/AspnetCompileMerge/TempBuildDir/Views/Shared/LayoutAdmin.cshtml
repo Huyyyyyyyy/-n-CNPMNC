@@ -1,0 +1,128 @@
+﻿@{
+    var user = (cnpmNC.Models.TaiKhoan)System.Web.HttpContext.Current.Session["user"];
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIRWAYS</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link href="~/Content/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="~/Content/dist/css/adminlte.min.css" rel="stylesheet" />
+    <!-- link icons -->
+    <link rel="stylesheet" href="~/icons/themify-icons/themify-icons.css">
+    <style>
+        body {
+            font-size: 15px;
+            vertical-align: middle;
+            line-height: 18px;
+            font-weight: normal !important;
+            margin: 0;
+            font-family: Roboto;
+        }
+
+        .top {
+            width: 100%;
+            height: 45px;
+            position: fixed;
+            z-index: 999;
+        }
+
+            .top .manager {
+                text-decoration: none;
+                color: #ffff;
+                padding: 17px;
+                line-height: 45px;
+                border-radius: 4px;
+                text-align: center;
+            }
+
+                .top .manager:hover {
+                    color: #222;
+                    background: #DCA413;
+                }
+
+            .top .setting {
+                text-decoration: none;
+                color: #ffff;
+                border-radius: 4px;
+                text-align: center;
+                padding: 10px 10px 10px 10px;
+                margin: 5px;
+            }
+    </style>
+
+</head>
+<body>
+    <div class="full">
+        <div class="top" style="background: #005574">
+            <a class="manager" href="~/QuanLyChuyenBay/DanhSachChuyenBay">CHUYẾN BAY</a>
+            <a class="manager" href="~/QuanLyUuDai/DanhSachUuDai">ƯU ĐÃI</a>
+            <a class="manager" href="~/QuanLyDatVe/DanhSachVeDat">ĐƠN ĐẶT VÉ</a>
+            <a class="manager" href="~/TaiKhoan/DanhSachTaiKhoan">QUẢN LÝ TÀI KHOẢN</a>
+            <a class="manager" href="~/DoanhThu/ThongKeDoanhThu">DOANH THU</a>
+
+
+            <a class="setting" style="float:right" href=""><i class="ti-settings"></i></a>
+
+            @{
+                if (user != null)
+                {
+                    <a style="color: #005574; font-weight:bold;border-radius:7px; float: right; text-decoration: none; padding: 3px; margin: 10px; background-color: #ececec;" class="log-out" href="~/AccountUsers/DangXuat">Đăng xuất</a>
+                }
+                else
+                {
+                }
+            }
+            <p style="float:right; line-height:42px; color: #ececec; padding-right:5px">
+                @{ if (user == null)
+                    {
+                        <script>
+                      //Kiểm tra xem phiên đăng nhập đã hết hạn hay chưa
+                      // Hiển thị thông báo
+                      alert("Phiên đăng nhập đã hết hạn!");
+
+                      // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
+                      window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
+                        </script>
+                    }
+                    else
+                    { <span>Hi Admin, @user.HoTen</span>}
+                }
+            </p>
+
+        </div>
+        <!--   Code phan main   -->
+        <div class="main" style="padding: 10px; margin-top:0px; background: #EDF3F7; min-height:1000px;">
+            @RenderBody()
+        </div>
+        <div style="padding: 7px; background: #005574" class="footer">
+            @RenderSection("scripts", required: false)
+            <p style="color: #ececec; text-align:center; font-weight:200; line-height:50px; margin:0">© 2023 Group 21 . All rights reserved. This line of text notifies others that the work is protected by copyright</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- jQuery -->
+<script src="~/Content/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="~/Content/plugins/chart.js/Chart.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/Content/dist/js/adminlte.min.js"></script>
+
+
+
+

@@ -15,6 +15,18 @@
                       // Chuyển hướng đến action khác ( "DangNhap" action trong "AccountUsers")
                       window.location.href = '@Url.Action("DangNhap", "AccountUsers")';
         </script>
+
+    }
+
+
+    if (TempData["AlertMessage"] != null)
+    {
+        string message = TempData["AlertMessage"] as string;
+        <script>
+                alert("@message");
+        </script>
+
+        TempData.Remove("AlertMessage");
     }
 
 
@@ -99,31 +111,105 @@
         margin-bottom: 5px;
         text-align: center
     }
-    .detail-ticket{
+
+    .detail-ticket {
         display: contents;
     }
 
-    .detail-ticket td {
-        text-align: start !important;
-        background-color: white;
-        padding: 5px 5px 5px 20px;
-        line-height: 22px;
-    }
+        .detail-ticket td {
+            text-align: start !important;
+            background-color: white;
+            padding: 5px 5px 5px 20px;
+            line-height: 22px;
+        }
 
-    .detail-ticket .detail-ticket-content {
-        font-weight: bold;
-    }
+        .detail-ticket .detail-ticket-content {
+            font-weight: bold;
+        }
 
     .information-important {
         margin-left: 20px;
         font-family: Diavlo,Arial;
     }
+
+
+    /*xử lý form hủy đơn*/
+    #popUp-CancelOrder {
+        width: 100%;
+        height: 100%;
+        background-color: #222;
+        opacity: 30%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index: 1;
+    }
+
+    .form-cancel {
+        width: 30%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 100%; /* độ mờ 50% */
+        z-index: 99;
+        background-color: white;
+        box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.1);
+        border-radius: 7px;
+        display:none;
+    }
+        .form-cancel form{
+            padding:10px;
+            font-weight:600;
+
+        }
+        .form-cancel h2 {
+            background-color: #005574;
+            color: white;
+            width: 100%;
+            font-size: 20px;
+            padding: 10px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+        }
+        .form-cancel input {
+            border: none;
+            color: #222;
+        }
+        .form-cancel button{
+            float:right;
+            border:none;
+            width:50%;
+            height:30px;
+            margin: 10px 0 10px 0;
+            background-color:#ebbd40;
+            border-radius:4px;
+        }
+            .form-cancel button:hover {
+                background-color: #ce9f21
+            }
+            .form-cancel button:active {
+                outline: none;
+                border: none;
+            }
+            .form-cancel textarea {
+                width: 100%;
+                border: none;
+                border-bottom: 2px solid #005574;
+                border-top: 2px solid #005574;
+                height: 200px;
+            }
+        .form-cancel textarea:focus{
+            outline:none;
+        }
 </style>
 <div class="link">
     <ul>
         <li><a href="~">Đơn vé của tôi</a></li>
     </ul>
 </div>
+
 <div class="managerCB">
     <table class="table-manager">
         <thead>
@@ -146,7 +232,7 @@
         </thead>
         <tbody>
             @if (user == null)
-                {
+            {
                 <tr>
                     <td>
                         <script>
@@ -164,20 +250,23 @@
             {
                 foreach (var item in new cnpmNC.Models.mapChuyenBayCuaToi.mapChuyenBayCuaToi().DanhSachDonVe(user.TenTK))
                 {
+
                     cnpmNC.Models.ChuyenBay ChuyenBay = new cnpmNC.mapChuyenBay.mapChuyenBay().lichcb(item.MaChuyenBay);
                     <tr style="background-color: #FCFAE9">
                         <td>@string.Format("{0:dd/MM/yyyy}", ChuyenBay.NgayKhoiHanh)</td>
                         <td>@item.MaChuyenBay</td>
                         <td>
                             @{var sanBayDi = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDi);
-                                <span>@sanBayDi.DiaDiem (@ChuyenBay.MaSanBayDi)</span>}
+                            }
+                            <span>@sanBayDi.DiaDiem (@ChuyenBay.MaSanBayDi)</span>
                         </td>
                         <td>
                             @ChuyenBay.GioKhoiHanh.ToString("hh\\:mm")
                         </td>
                         <td>
                             @{var sanBayDen = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDen);
-                                <span>@sanBayDen.DiaDiem (@ChuyenBay.MaSanBayDen)</span>}
+                            }
+                            <span>@sanBayDen.DiaDiem (@ChuyenBay.MaSanBayDen)</span>
                         </td>
                         <td>
                             @ChuyenBay.GioHaCanh.ToString("hh\\:mm")
@@ -193,10 +282,18 @@
                                 <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/ChuyenBayCuaToi/ChuyenBayCuaToi?MaDatVe=@item.MaDatVe"><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
                                 <td></td>
                             }
+                            else if (item.TrangThai == "Yêu cầu hủy đơn")
+                            {
+                                <td colspan="2"><span style="color:red; font-weight:600">Yêu cầu hủy vé của bạn đang được xét duyệt</span></td>
+                            }
+                            else if (item.TrangThai == "Đã hủy")
+                            {
+                                <td colspan="2"><span style="color:gray; font-weight:600">Bạn đã hủy đơn này</span></td>
+                            }
                             else
                             {
                                 <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/DatVe/ThanhToan?SoLuong=@item.SoLuongVe&MaChuyenBay=@item.MaChuyenBay&MaDatVe=@item.MaDatVe"><i class="ti-credit-card">  </i>Thanh toán</a></td>
-                                <td><a style="text-decoration:none; color:red; line-height:20px; font-weight:bold" href=""><i class="ti-bolt-alt">  </i>Yêu cầu hủy vé</a></td>
+                                <td><a style="text-decoration:none;cursor:pointer; color:red; line-height:20px; font-weight:bold" onclick="callDeleteOder('@item.MaDatVe')"><i class="ti-bolt-alt">  </i>Yêu cầu hủy vé</a></td>
                             }
                         }
 
@@ -250,13 +347,60 @@
     </table>
 </div>
 
+@*form yêu cầu hủy vé*@
+
+<div class="popUp-CancelOrder" id="popUp-CancelOrder">
+
+</div>
+<div class="form-cancel" id="form-cancel">
+    <h2>Yêu cầu hủy vé</h2>
+    <form action="~/DonVeCuaToi/YeuCauHuyVe" method="post">
+        <label for="MaDatVe">Mã đơn vé: </label>
+        <input name="MaDatVe" type="text" id="input-OrderId" readonly />
+        <label style="display:block" for="LyDo">Lý do</label>
+        <textarea name="LyDo" placeholder="Nhập lý do hủy vé"></textarea>
+        <button type="submit">GỬI YÊU CẦU</button>
+        <button type="reset" onclick="cancelForm();">HỦY</button>
+    </form>
+</div>
+
+
+
+@*xử lý form yêu cầu hủy vé*@
+<script>
+    function callDeleteOder(MaDatVe) {
+        document.getElementById("input-OrderId").value = MaDatVe;
+        var element = document.getElementById("popUp-CancelOrder");
+        var elementForm = document.getElementById("form-cancel");
+        var elementStyle = window.getComputedStyle(element);
+        var elementStyleForm = window.getComputedStyle(elementForm);
+        if (elementStyle.display === "none" || elementStyleForm.display === "none") {
+            element.style.display = "block";
+            elementForm.style.display = "block";
+        }
+    }
+
+    function cancelForm() {
+        var element = document.getElementById("popUp-CancelOrder");
+        var elementForm = document.getElementById("form-cancel");
+
+        element.style.display = "none";
+        elementForm.style.display = "none";
+
+    }
+</script>
+
 <div class="information-important">
     <h2 style="font-size:16px; line-height:30px; padding-left:10px; border-left:5px solid #0685AA ">THÔNG TIN QUAN TRỌNG</h2>
-    <strong>Giấy giờ tùy thân: </strong><span>Quý khách vui lòng mang theo giấy tờ tùy thân (CCCD/CMND, Giấy phép lái xe, Giấy khai sinh)
-    khi làm thủ tục. </span><br/>
+    <strong>Giấy giờ tùy thân: </strong><span>
+        Quý khách vui lòng mang theo giấy tờ tùy thân (CCCD/CMND, Giấy phép lái xe, Giấy khai sinh)
+        khi làm thủ tục.
+    </span><br />
     <strong>Thời gian: </strong><span>Đến sân ít nhất 1h30 trước giờ bay để làm thủ tục.</span>
-    <p>Vui lòng đọc kỹ mọi thông tin trên vé trước khi nhận và thanh toán. Chúng tôi không chịu trách nhiệm 
-    nào về sai sót thông tin sau khi quý khách đã nhận vé và thanh toán</p>
+    <p>
+        Vui lòng đọc kỹ mọi thông tin trên vé trước khi nhận và thanh toán. Chúng tôi không chịu trách nhiệm
+        nào về sai sót thông tin sau khi quý khách đã nhận vé và thanh toán
+    </p>
 </div>
 
 

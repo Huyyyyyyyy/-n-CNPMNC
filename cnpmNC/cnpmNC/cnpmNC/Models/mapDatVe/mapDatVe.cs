@@ -37,5 +37,42 @@ namespace cnpmNC.Models.mapDatVe
             cnpmNCEntities db = new cnpmNCEntities();
             return db.DatVes.SingleOrDefault(ma => ma.MaDatVe == MaDatVe);
         }
+
+        //xử lý thêm yêu cầu hủy vé
+        public bool YeuCauHuyVe(HuyVe model)
+        {
+            try
+            {
+                cnpmNCEntities db = new cnpmNCEntities();
+                db.HuyVes.Add(model);
+                db.SaveChangesAsync();
+                    return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //lấy danh sách đơn đặt vé mới (tình trang yeu cau huy don, da thanh toan, chua thanh toan)
+        public int DanhSachDonMoi()
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            int dsvm = (from ds in db.DatVes
+                        where ds.TrangThai == "Yêu cầu hủy đơn" ||
+                        ds.TrangThai == "Đã thanh toán" ||
+                        ds.TrangThai == "Chưa thanh toán"
+                        select ds).Count();
+            return dsvm;
+        }
+
+        //lấy thông tin yêu cầu hủy đơn
+
+        public HuyVe thongTinHuyVe(String MaDatVe)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+            return db.HuyVes.SingleOrDefault(h => h.MaDatVe == MaDatVe);
+        }
+                  
     }
 }

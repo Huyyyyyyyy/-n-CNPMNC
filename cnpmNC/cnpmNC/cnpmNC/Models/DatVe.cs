@@ -34,5 +34,6 @@ namespace cnpmNC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HanhKhach> HanhKhaches { get; set; }
         public virtual TaiKhoan TaiKhoan { get; set; }
+        public virtual HuyVe HuyVe { get; set; }
     }
 }

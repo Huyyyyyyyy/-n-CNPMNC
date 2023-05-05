@@ -63,5 +63,43 @@ namespace cnpmNC.Controllers
 
 
         }
+    
+        //duyệt yêu cầu hủy đơn của user 
+
+        public ActionResult DuyetHuyDon(string MaDatVe)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+
+            HuyVe huyVe = db.HuyVes.SingleOrDefault(h => h.MaDatVe == MaDatVe);
+
+            huyVe.TinhTrang = "Đã duyệt";
+            db.SaveChanges();
+
+            //tìm đơn đặt vé để đặt trạng thái hủy
+            DatVe datVe = db.DatVes.SingleOrDefault(d => d.MaDatVe == MaDatVe);
+            datVe.TrangThai = "Đã hủy";
+            db.SaveChanges();
+
+            return RedirectToAction("DanhSachVeDat", "QuanLyDatVe");
+        }
+
+        // từ chối hủy đơn của user 
+
+        public ActionResult TuChoiHuyDon(string MaDatVe)
+        {
+            cnpmNCEntities db = new cnpmNCEntities();
+
+            HuyVe huyVe = db.HuyVes.SingleOrDefault(h => h.MaDatVe == MaDatVe);
+
+            db.HuyVes.Remove(huyVe);
+            db.SaveChanges();
+
+            //tìm đơn đặt vé để đặt trạng thái hủy
+            DatVe datVe = db.DatVes.SingleOrDefault(d => d.MaDatVe == MaDatVe);
+            datVe.TrangThai = "Chưa thanh toán";
+            db.SaveChanges();
+
+            return RedirectToAction("DanhSachVeDat", "QuanLyDatVe");
+        }
     }
 }

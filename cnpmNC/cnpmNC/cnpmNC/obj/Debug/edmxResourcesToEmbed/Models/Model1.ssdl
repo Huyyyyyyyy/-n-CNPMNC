@@ -78,6 +78,14 @@
     <Property Name="MaUuDai" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="ThanhTien" Type="decimal" Precision="10" Scale="2" Nullable="false" />
   </EntityType>
+  <EntityType Name="HuyVe">
+    <Key>
+      <PropertyRef Name="MaDatVe" />
+    </Key>
+    <Property Name="MaDatVe" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="LyDo" Type="nvarchar" MaxLength="400" Nullable="false" />
+    <Property Name="TinhTrang" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
   <EntityType Name="SanBay">
     <Key>
       <PropertyRef Name="MaSanBay" />
@@ -286,6 +294,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="HV_DV">
+    <End Role="DatVe" Type="Self.DatVe" Multiplicity="1" />
+    <End Role="HuyVe" Type="Self.HuyVe" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DatVe">
+        <PropertyRef Name="MaDatVe" />
+      </Principal>
+      <Dependent Role="HuyVe">
+        <PropertyRef Name="MaDatVe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -324,6 +344,7 @@
     <EntitySet Name="DoanhThu" EntityType="Self.DoanhThu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HanhKhach" EntityType="Self.HanhKhach" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HuyVe" EntityType="Self.HuyVe" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SanBay" EntityType="Self.SanBay" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
@@ -380,6 +401,10 @@
     <AssociationSet Name="FK_UDHD" Association="Self.FK_UDHD">
       <End Role="UuDai" EntitySet="UuDai" />
       <End Role="HoaDon" EntitySet="HoaDon" />
+    </AssociationSet>
+    <AssociationSet Name="HV_DV" Association="Self.HV_DV">
+      <End Role="DatVe" EntitySet="DatVe" />
+      <End Role="HuyVe" EntitySet="HuyVe" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

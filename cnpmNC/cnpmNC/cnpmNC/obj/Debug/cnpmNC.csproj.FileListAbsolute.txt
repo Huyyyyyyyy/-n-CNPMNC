@@ -247,3 +247,5 @@ C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CoreCompil
 C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.csproj.CopyComplete
 C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.dll
 C:\Users\Thy Thy\Desktop\cnpmNC\cnpmNC\cnpmNC\obj\Debug\cnpmNC.pdb
+E:\Huyahihi\hoc\CNPMNC\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\PayPal.dll
+E:\Huyahihi\hoc\CNPMNC\-n-CNPMNC\cnpmNC\cnpmNC\cnpmNC\bin\PayPal.xml

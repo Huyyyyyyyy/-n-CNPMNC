@@ -1,0 +1,147 @@
+﻿@model cnpmNC.Models.UuDai
+
+@{
+    ViewBag.Title = "ThemUuDai";
+    Layout = "~/Views/Shared/LayoutAdmin.cshtml";
+
+    //Lấy ra ngày cách hiện tại 1 ngày để giới hạn cho admin chọn ngày
+    var tomorrow = DateTime.Today.AddDays(+1);
+    var tomorrowString = tomorrow.ToString("yyyy-MM-dd");
+}
+}
+
+<style>
+
+    input:focus {
+        outline: none;
+    }
+
+    .link {
+        width: 100%;
+        height: 20px;
+        margin: 50px 5px 5px 5px;
+    }
+
+        .link ul {
+            width: 100%;
+            list-style-type: none;
+            display: flex;
+        }
+
+            .link ul a {
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 12px;
+                color: #005574;
+            }
+
+                .link ul a i {
+                    margin: 0 10px 0 10px;
+                }
+
+    .form h1 {
+        border-radius: 4px 4px 0 0;
+        padding: 10px 20px;
+        margin: 0 0 25px 0;
+        background-color: #005574;
+        color: #fff;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .form {
+        position: relative;
+        background-color: #fff;
+        border-radius: 4px;
+        margin: 30px 30px 35px 30px;
+        transition: box-shadow 200ms;
+        width: 830px;
+        display: inline-block;
+    }
+
+
+        .form .form-input input {
+            display: block;
+            box-sizing: border-box;
+            width: 230px;
+            height: 2.3125rem;
+            padding: 0.5rem;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        .form .form-input select {
+            display: block;
+            box-sizing: border-box;
+            width: 230px;
+            height: 2.3125rem;
+            padding: 0.5rem;
+            border: 1px solid #BCC8D7;
+            font-family: inherit;
+            font-size: 0.875rem;
+            color: #636466;
+            background-color: #fefefe;
+            border-radius: 3px;
+        }
+
+        .form .form-input label {
+            font-size: 0.875rem;
+            font-weight: bold;
+            line-height: 1.8;
+            color: #636466;
+            margin-left: 20px;
+        }
+
+        .form .form-input {
+            margin-right: 10px;
+            height: 80px;
+        }
+</style>
+
+<div class="link">
+    <ul>
+        <li><a href="~/QuanLyUuDai/DanhSachUuDai">Quản lý ưu đãi<i class="ti-angle-double-right"></i></a></li>
+        <li><a href="~/QuanLyUuDai/ThemUuDai">Thêm mới</a></li>
+    </ul>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form form-horizontal">
+        <h1>Thêm mới ưu đãi</h1>
+        <div class="form-input form-group">
+            <label for="MaUD">Mã ưu đãi</label>
+            <div class="col-md-10">
+                <input style="background:#ececec" name="MaUD" value="@{
+                    String data = new cnpmNC.Models.taoMa.taoMaUuDai().TaoMaUuDai();
+                    @data
+                }" readonly />
+            </div>
+        </div>
+        <div class="form-input form-group" style="display:inline-block;">
+            <label for="MucUD">Mức ưu đãi</label>
+            <div class="col-md-10">
+                <input type="number" name="MucUD" />
+            </div>
+        </div>
+        <div class="form-input form-group" style="display:inline-block;">
+            <label for="ThoiGianUD">Thời gian ưu đãi</label>
+            <div>
+                <input type="date" name="ThoiGianUD" min="@tomorrowString"/>
+            </div>
+        </div>
+        <div class="form-input form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" style="background: #005574; color: #ececec" value="THÊM" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
