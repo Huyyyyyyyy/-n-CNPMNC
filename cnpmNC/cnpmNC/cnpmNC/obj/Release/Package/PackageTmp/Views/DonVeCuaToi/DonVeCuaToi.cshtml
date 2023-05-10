@@ -132,6 +132,8 @@
         font-family: Diavlo,Arial;
     }
 
+
+    /*xử lý form hủy đơn*/
     #popUp-CancelOrder {
         width: 100%;
         height: 100%;
@@ -144,15 +146,63 @@
         z-index: 1;
     }
 
-    .popUp-CancelOrder .form-cancel {
-        width: 20%;
+    .form-cancel {
+        width: 30%;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         opacity: 100%; /* độ mờ 50% */
         z-index: 99;
+        background-color: white;
+        box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.1);
+        border-radius: 7px;
+        display:none;
     }
+        .form-cancel form{
+            padding:10px;
+            font-weight:600;
+
+        }
+        .form-cancel h2 {
+            background-color: #005574;
+            color: white;
+            width: 100%;
+            font-size: 20px;
+            padding: 10px;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+        }
+        .form-cancel input {
+            border: none;
+            color: #222;
+        }
+        .form-cancel button{
+            float:right;
+            border:none;
+            width:50%;
+            height:30px;
+            margin: 10px 0 10px 0;
+            background-color:#ebbd40;
+            border-radius:4px;
+        }
+            .form-cancel button:hover {
+                background-color: #ce9f21
+            }
+            .form-cancel button:active {
+                outline: none;
+                border: none;
+            }
+            .form-cancel textarea {
+                width: 100%;
+                border: none;
+                border-bottom: 2px solid #005574;
+                border-top: 2px solid #005574;
+                height: 200px;
+            }
+        .form-cancel textarea:focus{
+            outline:none;
+        }
 </style>
 <div class="link">
     <ul>
@@ -202,52 +252,52 @@
                 {
 
                     cnpmNC.Models.ChuyenBay ChuyenBay = new cnpmNC.mapChuyenBay.mapChuyenBay().lichcb(item.MaChuyenBay);
-        <tr style="background-color: #FCFAE9">
-            <td>@string.Format("{0:dd/MM/yyyy}", ChuyenBay.NgayKhoiHanh)</td>
-            <td>@item.MaChuyenBay</td>
-            <td>
-                @{var sanBayDi = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDi);
-                }
-                <span>@sanBayDi.DiaDiem (@ChuyenBay.MaSanBayDi)</span>
-            </td>
-            <td>
-                @ChuyenBay.GioKhoiHanh.ToString("hh\\:mm")
-            </td>
-            <td>
-                @{var sanBayDen = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDen);
-                }
-                <span>@sanBayDen.DiaDiem (@ChuyenBay.MaSanBayDen)</span>
-            </td>
-            <td>
-                @ChuyenBay.GioHaCanh.ToString("hh\\:mm")
-            </td>
+                    <tr style="background-color: #FCFAE9">
+                        <td>@string.Format("{0:dd/MM/yyyy}", ChuyenBay.NgayKhoiHanh)</td>
+                        <td>@item.MaChuyenBay</td>
+                        <td>
+                            @{var sanBayDi = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDi);
+                            }
+                            <span>@sanBayDi.DiaDiem (@ChuyenBay.MaSanBayDi)</span>
+                        </td>
+                        <td>
+                            @ChuyenBay.GioKhoiHanh.ToString("hh\\:mm")
+                        </td>
+                        <td>
+                            @{var sanBayDen = new cnpmNC.Models.mapSanBay.mapSanBay().TimSanBay(ChuyenBay.MaSanBayDen);
+                            }
+                            <span>@sanBayDen.DiaDiem (@ChuyenBay.MaSanBayDen)</span>
+                        </td>
+                        <td>
+                            @ChuyenBay.GioHaCanh.ToString("hh\\:mm")
+                        </td>
 
-            @{if (item.TrangThai == "Đã thanh toán")
-                {
-                    <td><a style="text-decoration:none;opacity:50%; color:gray; line-height:20px; font-weight:bold" href=""><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
-                    <td></td>
-                }
-                else if (item.TrangThai == "Đã xác nhận")
-                {
-                    <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/ChuyenBayCuaToi/ChuyenBayCuaToi?MaDatVe=@item.MaDatVe"><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
-                    <td></td>
-                }
-                else if (item.TrangThai == "Yêu cầu hủy đơn")
-                {
-                    <td colspan="2"><span style="color:red; font-weight:600">Yêu cầu hủy vé của bạn đang được xét duyệt</span></td>
-                }
-                else if (item.TrangThai == "Đã hủy")
-                {
-                    <td colspan="2"><span style="color:gray; font-weight:600">Bạn đã hủy đơn này</span></td>
-                }
-                else
-                {
-                    <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/DatVe/ThanhToan?SoLuong=@item.SoLuongVe&MaChuyenBay=@item.MaChuyenBay&MaDatVe=@item.MaDatVe"><i class="ti-credit-card">  </i>Thanh toán</a></td>
-                    <td><a style="text-decoration:none;cursor:pointer; color:red; line-height:20px; font-weight:bold" onclick="callDeleteOder('@item.MaDatVe')"><i class="ti-bolt-alt">  </i>Yêu cầu hủy vé</a></td>
-                }
-            }
+                        @{if (item.TrangThai == "Đã thanh toán")
+                            {
+                                <td><a style="text-decoration:none;opacity:50%; color:gray; line-height:20px; font-weight:bold" href=""><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
+                                <td></td>
+                            }
+                            else if (item.TrangThai == "Đã xác nhận")
+                            {
+                                <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/ChuyenBayCuaToi/ChuyenBayCuaToi?MaDatVe=@item.MaDatVe"><i class="ti-id-badge">  </i>Xem vé điện tử</a></td>
+                                <td></td>
+                            }
+                            else if (item.TrangThai == "Yêu cầu hủy đơn")
+                            {
+                                <td colspan="2"><span style="color:red; font-weight:600">Yêu cầu hủy vé của bạn đang được xét duyệt</span></td>
+                            }
+                            else if (item.TrangThai == "Đã hủy")
+                            {
+                                <td colspan="2"><span style="color:gray; font-weight:600">Bạn đã hủy đơn này</span></td>
+                            }
+                            else
+                            {
+                                <td><a style="text-decoration:none; color:green; line-height:20px; font-weight:bold" href="~/DatVe/ThanhToan?SoLuong=@item.SoLuongVe&MaChuyenBay=@item.MaChuyenBay&MaDatVe=@item.MaDatVe"><i class="ti-credit-card">  </i>Thanh toán</a></td>
+                                <td><a style="text-decoration:none;cursor:pointer; color:red; line-height:20px; font-weight:bold" onclick="callDeleteOder('@item.MaDatVe')"><i class="ti-bolt-alt">  </i>Yêu cầu hủy vé</a></td>
+                            }
+                        }
 
-        </tr>
+                    </tr>
                     <tr class="detail-ticket" id="detail-ticket">
                         <td colspan="9">
                             MÃ ĐẶT VÉ / RESERVATION CODE: <span class="detail-ticket-content">@item.MaDatVe</span> <br />
@@ -300,16 +350,18 @@
 @*form yêu cầu hủy vé*@
 
 <div class="popUp-CancelOrder" id="popUp-CancelOrder">
-    <div class="form-cancel" id="form-cancel">
-        <form action="~/DonVeCuaToi/YeuCauHuyVe" method="post">
-            <label for="MaDatVe">Mã đơn vé</label>
-            <input name="MaDatVe" type="text" id="input-OrderId" readonly />
-            <label for="LyDo">Lý do</label>
-            <textarea name="LyDo" placeholder="Nhập lý do hủy vé"></textarea>
-            <button type="submit">Gửi yêu cầu</button>
-            <button type="reset" onclick="cancelForm();">Hủy</button>
-        </form>
-    </div>
+
+</div>
+<div class="form-cancel" id="form-cancel">
+    <h2>Yêu cầu hủy vé</h2>
+    <form action="~/DonVeCuaToi/YeuCauHuyVe" method="post">
+        <label for="MaDatVe">Mã đơn vé: </label>
+        <input name="MaDatVe" type="text" id="input-OrderId" readonly />
+        <label style="display:block" for="LyDo">Lý do</label>
+        <textarea name="LyDo" placeholder="Nhập lý do hủy vé"></textarea>
+        <button type="submit">GỬI YÊU CẦU</button>
+        <button type="reset" onclick="cancelForm();">HỦY</button>
+    </form>
 </div>
 
 
@@ -319,15 +371,22 @@
     function callDeleteOder(MaDatVe) {
         document.getElementById("input-OrderId").value = MaDatVe;
         var element = document.getElementById("popUp-CancelOrder");
+        var elementForm = document.getElementById("form-cancel");
         var elementStyle = window.getComputedStyle(element);
-        if (elementStyle.display === "none") {
+        var elementStyleForm = window.getComputedStyle(elementForm);
+        if (elementStyle.display === "none" || elementStyleForm.display === "none") {
             element.style.display = "block";
+            elementForm.style.display = "block";
         }
     }
 
     function cancelForm() {
         var element = document.getElementById("popUp-CancelOrder");
+        var elementForm = document.getElementById("form-cancel");
+
         element.style.display = "none";
+        elementForm.style.display = "none";
+
     }
 </script>
 
